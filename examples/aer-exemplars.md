@@ -4,6 +4,14 @@ A reference table of canonical *American Economic Review* (and adjacent
 top-5) papers mapped to the AER-skills they best exemplify. Use these
 papers as **architecture templates** — not as content to imitate.
 
+> **See also:** [`modern-aer-exemplars.md`](modern-aer-exemplars.md) for a
+> subfield-organized list of recent (2018-2025) papers that demonstrate
+> *current* estimator practice — Callaway-Sant'Anna staggered DiD,
+> Borusyak-Hull-Jaravel shift-share, Calonico-Cattaneo RDD, Anderson-
+> Rubin weak-IV inference, and AEA-compliant openICPSR deposits.
+> The two files are complementary: this one for **architecture**
+> reference, the modern file for **estimator** reference.
+
 All openICPSR / Dataverse links below resolve to publicly available
 replication packages. They are the gold standard for what an AER deposit
 should look like in 2026.
