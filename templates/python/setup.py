@@ -20,7 +20,7 @@ TABLES       = OUTPUT / "tables"
 FIGURES      = OUTPUT / "figures"
 LOGS         = ROOT / "logs"
 
-for d in (INTERMEDIATE, TABLES, FIGURES, LOGS):
+for d in (RAW, INTERMEDIATE, TABLES, FIGURES, LOGS):
     d.mkdir(parents=True, exist_ok=True)
 
 # ---- Reproducibility -----------------------------------------------

@@ -196,6 +196,14 @@ If data is restricted:
 - Provide **sample synthetic data** with the same schema if possible, so the code can be smoke-tested
 - Consider depositing intermediate aggregates (cell-suppressed counts) that allow partial replication
 
+## Repository Resources
+
+When working from the AER-skills repository or plugin bundle, load only the relevant resource:
+
+- Deposit skeleton: `examples/replication-package-skeleton/`
+- Language template: `templates/stata/`, `templates/r/`, or `templates/python/`
+- Classic replication examples and repository links: `examples/aer-exemplars.md`
+
 ## Pre-Deposit Checklist
 
 - [ ] Master script runs from clean state on a different machine

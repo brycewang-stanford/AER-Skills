@@ -9,8 +9,13 @@ Drop-in scripts for an AEA-compliant R pipeline using the modern stack
 |---|---|
 | `run_all.R` | Master script. Runs the full pipeline end-to-end. |
 | `00_setup.R` | Paths, packages, seed, plot theme. |
+| `01_clean.R` | Placeholder cleaning stage; replace with raw-to-analytic code. |
+| `02_descriptives.R` | Summary-statistics scaffold. |
 | `03_main_did.R` | Callaway-Sant'Anna DiD + Bacon + Honest DiD. |
+| `04_robustness.R` | Placeholder robustness stage. |
+| `05_heterogeneity.R` | Placeholder heterogeneity stage. |
 | `06_tables.R` | AER-style booktabs table via `fixest::etable`. |
+| `07_figures.R` | Placeholder figure stage. |
 
 ## Conventions Enforced
 
@@ -26,6 +31,10 @@ Drop-in scripts for an AEA-compliant R pipeline using the modern stack
 2. Open the project root in RStudio (so `getwd()` is correct)
 3. `renv::restore()` if you maintain a lockfile
 4. `source("run_all.R")`
+
+The placeholder stages are intentionally conservative. `01_clean.R` stops with a
+clear message until you either write `data/intermediate/analytic.dta` or replace
+it with project-specific cleaning code.
 
 ## Package Stack
 

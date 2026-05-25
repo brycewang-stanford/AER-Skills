@@ -100,7 +100,7 @@ script handles one stage:
    ```
    do code/00_install_packages.do
    ```
-4. **Edit** `code/00_globals.do` line 8 so `$project` points to the
+4. **Edit** the `global project` line in `code/00_globals.do` so `$project` points to the
    absolute path of your working directory.
 5. **Run the full pipeline**:
    ```

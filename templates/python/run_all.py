@@ -28,7 +28,7 @@ from pathlib import Path
 
 # ---- 1. Setup ------------------------------------------------------
 ROOT = Path(__file__).resolve().parent
-sys.path.insert(0, str(ROOT / "code"))
+sys.path.insert(0, str(ROOT))
 
 LOG_DIR = ROOT / "logs"
 LOG_DIR.mkdir(exist_ok=True)

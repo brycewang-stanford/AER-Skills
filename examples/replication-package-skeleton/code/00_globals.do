@@ -17,5 +17,9 @@ global tables      "$output/tables"
 global figures     "$output/figures"
 global logs        "$project/logs"
 
+foreach d in "$data" "$raw" "$intermediate" "$code" "$output" "$tables" "$figures" "$logs" {
+    capture mkdir "`d'"
+}
+
 * ---- Reproducibility ---------------------------------------------
 set seed 20260101

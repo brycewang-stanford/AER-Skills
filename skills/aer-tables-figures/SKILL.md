@@ -42,15 +42,15 @@ Standard AER regression table:
 ```
                          (1)         (2)         (3)         (4)         (5)
                          OLS         OLS         OLS         IV          IV
-                                                                          
+
 Treatment              0.123***    0.118***    0.115***    0.142***    0.138***
                       (0.041)     (0.040)     (0.039)     (0.052)     (0.051)
-                                                                          
+
 Controls              No          Yes         Yes         Yes         Yes
 Unit FE               No          No          Yes         Yes         Yes
 Year FE               No          No          Yes         Yes         Yes
 Sample                Full        Full        Full        Full        Balanced
-                                                                          
+
 Observations          12,453      12,453      12,453      12,453      11,892
 R-squared             0.024       0.118       0.341       0.310       0.317
 First-stage F                                              42.3        41.1
@@ -126,8 +126,8 @@ AER convention: `*** p<0.01, ** p<0.05, * p<0.1`. Some authors and Angrist-Pisch
   \caption{Event-Study Estimates of the Effect of Policy on Outcome}
   \label{fig:event}
   \begin{figurenotes}
-    Notes: This figure plots Callaway-Sant'Anna ATT(g,t) estimates aggregated by event time. 
-    The omitted period is $t = -1$. Bars show 95\% confidence intervals based on the 
+    Notes: This figure plots Callaway-Sant'Anna ATT(g,t) estimates aggregated by event time.
+    The omitted period is $t = -1$. Bars show 95\% confidence intervals based on the
     multiplier bootstrap. Sample restricted to [...]. N = [...].
   \end{figurenotes}
 \end{figure}
@@ -161,6 +161,14 @@ AER convention: `*** p<0.01, ** p<0.05, * p<0.1`. Some authors and Angrist-Pisch
 - [ ] Figures are vector format and legible in grayscale
 - [ ] No table exceeds page width or wraps awkwardly
 - [ ] Coefficient row order is consistent across tables
+
+## Repository Resources
+
+When working from the AER-skills repository or plugin bundle, load only the relevant table/figure scaffold:
+
+- Stata: `templates/stata/06_tables.do`
+- R: `templates/r/06_tables.R`
+- Python: `templates/python/tables.py`
 
 ## Handoff
 

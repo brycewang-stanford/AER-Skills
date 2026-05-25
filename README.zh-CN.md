@@ -55,6 +55,9 @@ mkdir -p ~/.codex/skills
 cp -R skills/aer-* ~/.codex/skills/
 ```
 
+手动复制只安装 skill 指令本体。如果需要使用 skill 中提到的 `templates/`
+和 `examples/` 资源，请保留这个 cloned repository。
+
 ### 4. 第一个提示词
 
 重启 agent 后，直接说：

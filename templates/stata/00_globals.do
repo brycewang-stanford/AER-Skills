@@ -17,6 +17,11 @@ global figures     "$output/figures"
 global logs        "$project/logs"
 global docs        "$project/docs"
 
+* ---- Create expected directories ---------------------------------
+foreach d in "$data" "$raw" "$intermediate" "$output" "$tables" "$figures" "$logs" "$docs" {
+    capture mkdir "`d'"
+}
+
 * ---- Reproducibility ---------------------------------------------
 set seed 20260101    // fixed seed for any randomization
 

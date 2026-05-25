@@ -142,7 +142,7 @@ We are grateful for the constructive comments from you and both referees.
 This revision addresses all comments as detailed below. Major changes include
 [2-3 sentences summarizing the most substantive revisions].
 
-Below we reproduce each comment in italics, followed by our response in 
+Below we reproduce each comment in italics, followed by our response in
 plain text. Page and line references are to the revised manuscript.
 
 [Sincerely,]
@@ -155,7 +155,7 @@ plain text. Page and line references are to the revised manuscript.
 ## Comment E1
 *[Verbatim quote of editor comment.]*
 
-**Response.** We agree. We have [action taken]. See revised manuscript, 
+**Response.** We agree. We have [action taken]. See revised manuscript,
 page 4, lines 14-22.
 
 ---
@@ -165,7 +165,7 @@ page 4, lines 14-22.
 ## Comment R1.1
 *[Verbatim quote.]*
 
-**Response.** [State the action in the first 1-2 sentences.] 
+**Response.** [State the action in the first 1-2 sentences.]
 [Then provide substance.] See revised manuscript, page X, Section Y.
 
 ## Comment R1.2
@@ -248,6 +248,10 @@ If the editor wrote a summary letter with their own priorities (common at AER), 
 - [ ] Pushed-back comments have substantive rationale, not stonewalling
 - [ ] Conceded comments have visible manuscript changes
 - [ ] Revision timeline within the editor's window
+
+## Repository Resources
+
+When working from the AER-skills repository or plugin bundle, read `examples/rebuttal-example.md` only when the user needs a complete response-letter model or a concrete triage example.
 
 ## Handoff
 

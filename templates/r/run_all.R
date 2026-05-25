@@ -23,7 +23,7 @@
 # renv::snapshot()  # to update the lock file
 
 suppressPackageStartupMessages({
-  source("code/00_setup.R")
+  source("00_setup.R")
 })
 
 # ---- 2. Pipeline ----------------------------------------------
@@ -32,13 +32,13 @@ con <- file(log_path, open = "wt")
 sink(con, split = TRUE, type = "output")
 sink(con, type = "message")
 
-source("code/01_clean.R")        # raw -> intermediate analytic file
-source("code/02_descriptives.R") # summary stats + balance
-source("code/03_main_did.R")     # main DiD specification
-source("code/04_robustness.R")
-source("code/05_heterogeneity.R")
-source("code/06_tables.R")       # publication-ready .tex tables
-source("code/07_figures.R")      # publication-ready .pdf figures
+source("01_clean.R")        # raw -> intermediate analytic file
+source("02_descriptives.R") # summary stats + balance
+source("03_main_did.R")     # main DiD specification
+source("04_robustness.R")
+source("05_heterogeneity.R")
+source("06_tables.R")      # publication-ready .tex tables
+source("07_figures.R")     # publication-ready .pdf figures
 
 sink(type = "message")
 sink()

@@ -167,6 +167,13 @@ A common confusion: **identification answers whether X causes Y; mechanism answe
 - IV exclusion restriction defended only by "we control for X"
 - Quoting an Angrist-Pischke citation as a substitute for showing the diagnostic
 
+## Repository Resources
+
+When working from the AER-skills repository or plugin bundle, load only the relevant resource:
+
+- Staggered DiD implementation: `templates/stata/03_main_did.do`, `templates/r/03_main_did.R`, or `templates/python/main_did.py`
+- Classic design examples: `examples/aer-exemplars.md`
+
 ## Handoff
 
 ```text

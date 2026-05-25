@@ -62,6 +62,9 @@ mkdir -p ~/.claude/skills && cp -R skills/aer-* ~/.claude/skills/
 mkdir -p ~/.codex/skills && cp -R skills/aer-* ~/.codex/skills/
 ```
 
+Manual copy installs the skill instructions. Keep the cloned repository available
+if you want the `templates/` and `examples/` resources referenced by the skills.
+
 ### First Prompt
 
 After restarting your agent:

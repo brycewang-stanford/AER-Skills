@@ -11,6 +11,10 @@ cp -R skills/aer-* ~/.codex/skills/
 
 Restart Codex so new skills are picked up.
 
+Manual copying installs the skill instructions. Keep the cloned repository
+available if you want the `templates/` and `examples/` resources referenced by
+the skills.
+
 ## Verify
 
 Ask Codex:
@@ -40,11 +44,11 @@ cp -R skills/aer-* ~/.codex/skills/
 If you'd rather have Codex install for you, paste this into Codex:
 
 ```
-Install the AER-skills bundle into ~/.codex/skills/: aer-workflow, 
-aer-topic-selection, aer-identification, aer-robustness, aer-introduction, 
-aer-tables-figures, aer-replication, aer-submission, aer-rebuttal. Copy the 
-full skill directories, not just SKILL.md. When finished, list the installed 
-directories and use aer-workflow to tell me which skill I should apply next 
+Install the AER-skills bundle into ~/.codex/skills/: aer-workflow,
+aer-topic-selection, aer-identification, aer-robustness, aer-introduction,
+aer-tables-figures, aer-replication, aer-submission, aer-rebuttal. Copy the
+full skill directories, not just SKILL.md. When finished, list the installed
+directories and use aer-workflow to tell me which skill I should apply next
 to my manuscript.
 ```
 

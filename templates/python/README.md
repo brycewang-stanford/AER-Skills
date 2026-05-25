@@ -10,8 +10,13 @@ modern Python equivalent of `fixest`) for high-dim FE OLS and AER-style
 |---|---|
 | `run_all.py` | Master script. Runs the full pipeline end-to-end. |
 | `setup.py` | Paths, seed, matplotlib defaults, RNG. |
+| `clean.py` | Placeholder cleaning stage; replace with raw-to-analytic code. |
+| `descriptives.py` | Summary-statistics scaffold. |
 | `main_did.py` | Callaway-Sant'Anna DiD via `differences`. |
+| `robustness.py` | Placeholder robustness stage. |
+| `heterogeneity.py` | Placeholder heterogeneity stage. |
 | `tables.py` | AER-style booktabs table via `pyfixest.etable`. |
+| `figures.py` | Placeholder figure stage. |
 | `requirements.txt` | Pinned exact versions for reproducibility. |
 
 ## Conventions Enforced
@@ -31,6 +36,10 @@ source .venv/bin/activate
 pip install -r requirements.txt
 python run_all.py
 ```
+
+The placeholder stages are intentionally conservative. `clean.py` stops with a
+clear message until you either write `data/intermediate/analytic.parquet` or
+replace it with project-specific cleaning code.
 
 ## Stack
 

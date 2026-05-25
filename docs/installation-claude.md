@@ -13,6 +13,10 @@ cp -R skills/aer-* ~/.claude/skills/
 
 Restart Claude Code (or run `/reload-plugins` if your install supports it).
 
+Manual copying installs the skill instructions. Keep the cloned repository
+available if you want the `templates/` and `examples/` resources referenced by
+the skills.
+
 ## Project-Scoped Install
 
 If you want the skills available only in the current project:

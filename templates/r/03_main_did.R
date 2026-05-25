@@ -12,7 +12,7 @@ dt <- haven::read_dta(file.path(INTERMEDIATE, "analytic.dta")) |>
 # 1. Naive TWFE (FOR COMPARISON ONLY)
 # ============================================================
 m_twfe <- feols(
-  outcome ~ treat + .[controls] | unit_id + year,
+  outcome ~ treat + x1 + x2 | unit_id + year,
   data    = dt,
   cluster = ~ unit_id
 )

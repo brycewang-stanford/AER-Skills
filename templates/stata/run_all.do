@@ -8,8 +8,8 @@
   Stata       : 18.0 MP
 
   Reproducibility contract:
-    1. Edit `globals.do` so $project points to this directory.
-    2. Run `do run_all.do` from any working directory.
+    1. Edit `00_globals.do` so $project points to this directory.
+    2. Change directory to the project root and run `do run_all.do`.
     3. All output is written to `output/`. No file outside the project
        directory is read or written.
 
@@ -24,22 +24,22 @@ set linesize 100
 cap log close
 
 * ---- 1. Globals & package install --------------------------------
-do "code/00_globals.do"
-do "code/00_install_packages.do"
+do "00_globals.do"
+do "00_install_packages.do"
 
 * ---- 2. Pipeline --------------------------------------------------
-log using "logs/run_all.log", replace text
+log using "$logs/run_all.log", replace text
 
-do "code/01_clean.do"        // raw -> intermediate analytic file
-do "code/02_descriptives.do" // summary stats + balance tables
-do "code/03_main.do"         // main regression specifications
-do "code/04_robustness.do"   // referee-anticipating checks
-do "code/05_heterogeneity.do"
-do "code/06_tables.do"       // emit publication-ready .tex tables
-do "code/07_figures.do"      // emit publication-ready .pdf figures
+do "01_clean.do"        // raw -> intermediate analytic file
+do "02_descriptives.do" // summary stats + balance tables
+do "03_main_did.do"     // main regression specifications
+do "04_robustness.do"   // referee-anticipating checks
+do "05_heterogeneity.do"
+do "06_tables.do"       // emit publication-ready .tex tables
+do "07_figures.do"      // emit publication-ready .pdf figures
 
 log close
 
 display as result "================================================="
-display as result "  Pipeline complete. Outputs in: $project/output/"
+display as result "  Pipeline complete. Outputs in: $output/"
 display as result "================================================="

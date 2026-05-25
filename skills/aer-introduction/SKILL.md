@@ -42,7 +42,7 @@ Two to three sentences. Cite **one** number that anchors the magnitude. Do not y
 State exactly what this paper does:
 
 ```
-This paper [estimates / documents / characterizes] [the causal effect of X on Y / 
+This paper [estimates / documents / characterizes] [the causal effect of X on Y /
 the response of Y to shock S / the distribution of Y in setting D].
 ```
 
@@ -124,6 +124,10 @@ If the draft is over 100 words:
 - Hook paragraph that pitches a methods contribution when the paper is empirical (or vice versa)
 - Burying the magnitude of the main result until section 4
 - Lit review that runs for 2 pages and does not say what *this* paper adds
+
+## Repository Resources
+
+When working from the AER-skills repository or plugin bundle, read `examples/intro-example.md` only when the user asks for a model introduction, a concrete before/after rewrite, or abstract compression.
 
 ## Handoff
 
