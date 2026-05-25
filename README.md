@@ -21,13 +21,14 @@ Top-5 economics journals impose constraints that do not exist in life-science ve
 | Constraint                       | AER                | AER: Insights       | Implication                                          |
 |----------------------------------|--------------------|---------------------|------------------------------------------------------|
 | Abstract length                  | **100 words**      | 100 words           | 4-5 sentences. Sell results, not motivation.         |
-| Main text length                 | ~40 typeset pages  | **≤ 6,000 words**   | Tight prose; everything else goes to appendix.       |
+| Main text length                 | ~40 typeset pages  | **≤ 7,000 words minus 200 per exhibit** | Tight prose; five exhibits leave 6,000 words.        |
 | Desk rejection                   | High               | **~45%**            | First 3 pages decide the verdict.                    |
 | Replication                      | Mandatory          | Mandatory           | AEA Data and Code Availability Policy is enforced.   |
 | Identification                   | Causal, design-based| Causal, design-based | TWFE, weak IV, and naive RDD get desk-rejected.     |
 | Cover letter                     | Optional           | Optional            | Use only for COI disclosure or data access limits.   |
+| Disclosure statements            | Required           | Required            | One separate PDF per coauthor, even with no conflicts. |
 
-Generic "scientific writing" skills (e.g. [Nature-Paper-Skills](https://github.com/Boom5426/Nature-Paper-Skills), [nature-skills](https://github.com/Yuan1z0825/nature-skills)) miss all six.
+Generic "scientific writing" skills (e.g. [Nature-Paper-Skills](https://github.com/Boom5426/Nature-Paper-Skills), [nature-skills](https://github.com/Yuan1z0825/nature-skills)) miss these constraints.
 
 ---
 
@@ -117,7 +118,7 @@ See [docs/workflow-map.md](docs/workflow-map.md).
 
 ## Code Templates
 
-Drop-in, pinned-version scripts for the three languages AEA accepts. Each
+Drop-in, pinned-version scripts for three common empirical economics stacks. Each
 template includes a master script, a Callaway-Sant'Anna DiD example, an
 AER-style booktabs regression table, and a README.
 
@@ -173,7 +174,7 @@ AER-skills/
 │   ├── installation-codex.md
 │   ├── workflow-map.md
 │   └── design-principles.md
-├── skills/                 (9 SKILL.md files — the agent surface)
+├── skills/                 (9 skill directories — SKILL.md + agents/openai.yaml)
 │   ├── aer-workflow/
 │   ├── aer-topic-selection/
 │   ├── aer-introduction/
@@ -201,7 +202,7 @@ AER-skills/
 This repository is for:
 
 - *American Economic Review* (full-length papers, ≤ 40 pages)
-- *American Economic Review: Insights* (short-form, ≤ 6,000 words)
+- *American Economic Review: Insights* (short-form, ≤ 7,000 words minus 200 per exhibit; ≤ 6,000 words with five exhibits)
 - *American Economic Journal* family (Applied, Policy, Macro, Micro)
 - Empirical and theoretical economics manuscripts
 - Field experiments (with AEA RCT Registry workflow)

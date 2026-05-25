@@ -5,7 +5,7 @@
 Install all skills under your user profile so they are available across projects:
 
 ```bash
-git clone https://github.com/<your-username>/AER-skills.git
+git clone https://github.com/brycewang-stanford/AER-skills.git
 cd AER-skills
 mkdir -p ~/.claude/skills
 cp -R skills/aer-* ~/.claude/skills/

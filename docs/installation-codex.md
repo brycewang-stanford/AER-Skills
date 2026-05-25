@@ -3,7 +3,7 @@
 ## Clone and Copy
 
 ```bash
-git clone https://github.com/<your-username>/AER-skills.git
+git clone https://github.com/brycewang-stanford/AER-skills.git
 cd AER-skills
 mkdir -p ~/.codex/skills
 cp -R skills/aer-* ~/.codex/skills/

@@ -1,6 +1,6 @@
 ---
 name: aer-submission
-description: Use when running the final pre-submission audit for an AER, AER:Insights, or AEJ manuscript — length, format, cover letter, conflict-of-interest disclosure, file packaging, and routing among the AEA journal family. Apply immediately before clicking submit.
+description: Use when running the final pre-submission audit for an AER, AER:Insights, or AEJ manuscript — length, format, cover letter, per-author disclosure statements, file packaging, and routing among the AEA journal family. Apply immediately before clicking submit.
 ---
 
 # AER Submission
@@ -23,11 +23,11 @@ This skill is the last gate.
 | Item                          | AER                                    | AER: Insights                          |
 |-------------------------------|----------------------------------------|----------------------------------------|
 | Abstract length               | ≤ 100 words                            | ≤ 100 words                            |
-| Main text length              | ~40 pages (11-pt, 1.5-spaced, 1" margins) | ≤ 6,000 words (incl. footnotes; excl. references, exhibits) |
+| Main text length              | ~40 pages (11-pt, 1.5-spaced, 1" margins) | ≤ 7,000 words minus 200 per exhibit; ≤ 6,000 with five exhibits |
 | Maximum exhibits              | No formal cap                          | 5; each exhibit reduces budget by 200 words |
-| Words without exhibits        | n/a                                    | ≤ 7,000                                |
+| Word-count basis              | Page guideline includes figures, tables, references, and in-paper appendices | Main body, footnotes, endnotes, and in-paper appendices; excludes references, exhibits, and Supplemental Appendix |
 | File format                   | Single PDF for review                  | Single PDF for review                  |
-| Title page                    | None — title and byline on page 1      | Same                                   |
+| Separate title page           | None — title and byline on page 1      | Same                                   |
 | Cover letter                  | Optional                               | Optional                               |
 | Submission system             | ScholarOne (mc.manuscriptcentral.com/aer) | ScholarOne                             |
 
@@ -49,7 +49,7 @@ If over 40 pages: cut, then cut again, then move material to the online appendix
 
 ## Length Audit (AER: Insights)
 
-Count main-body words including footnotes; exclude title, byline, abstract, acknowledgement footnote, references, exhibits, and Supplemental Appendix. Word-count discipline:
+Count main-body words including footnotes, endnotes, and in-paper appendices; exclude title, byline, abstract, acknowledgement footnote, references, exhibits, and Supplemental Appendix. Word-count discipline:
 
 - One exhibit costs ~200 words
 - Five exhibits leave 6,000 words
@@ -92,9 +92,10 @@ Prepare in advance:
 2. **Supplemental Appendix PDF** — optional, separate file
 3. **Cover letter** — only if needed (see below); via form field, not separate document
 4. **JEL classification codes** — primary and secondary
-5. **Coeditor conflict disclosures** — list any coeditor who has a personal or professional conflict
-6. **Suggested editor** — optional, in form field
-7. **AI usage disclosure** — required if AI software was used in drafting or editing; brief description
+5. **Disclosure Statement PDFs** — one separate PDF per coauthor; if nothing to disclose, say that explicitly
+6. **Coeditor conflict disclosures** — list any coeditor who has a personal or professional conflict
+7. **Suggested editor** — optional, in form field
+8. **AI usage disclosure** — required if AI software was used in drafting or editing; brief description
 
 If the paper has supplementary materials (videos, large datasets), provide URLs to a public repository.
 
@@ -119,7 +120,7 @@ Do **not** use the cover letter to:
 Run this decision tree before submission:
 
 ```
-Is the contribution sharp enough to fit in 6,000 words?
+Is the contribution sharp enough to fit the AER: Insights word/exhibit formula?
 ├── Yes → Is it cross-subfield interest?
 │   ├── Yes → AER: Insights
 │   └── No → AEJ: Applied / Policy / Macro / Micro (by subfield)
@@ -147,6 +148,7 @@ AER charges a submission fee that scales with AEA membership status and country 
 - [ ] All figures are vector (PDF / EPS); each has a notes block
 - [ ] References complete; in-text citations match bibliography
 - [ ] JEL codes selected (primary + secondary)
+- [ ] Disclosure Statement PDF prepared for each coauthor
 - [ ] Coeditor conflicts disclosed
 - [ ] AI usage disclosed if applicable
 - [ ] Replication package deposit started (not required at submission but plan it now)
@@ -170,6 +172,7 @@ TARGET VENUE: <AER | AER:Insights | AEJ:...>
 LENGTH AUDIT: <pass / fail with details>
 FORMAT AUDIT: <pass / fail with details>
 COVER LETTER: <none / drafted, <n> words>
+DISCLOSURE STATEMENTS: <complete / missing>
 CONFLICTS DISCLOSED: <list / none>
 REPLICATION DEPOSIT STATUS: <planned / drafted / complete>
 READY TO SUBMIT: <yes / no — with blockers>

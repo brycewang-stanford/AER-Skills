@@ -21,13 +21,14 @@ Top-5 经济学期刊的硬约束在生命科学类期刊中并不存在：
 | 约束维度          | AER                | AER: Insights       | 含义                                              |
 |-----------------|--------------------|---------------------|-------------------------------------------------|
 | 摘要字数          | **100 词**         | 100 词              | 4-5 句话。卖结果，不卖动机。                          |
-| 正文长度          | ~40 排印页         | **≤ 6,000 词**      | 行文要紧；其余都进 appendix。                       |
+| 正文长度          | ~40 排印页         | **≤ 7,000 词减每个 exhibit 200 词** | 行文要紧；5 个 exhibits 时上限为 6,000 词。          |
 | 拒稿率            | 高                 | **~45% 直接 desk** | 前三页决定生死。                                    |
 | 复现要求          | 强制               | 强制                | AEA 数据与代码可用性政策有专人审核。                   |
 | 识别策略          | 因果、设计驱动      | 因果、设计驱动        | TWFE、弱 IV、朴素 RDD 直接 desk-reject。            |
 | Cover letter    | 可选               | 可选                | 仅用于 COI 披露或数据访问限制说明。                   |
+| Disclosure statements | 必需          | 必需                | 每位合作者单独提交 PDF；无冲突也要明说。              |
 
-通用的 "scientific writing" skill（例如 [Nature-Paper-Skills](https://github.com/Boom5426/Nature-Paper-Skills)、[nature-skills](https://github.com/Yuan1z0825/nature-skills)）在这六个维度上**全部不覆盖**。
+通用的 "scientific writing" skill（例如 [Nature-Paper-Skills](https://github.com/Boom5426/Nature-Paper-Skills)、[nature-skills](https://github.com/Yuan1z0825/nature-skills)）通常不覆盖这些 AEA/AER 特定约束。
 
 ---
 
@@ -36,7 +37,7 @@ Top-5 经济学期刊的硬约束在生命科学类期刊中并不存在：
 ### 1. Clone
 
 ```bash
-git clone https://github.com/<your-username>/AER-skills.git
+git clone https://github.com/brycewang-stanford/AER-skills.git
 cd AER-skills
 ```
 
@@ -118,7 +119,7 @@ aer-topic-selection     # 选题 + AER/Insights/AEJ 路由
 **适用：**
 
 - *American Economic Review*（长文，≤ 40 页）
-- *American Economic Review: Insights*（短文，≤ 6,000 词）
+- *American Economic Review: Insights*（短文，≤ 7,000 词减每个 exhibit 200 词；5 个 exhibits 时 ≤ 6,000 词）
 - *American Economic Journal* 系列（Applied / Policy / Macro / Micro）
 - 实证或理论经济学稿件
 - 田野实验（含 AEA RCT Registry 流程）

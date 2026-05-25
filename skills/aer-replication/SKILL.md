@@ -1,6 +1,6 @@
 ---
 name: aer-replication
-description: Use when assembling the AEA Data and Code Availability deposit for an AER, AER:Insights, or AEJ acceptance, writing the README, or auditing a replication package before the AEA Data Editor review. Implements the AEA policy in force since January 2024.
+description: Use when assembling the AEA Data and Code Availability deposit for an AER, AER:Insights, or AEJ acceptance, writing the README, or auditing a replication package before the AEA Data Editor review. Implements the current AEA policy, including the February 2026 Data and Code Availability Policy.
 ---
 
 # AER Replication
@@ -18,7 +18,7 @@ This skill produces an AEA-compliant deposit on the first try.
 - An AEA Data Editor report flagged the deposit
 - Preparing a deposit for openICPSR
 
-## The AEA Data and Code Availability Policy (Jan 2024 onward)
+## Current AEA Data and Code Availability Policy (February 2026)
 
 Three pillars:
 
@@ -26,14 +26,15 @@ Three pillars:
 2. **Code deposit** — all code that produces every reported number, table, and figure
 3. **README** — a single document instructing a replicator on how to run everything
 
-Materials must be deposited in an **openly accessible trusted repository**. The default and strongly preferred repository is the **AEA Data and Code Repository at openICPSR**.
+Materials must be deposited in an **openly accessible trusted repository**. The strongly encouraged repository is the **AEA Data and Code Repository at openICPSR**, which gives the Data Editor automatic access to draft deposits.
 
 ### Forms Required
 
+- **Data and Code Information Form**
 - **Data and Code Availability Form** (signed)
-- **Data and Code Archive Agreement** (signed)
+- **Data and Code Archive Agreement Form** (signed)
 
-Both submitted with the final manuscript files.
+These forms are provided by the editorial office at the appropriate stage. Do not invent substitute forms.
 
 ## Repository Structure
 
@@ -180,7 +181,7 @@ Common failure modes flagged in published Data Editor reports:
 ## openICPSR Workflow
 
 1. Create deposit on https://www.openicpsr.org/openicpsr/aea
-2. Upload archive (zipped or via batch upload)
+2. Upload files so the data and code are unzipped inside the repository; avoid one opaque top-level ZIP except for rare repository-approved exceptions
 3. Fill metadata: citation, abstract, keywords, geographic coverage, time period
 4. Submit; the AEA Data Editor's office reviews
 5. Address feedback in the deposit and resubmit
@@ -204,7 +205,8 @@ If data is restricted:
 - [ ] README follows AEA template
 - [ ] Every published table and figure mapped to its producing script
 - [ ] Data Availability statement covers every dataset
-- [ ] Forms signed
+- [ ] Data/code files are visible in the repository, not hidden behind one opaque ZIP
+- [ ] Required AEA data/code forms are complete or ready for the editorial office
 - [ ] Repository structure matches standard layout
 - [ ] License files present
 
@@ -224,4 +226,5 @@ NEXT SKILL: aer-submission
 - Treating the README as documentation for collaborators, not for an unknown replicator
 - Depositing the JEL appendix tables but not the regressions that produced them
 - "All code available from the authors upon request" — does not satisfy the policy
+- Uploading one giant ZIP whose contents the repository cannot display
 - A deposit that runs only with packages from 2018 — pin versions but use current stable releases

@@ -34,7 +34,7 @@ If any single test fails, the realistic target is an AEJ or a top field journal,
 | Signal                                                            | Target            |
 |-------------------------------------------------------------------|-------------------|
 | Cross-subfield interest + ≥ 40 pages of substance                 | **AER**           |
-| One sharp result, ≤ 6,000 words, can be told without a long lit review | **AER: Insights** |
+| One sharp result, fits the AER: Insights word/exhibit formula, can be told without a long lit review | **AER: Insights** |
 | Strong but subfield-bounded contribution; methodologically sound  | **AEJ: Applied / Policy / Macro / Micro** |
 | Conventional method, modest extension, useful for one literature  | Top field journal |
 | Field experiment with policy hook                                 | AER, AEJ:Applied, or QJE — register in **AEA RCT Registry** *before* submission |
