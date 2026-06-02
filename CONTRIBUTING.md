@@ -35,7 +35,8 @@ keeps policy edits localized when multiple agents are working at once.
 make preflight
 ```
 
-`make preflight` runs repository validation plus `git diff --check`.
+`make preflight` runs repository validation plus staged and unstaged
+`git diff --check`.
 Use `make validate-strict` before release work; it fails instead of warning when
 optional tools such as `Rscript` are unavailable.
 

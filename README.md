@@ -163,7 +163,8 @@ make preflight
 # equivalent: python3 scripts/validate_repo.py
 ```
 
-`make preflight` also runs `git diff --check` for whitespace and patch hygiene.
+`make preflight` also runs staged and unstaged `git diff --check` for
+whitespace and patch hygiene.
 The validator checks skill frontmatter, skill directory shape, agent metadata,
 plugin manifests, local Markdown links, template layout, exact Python
 dependency pins and import coverage, installer and scaffolder behavior,

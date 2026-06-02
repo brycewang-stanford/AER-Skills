@@ -3,6 +3,7 @@
 preflight:
 	python3 scripts/validate_repo.py
 	git diff --check
+	git diff --cached --check
 
 validate:
 	python3 scripts/validate_repo.py
