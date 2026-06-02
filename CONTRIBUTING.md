@@ -45,6 +45,7 @@ The validator checks:
 - skill frontmatter and `agents/openai.yaml`
 - skill directory shape and `SKILL.md` length
 - Claude plugin and marketplace manifests
+- canonical GitHub repository URLs in install surfaces
 - local Markdown links
 - exact Python dependency pins
 - third-party Python imports in templates/examples mapped to pinned packages

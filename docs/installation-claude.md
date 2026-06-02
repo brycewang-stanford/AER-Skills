@@ -5,8 +5,8 @@
 Install all skills under your user profile so they are available across projects:
 
 ```bash
-git clone https://github.com/brycewang-stanford/AER-skills.git
-cd AER-skills
+git clone https://github.com/brycewang-stanford/AER-Skills.git
+cd AER-Skills
 python3 scripts/install_skills.py claude
 ```
 
@@ -70,7 +70,7 @@ Use aer-workflow to tell me which skill I should use next for this manuscript.
 Pull the repo and recopy:
 
 ```bash
-cd AER-skills
+cd AER-Skills
 git pull
 python3 scripts/install_skills.py claude --replace
 ```

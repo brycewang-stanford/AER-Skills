@@ -21,6 +21,8 @@ from urllib.parse import unquote
 
 
 ROOT = Path(__file__).resolve().parents[1]
+CANONICAL_REPOSITORY_URL = "https://github.com/brycewang-stanford/AER-Skills"
+LEGACY_REPOSITORY_URL = "https://github.com/brycewang-stanford/" + "AER-skills"
 SKILL_NAME_RE = re.compile(r"^[a-z0-9-]{1,63}$")
 FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 MD_LINK_RE = re.compile(r"(?<!!)\[[^\]]+\]\(([^)]+)\)")
@@ -228,6 +230,14 @@ INSTALL_DOC_GUARDRAIL_PHRASES = {
         "should use `.claude/skills`",
     ),
 }
+REQUIRED_REPOSITORY_URL_SURFACES = (
+    ROOT / ".claude-plugin" / "plugin.json",
+    ROOT / ".claude-plugin" / "marketplace.json",
+    ROOT / "README.md",
+    ROOT / "README.zh-CN.md",
+    ROOT / "docs" / "installation-claude.md",
+    ROOT / "docs" / "installation-codex.md",
+)
 REQUIRED_RESOURCE_LINKS = {
     ROOT / "skills" / "aer-identification" / "SKILL.md": (
         "docs/methods-reference.md",
@@ -428,6 +438,9 @@ def check_plugin_manifest(skill_names: list[str], errors: list[str]) -> None:
     expected_paths = [f"skills/{name}" for name in skill_names]
     for key in ("name", "description", "version", "license", "homepage", "repository"):
         require_json_string(plugin, plugin_json, key, errors)
+    for key in ("homepage", "repository"):
+        if plugin.get(key) != CANONICAL_REPOSITORY_URL:
+            fail(errors, f"{rel(plugin_json)}: {key} should be {CANONICAL_REPOSITORY_URL}")
     author = require_json_object(plugin, plugin_json, "author", errors)
     for key in ("name", "email"):
         value = author.get(key)
@@ -463,6 +476,9 @@ def check_plugin_manifest(skill_names: list[str], errors: list[str]) -> None:
     for key in ("name", "version", "license", "homepage", "repository"):
         if entry.get(key) != plugin.get(key):
             fail(errors, f"{rel(marketplace_json)}: plugin entry {key} does not match plugin.json")
+    for key in ("homepage", "repository"):
+        if entry.get(key) != CANONICAL_REPOSITORY_URL:
+            fail(errors, f"{rel(marketplace_json)}: plugin entry {key} should be {CANONICAL_REPOSITORY_URL}")
     if entry.get("author") != author:
         fail(errors, f"{rel(marketplace_json)}: plugin entry author does not match plugin.json")
     if entry.get("source") != "./":
@@ -667,6 +683,20 @@ def text_files() -> list[Path]:
         and not any(part in GENERATED_OR_CACHE_DIRS for part in path.parts)
         and path.suffix.lower() in TEXT_SUFFIXES
     )
+
+
+def check_repository_urls(errors: list[str]) -> None:
+    for path in text_files():
+        text = path.read_text(encoding="utf-8")
+        if LEGACY_REPOSITORY_URL in text:
+            fail(errors, f"{rel(path)}: replace legacy repository URL with {CANONICAL_REPOSITORY_URL}")
+
+    for path in REQUIRED_REPOSITORY_URL_SURFACES:
+        if not path.is_file():
+            fail(errors, f"{rel(path)}: missing repository URL surface")
+            continue
+        if CANONICAL_REPOSITORY_URL not in path.read_text(encoding="utf-8"):
+            fail(errors, f"{rel(path)}: missing canonical repository URL")
 
 
 def normalize_markdown_target(target: str) -> str:
@@ -1650,6 +1680,7 @@ def validate(require_optional_tools: bool = False) -> None:
     check_text_hygiene(errors)
     skill_names = check_skills(errors)
     check_plugin_manifest(skill_names, errors)
+    check_repository_urls(errors)
     check_skill_reference_docs(skill_names, errors)
     check_source_register(errors)
     check_policy_guardrails(errors)

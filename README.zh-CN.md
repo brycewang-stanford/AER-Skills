@@ -37,8 +37,8 @@ Top-5 经济学期刊的硬约束在生命科学类期刊中并不存在：
 ### 1. Clone
 
 ```bash
-git clone https://github.com/brycewang-stanford/AER-skills.git
-cd AER-skills
+git clone https://github.com/brycewang-stanford/AER-Skills.git
+cd AER-Skills
 ```
 
 ### 2. 装到 Claude Code

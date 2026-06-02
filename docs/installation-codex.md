@@ -3,8 +3,8 @@
 ## Clone and Install
 
 ```bash
-git clone https://github.com/brycewang-stanford/AER-skills.git
-cd AER-skills
+git clone https://github.com/brycewang-stanford/AER-Skills.git
+cd AER-Skills
 python3 scripts/install_skills.py codex
 ```
 
@@ -56,7 +56,7 @@ Use aer-workflow to decide which skill to apply to this paper next.
 ## Updating
 
 ```bash
-cd AER-skills
+cd AER-Skills
 git pull
 python3 scripts/install_skills.py codex --replace
 ```

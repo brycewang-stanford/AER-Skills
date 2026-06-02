@@ -38,7 +38,7 @@ Generic "scientific writing" skills (e.g. [Nature-Paper-Skills](https://github.c
 
 ```bash
 # Add the marketplace (one-time)
-/plugin marketplace add https://github.com/brycewang-stanford/AER-skills
+/plugin marketplace add https://github.com/brycewang-stanford/AER-Skills
 
 # Install the plugin
 /plugin install aer-skills
@@ -52,8 +52,8 @@ All nine skills are then available automatically.
 ### Option B — Scripted Install
 
 ```bash
-git clone https://github.com/brycewang-stanford/AER-skills.git
-cd AER-skills
+git clone https://github.com/brycewang-stanford/AER-Skills.git
+cd AER-Skills
 
 # Claude Code (user-scoped)
 python3 scripts/install_skills.py claude
@@ -219,7 +219,7 @@ Key references:
 ## Repository Layout
 
 ```text
-AER-skills/
+AER-Skills/
 ├── README.md               (English, primary)
 ├── README.zh-CN.md         (Chinese, navigation)
 ├── LICENSE                 (MIT)
