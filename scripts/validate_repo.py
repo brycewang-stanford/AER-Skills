@@ -457,6 +457,9 @@ def check_skill_reference_docs(skill_names: list[str], errors: list[str]) -> Non
 
     primary_readme = (ROOT / "README.md").read_text(encoding="utf-8")
     chinese_readme = (ROOT / "README.zh-CN.md").read_text(encoding="utf-8")
+    if "examples/README.md" not in primary_readme:
+        fail(errors, "README.md: missing link to examples/README.md")
+
     required_docs = (
         "desk-rejection-audit.md",
         "methods-reference.md",
@@ -782,6 +785,17 @@ def check_template_layout(errors: list[str]) -> None:
 
 def check_example_demos(errors: list[str]) -> None:
     examples_readme = (ROOT / "examples" / "README.md").read_text(encoding="utf-8")
+    for artifact in sorted((ROOT / "examples").iterdir()):
+        if artifact.name == "README.md" or artifact.name.startswith("."):
+            continue
+        if artifact.is_file() and artifact.suffix != ".md":
+            continue
+        if any(part in GENERATED_OR_CACHE_DIRS for part in artifact.parts):
+            continue
+        link_target = f"{artifact.name}/" if artifact.is_dir() else artifact.name
+        if f"]({link_target})" not in examples_readme:
+            fail(errors, f"examples/README.md: missing link to {link_target}")
+
     for demo_name, expected_files in EXPECTED_EXAMPLE_DEMOS.items():
         demo_dir = ROOT / "examples" / demo_name
         if not demo_dir.is_dir():

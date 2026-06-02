@@ -175,6 +175,7 @@ of skipping optional-tool checks.
 ## Examples
 
 Worked examples grounded in classic AER and adjacent-top-5 papers.
+See the full examples index in [examples/README.md](examples/README.md).
 
 | File | What it shows |
 |---|---|
