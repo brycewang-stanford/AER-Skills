@@ -856,6 +856,27 @@ def check_example_demos(errors: list[str]) -> None:
         if f"{demo_name}/" not in examples_readme:
             fail(errors, f"examples/README.md: missing link to {demo_name}/")
 
+        demo_readme = demo_dir / "README.md"
+        if not demo_readme.is_file():
+            continue
+        demo_text = demo_readme.read_text(encoding="utf-8")
+        for script_name in sorted(name for name in expected_files if name != "README.md"):
+            if script_name not in demo_text:
+                fail(errors, f"{rel(demo_readme)}: missing run/reference text for {script_name}")
+        for required_text in (
+            "output/",
+            "../../docs/methods-reference.md",
+            "../../skills/aer-identification/SKILL.md",
+        ):
+            if required_text not in demo_text:
+                fail(errors, f"{rel(demo_readme)}: missing {required_text}")
+        if any(name.endswith(".py") for name in expected_files):
+            if "../../templates/python/requirements.txt" not in demo_text:
+                fail(errors, f"{rel(demo_readme)}: missing Python requirements link")
+        if any(name.endswith(".R") for name in expected_files):
+            if "../../templates/r/00_setup.R" not in demo_text:
+                fail(errors, f"{rel(demo_readme)}: missing R setup link")
+
 
 def check_python_templates(errors: list[str]) -> None:
     py_files = sorted((ROOT / "templates" / "python").glob("*.py"))
