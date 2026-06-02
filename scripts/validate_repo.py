@@ -902,6 +902,20 @@ def check_validator_self_tests(errors: list[str]) -> None:
             f"{actual_resources!r}, expected {expected_resources!r}",
         )
 
+    unfinished_cases = {
+        "finish this " + "T" + "ODO" + " before release": "T" + "ODO",
+        "this method is fully documented": None,
+        "prefixT" + "ODOsuffix should not match": None,
+    }
+    for text, expected in unfinished_cases.items():
+        actual = unfinished_marker_in_text(text)
+        if actual != expected:
+            fail(
+                errors,
+                f"validator: unfinished marker self-test returned {actual!r}, "
+                f"expected {expected!r}",
+            )
+
     with tempfile.TemporaryDirectory() as tempdir:
         fixture = Path(tempdir) / "anchors.md"
         fixture.write_text(
@@ -1811,15 +1825,21 @@ def path_allows_unfinished_markers(path: Path) -> bool:
     return any(path.is_relative_to(directory) for directory in ALLOWED_UNFINISHED_MARKER_DIRS)
 
 
+def unfinished_marker_in_text(text: str) -> str | None:
+    for marker in UNFINISHED_MARKERS:
+        if re.search(rf"\b{re.escape(marker)}\b", text, flags=re.IGNORECASE):
+            return marker
+    return None
+
+
 def check_unfinished_markers(errors: list[str]) -> None:
     for path in text_files():
         if path_allows_unfinished_markers(path):
             continue
         text = path.read_text(encoding="utf-8")
-        for marker in UNFINISHED_MARKERS:
-            if re.search(rf"\b{re.escape(marker)}\b", text, flags=re.IGNORECASE):
-                fail(errors, f"{rel(path)}: unfinished-work marker {marker!r} is not allowed here")
-                break
+        marker = unfinished_marker_in_text(text)
+        if marker:
+            fail(errors, f"{rel(path)}: unfinished-work marker {marker!r} is not allowed here")
 
 
 def check_text_hygiene(errors: list[str]) -> None:
