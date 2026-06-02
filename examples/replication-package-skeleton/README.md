@@ -1,7 +1,9 @@
 # Replication Package — [PAPER TITLE]
 
 This is a **skeleton** README following the AEA Data Editor's template.
-Authors should replace every `[BRACKETED]` placeholder.
+Authors should replace every `[BRACKETED]` placeholder. Keep this Markdown file
+as editable source, then render a top-level `README.pdf` for the final AEA
+deposit.
 
 ---
 
@@ -57,7 +59,10 @@ laptop.
   (1.4), `bacondecomp` (1.0.2), `honestdid` (1.2.2), `rdrobust` (9.2.0),
   `rddensity` (3.0.0), `estout` (3.31), `coefplot` (1.8.7),
   `weakivtest` (1.0.7), `boottest` (4.4.3).
-- All package versions are pinned via `code/00_install_packages.do`.
+- `code/00_install_packages.do` installs missing user-written packages and
+  prints their locations. Record exact package versions in this README after a
+  clean setup run; preserve an `ado/` snapshot if exact SSC package
+  reproduction is required.
 
 ### Hardware
 
@@ -79,7 +84,7 @@ script handles one stage:
 | Script | Purpose | Runtime |
 |--------|---------|---------|
 | `code/00_globals.do` | Set project paths, seed, display options | <1s |
-| `code/00_install_packages.do` | Install and pin all user-written packages | 2 min |
+| `code/00_install_packages.do` | Install and report user-written packages | 2 min |
 | `code/01_clean.do` | Merge raw sources into `data/intermediate/analytic.dta` | 4 min |
 | `code/02_descriptives.do` | Summary statistics and balance tables | 3 min |
 | `code/03_main_did.do` | Main DiD specifications | 6 min |
@@ -100,13 +105,11 @@ script handles one stage:
    ```
    do code/00_install_packages.do
    ```
-4. **Edit** the `global project` line in `code/00_globals.do` so `$project` points to the
-   absolute path of your working directory.
-5. **Run the full pipeline**:
+4. **Run the full pipeline** from the replication-package root:
    ```
    do run_all.do
    ```
-6. **Outputs** are written to `output/tables/*.tex` and `output/figures/*.pdf`.
+5. **Outputs** are written to `output/tables/*.tex` and `output/figures/*.pdf`.
    Logs are written to `logs/run_all.log`.
 
 ## List of Tables, Figures, and Programs

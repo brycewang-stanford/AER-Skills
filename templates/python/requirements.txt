@@ -8,9 +8,9 @@ pyarrow==18.1.0
 polars==1.18.0
 
 # ---- Econometrics & identification ------------------------------
-pyfixest==0.27.0           # high-dim FE OLS, AER-style etable
+pyfixest==0.50.1           # high-dim FE OLS, AER-style etable
 linearmodels==6.6          # IV with weak-IV diagnostics
-differences==0.3.1         # Callaway-Sant'Anna in Python
+differences==0.3.0         # Callaway-Sant'Anna in Python
 econtools==0.3.5           # AER-flavored regression helpers
 statsmodels==0.14.4
 

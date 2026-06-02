@@ -31,6 +31,7 @@ modern Python equivalent of `fixest`) for high-dim FE OLS and AER-style
 
 ```bash
 cd your-project/
+python3 path/to/AER-skills/scripts/scaffold_project.py python .
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
