@@ -55,6 +55,7 @@ The validator checks:
 - CI workflow wiring
 - text hygiene and accidental local absolute paths in executable surfaces
 - generated/cache paths are not tracked, except required `.gitkeep` placeholders
+- repository resource links in skill `Repository Resources` sections
 - `docs/methods-reference.md` citation keys against `references.bib`
 - duplicate BibTeX keys and missing DOI / no-DOI notes
 - unresolved generic article-link placeholders in Markdown examples

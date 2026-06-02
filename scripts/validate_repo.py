@@ -253,12 +253,38 @@ REQUIRED_RESOURCE_LINKS = {
     ),
     ROOT / "skills" / "aer-identification" / "SKILL.md": (
         "docs/methods-reference.md",
+        "templates/stata/03_main_did.do",
+        "templates/r/03_main_did.R",
+        "templates/python/main_did.py",
+        "examples/aer-exemplars.md",
         "examples/modern-aer-exemplars.md",
+    ),
+    ROOT / "skills" / "aer-introduction" / "SKILL.md": (
+        "examples/intro-example.md",
+    ),
+    ROOT / "skills" / "aer-rebuttal" / "SKILL.md": (
+        "examples/rebuttal-example.md",
+    ),
+    ROOT / "skills" / "aer-replication" / "SKILL.md": (
+        "examples/replication-package-skeleton/",
+        "templates/stata/",
+        "templates/r/",
+        "templates/python/",
+        "examples/aer-exemplars.md",
     ),
     ROOT / "skills" / "aer-robustness" / "SKILL.md": (
         "docs/methods-reference.md",
         "templates/stata/04_robustness.do",
+        "templates/r/04_robustness.R",
+        "templates/python/robustness.py",
         "templates/stata/05_heterogeneity.do",
+        "templates/r/05_heterogeneity.R",
+        "templates/python/heterogeneity.py",
+    ),
+    ROOT / "skills" / "aer-tables-figures" / "SKILL.md": (
+        "templates/stata/06_tables.do",
+        "templates/r/06_tables.R",
+        "templates/python/tables.py",
     ),
     ROOT / "skills" / "aer-submission" / "SKILL.md": (
         "docs/desk-rejection-audit.md",
@@ -632,11 +658,26 @@ def check_installation_guardrails(errors: list[str]) -> None:
 def check_skill_resource_links(errors: list[str]) -> None:
     """Keep core skills tied to runnable templates and citation-backed docs."""
 
+    for skill_path in sorted((ROOT / "skills").glob("aer-*/SKILL.md")):
+        text = skill_path.read_text(encoding="utf-8")
+        if "## Repository Resources" not in text:
+            fail(errors, f"{rel(skill_path)}: missing Repository Resources section")
+            continue
+        resources_section = text.split("## Repository Resources", 1)[1].split("\n## ", 1)[0]
+        for match in BACKTICK_RE.finditer(resources_section):
+            resource = match.group(1)
+            if not resource.startswith(("docs/", "examples/", "skills/", "templates/")):
+                continue
+            if not (ROOT / resource.rstrip("/")).exists():
+                fail(errors, f"{rel(skill_path)}: listed repository resource missing: {resource}")
+
     for path, resources in REQUIRED_RESOURCE_LINKS.items():
         if not path.is_file():
             fail(errors, f"{rel(path)}: missing skill file")
             continue
         text = path.read_text(encoding="utf-8")
+        if "## Repository Resources" not in text:
+            fail(errors, f"{rel(path)}: missing Repository Resources section")
         for resource in resources:
             if resource not in text:
                 fail(errors, f"{rel(path)}: missing repository resource {resource}")
