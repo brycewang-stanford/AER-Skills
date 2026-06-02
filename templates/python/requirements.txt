@@ -14,6 +14,8 @@ linearmodels==6.6          # IV with weak-IV diagnostics
 differences==0.3.0         # Callaway-Sant'Anna in Python
 econtools==0.3.5           # AER-flavored regression helpers
 statsmodels==0.14.4
+rdrobust==2.0.0            # robust bias-corrected RDD
+rddensity==2.4.6           # manipulation / density test at cutoff
 
 # ---- Plotting ---------------------------------------------------
 matplotlib==3.9.2

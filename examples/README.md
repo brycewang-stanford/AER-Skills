@@ -13,6 +13,7 @@ Worked examples that show what the skills produce in practice.
 | [`replication-package-skeleton/`](replication-package-skeleton/) | A deposit-ready directory layout with AEA-compliant README, master script, and globals file. Drop-in starting point for your own openICPSR submission |
 | [`staggered-did-demo/`](staggered-did-demo/) | Runnable Python/R simulation showing why TWFE fails under staggered adoption with heterogeneous dynamic effects |
 | [`iv-weak-instrument-demo/`](iv-weak-instrument-demo/) | Runnable Python simulation showing why conventional 2SLS inference can over-reject with weak instruments and why Anderson-Rubin inference is safer |
+| [`rdd-polynomial-demo/`](rdd-polynomial-demo/) | Runnable Python simulation showing why high-order global polynomials mislead in RDD and local-linear `rdrobust` is safer |
 
 ## How to Use
 

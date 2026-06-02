@@ -106,6 +106,10 @@ EXPECTED_EXAMPLE_DEMOS = {
         "README.md",
         "iv_weak_instrument_demo.py",
     },
+    "rdd-polynomial-demo": {
+        "README.md",
+        "rdd_polynomial_demo.py",
+    },
     "staggered-did-demo": {
         "README.md",
         "staggered_did_demo.R",
