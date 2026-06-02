@@ -18,5 +18,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y r-base
-      - name: Validate repository
+      - name: Run preflight checks
+        run: make preflight
+      - name: Validate optional-tool coverage
         run: make validate-strict

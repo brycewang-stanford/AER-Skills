@@ -1797,6 +1797,7 @@ def check_ci_workflow(errors: list[str]) -> None:
         "actions/setup-python@v5",
         "python-version: \"3.12\"",
         "sudo apt-get install -y r-base",
+        "make preflight",
         "make validate-strict",
     )
     for snippet in required_snippets:

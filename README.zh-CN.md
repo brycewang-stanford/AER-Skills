@@ -132,8 +132,8 @@ make preflight
 检查空白和补丁格式问题。
 它会检查 skill frontmatter、skill 目录结构、agent metadata、plugin manifest、
 本地 Markdown 链接、模板布局、Python 依赖精确 pin 与 import 覆盖、
-安装和脚手架脚本、生成/缓存文件排除，以及 Python/R/Stata 模板语法。CI 会安装 R 并运行
-`make validate-strict`，因此不会静默跳过可选工具检查。
+安装和脚手架脚本、生成/缓存文件排除，以及 Python/R/Stata 模板语法。CI 会安装 R，
+先运行 `make preflight`，再运行 `make validate-strict`，因此不会静默跳过可选工具检查。
 
 ## 关键参考文档
 
