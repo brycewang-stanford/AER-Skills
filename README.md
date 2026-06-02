@@ -1,5 +1,10 @@
 # AER-Skills
 
+<p align="center">
+  <img src="assets/aer-cover.jpg" alt="The American Economic Review — journal cover" width="170"><br>
+  <sub>Cover of <a href="https://www.aeaweb.org/journals/aer"><i>The American Economic Review</i></a>, published by the American Economic Association — shown for identification only (© AEA).</sub>
+</p>
+
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Top-5 focused](https://img.shields.io/badge/focus-AER%20%2F%20AER%3AInsights%20%2F%20AEJ-1f6feb)](docs/workflow-map.md)
 [![Workflow](https://img.shields.io/badge/workflow-identification--driven-blue)](docs/design-principles.md)
@@ -49,21 +54,23 @@ Generic "scientific writing" skills (e.g. [Nature-Paper-Skills](https://github.c
 
 All nine skills are then available automatically.
 
-### Option B — Manual Copy
+### Option B — Scripted Install
 
 ```bash
 git clone https://github.com/brycewang-stanford/AER-skills.git
 cd AER-skills
 
 # Claude Code (user-scoped)
-mkdir -p ~/.claude/skills && cp -R skills/aer-* ~/.claude/skills/
+python3 scripts/install_skills.py claude
 
 # Or Codex
-mkdir -p ~/.codex/skills && cp -R skills/aer-* ~/.codex/skills/
+python3 scripts/install_skills.py codex
 ```
 
-Manual copy installs the skill instructions. Keep the cloned repository available
-if you want the `templates/` and `examples/` resources referenced by the skills.
+The installer copies the full skill directories. Use `--replace` when updating
+an existing install, and `--dry-run` to inspect planned copies first. Keep the
+cloned repository available if you want the `templates/` and `examples/`
+resources referenced by the skills.
 
 ### First Prompt
 
@@ -109,9 +116,9 @@ See [docs/workflow-map.md](docs/workflow-map.md).
 |---|---|
 | [`aer-workflow`](skills/aer-workflow/SKILL.md) | Routing map. Tells you which skill to use next. |
 | [`aer-topic-selection`](skills/aer-topic-selection/SKILL.md) | Top-5 bar test, novelty audit, AER vs Insights vs AEJ routing. |
-| [`aer-introduction`](skills/aer-introduction/SKILL.md) | Keith Head five-paragraph formula + 100-word abstract drafting. |
 | [`aer-identification`](skills/aer-identification/SKILL.md) | DiD (staggered), IV (weak-IV-robust), RDD, SCM, shift-share/Bartik. |
 | [`aer-robustness`](skills/aer-robustness/SKILL.md) | Robustness, heterogeneity, mechanism, placebo. Referee-anticipating. |
+| [`aer-introduction`](skills/aer-introduction/SKILL.md) | Keith Head five-paragraph formula + 100-word abstract drafting. |
 | [`aer-tables-figures`](skills/aer-tables-figures/SKILL.md) | AER booktabs style, `etable`/`estout`/`modelsummary`, figure notes. |
 | [`aer-replication`](skills/aer-replication/SKILL.md) | AEA Data and Code Availability Policy, README, openICPSR. |
 | [`aer-submission`](skills/aer-submission/SKILL.md) | Format preflight, cover letter, length audit, conflict declaration. |
@@ -121,7 +128,7 @@ See [docs/workflow-map.md](docs/workflow-map.md).
 
 ## Code Templates
 
-Drop-in, pinned-version scripts for three common empirical economics stacks. Each
+Drop-in, version-conscious scripts for three common empirical economics stacks. Each
 template includes a master script, a Callaway-Sant'Anna DiD example, an
 AER-style booktabs regression table, and a README.
 
@@ -131,8 +138,42 @@ AER-style booktabs regression table, and a README.
 | R | `fixest`, `did`, `HonestDiD`, `modelsummary`, `fwildclusterboot` | [`templates/r/`](templates/r/) |
 | Python | `pyfixest`, `differences`, `linearmodels`, `statsmodels` | [`templates/python/`](templates/python/) |
 
-Each template enforces: fixed seed (`20260101`), relative paths, version-
-pinned packages, AER booktabs table style, vector-format figures.
+Each template enforces: fixed seed (`20260101`), relative paths, package
+version documentation or exact pins where the stack supports them, AER booktabs
+table style, and vector-format figures.
+
+Scaffold a project without manually copying files:
+
+```bash
+python3 scripts/scaffold_project.py stata /path/to/new-project
+python3 scripts/scaffold_project.py r /path/to/new-project
+python3 scripts/scaffold_project.py python /path/to/new-project
+python3 scripts/scaffold_project.py skeleton /path/to/new-replication-package
+
+# or via Make
+make scaffold-stata DEST=/path/to/new-project
+```
+
+Use `--dry-run` to inspect planned copies. The scaffolder refuses protected
+destinations such as repository-internal paths and bundled template source
+trees; create paper projects outside this repository.
+
+## Validation
+
+Run the repository checks before copying skills into an agent profile or opening
+a PR:
+
+```bash
+make validate
+# equivalent: python3 scripts/validate_repo.py
+```
+
+The validator checks skill frontmatter, skill directory shape, agent metadata,
+plugin manifests, local Markdown links, template layout, exact Python
+dependency pins, installer and scaffolder behavior, and Python/R/Stata template
+syntax. R syntax checks are skipped with a warning when `Rscript` is
+unavailable. CI installs R and runs `make validate-strict`, which fails instead
+of skipping optional-tool checks.
 
 ---
 
@@ -161,6 +202,15 @@ Worked examples grounded in classic AER and adjacent-top-5 papers.
 
 See [docs/design-principles.md](docs/design-principles.md).
 
+Key references:
+
+- [Desk-rejection audit](docs/desk-rejection-audit.md) — pre-submission no-go
+  checks from an editor/referee perspective
+- [Methods reference](docs/methods-reference.md) — estimator defaults,
+  diagnostics, package calls, and BibTeX keys
+- [Source register](docs/source-register.md) — official AEA policy sources and
+  repo surfaces that depend on them
+
 ---
 
 ## Repository Layout
@@ -170,14 +220,24 @@ AER-skills/
 ├── README.md               (English, primary)
 ├── README.zh-CN.md         (Chinese, navigation)
 ├── LICENSE                 (MIT)
+├── Makefile                (validation and install shortcuts)
+├── CONTRIBUTING.md         (concurrent-agent workflow)
+├── assets/
+│   └── aer-cover.jpg       (README image asset)
+├── .github/
+│   └── workflows/ci.yml    (repository validation)
 ├── .claude-plugin/
 │   ├── plugin.json         (plugin manifest)
 │   └── marketplace.json    (Claude Code marketplace entry)
 ├── docs/
+│   ├── desk-rejection-audit.md
+│   ├── design-principles.md
+│   ├── glossary.md
 │   ├── installation-claude.md
 │   ├── installation-codex.md
-│   ├── workflow-map.md
-│   └── design-principles.md
+│   ├── methods-reference.md
+│   ├── source-register.md
+│   └── workflow-map.md
 ├── skills/                 (9 skill directories — SKILL.md + agents/openai.yaml)
 │   ├── aer-workflow/
 │   ├── aer-topic-selection/
@@ -192,6 +252,10 @@ AER-skills/
 │   ├── stata/
 │   ├── r/
 │   └── python/
+├── scripts/
+│   ├── install_skills.py
+│   ├── scaffold_project.py
+│   └── validate_repo.py
 └── examples/
     ├── aer-exemplars.md
     ├── intro-example.md

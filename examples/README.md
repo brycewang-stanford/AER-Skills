@@ -23,6 +23,12 @@ To start your own project:
 
 1. **Pick 2-3 papers from `aer-exemplars.md`** that match your design
 2. **Read them as architecture templates** (reverse-outline in 30 minutes)
-3. **Copy `replication-package-skeleton/`** into your project
+3. **Scaffold `replication-package-skeleton/`** into your project
 4. **Use `intro-example.md` and `rebuttal-example.md`** as reference for
    the writing skills (`aer-introduction`, `aer-rebuttal`)
+
+```bash
+python3 scripts/scaffold_project.py skeleton /path/to/new-replication-package
+```
+
+Add `--dry-run` first if you want to inspect the planned copies.

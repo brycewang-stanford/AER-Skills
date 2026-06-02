@@ -44,19 +44,18 @@ cd AER-skills
 ### 2. 装到 Claude Code
 
 ```bash
-mkdir -p ~/.claude/skills
-cp -R skills/aer-* ~/.claude/skills/
+python3 scripts/install_skills.py claude
 ```
 
 ### 3. 装到 Codex
 
 ```bash
-mkdir -p ~/.codex/skills
-cp -R skills/aer-* ~/.codex/skills/
+python3 scripts/install_skills.py codex
 ```
 
-手动复制只安装 skill 指令本体。如果需要使用 skill 中提到的 `templates/`
-和 `examples/` 资源，请保留这个 cloned repository。
+安装脚本会复制完整 skill 目录；更新已有安装时加 `--replace`，正式复制前可用
+`--dry-run` 预览。如果需要使用 skill 中提到的 `templates/` 和 `examples/`
+资源，请保留这个 cloned repository。
 
 ### 4. 第一个提示词
 
@@ -103,6 +102,41 @@ aer-topic-selection     # 选题 + AER/Insights/AEJ 路由
 | [`aer-replication`](skills/aer-replication/SKILL.md) | AEA 数据与代码可用性政策、README、openICPSR。 |
 | [`aer-submission`](skills/aer-submission/SKILL.md) | 格式预审、cover letter、长度审计、利益冲突声明。 |
 | [`aer-rebuttal`](skills/aer-rebuttal/SKILL.md) | R&R 回复信、分类、让步 / 澄清 / 反驳的决策规则。 |
+
+## 校验
+
+在复制 skill 或提交 PR 前运行：
+
+```bash
+make validate
+# 等价命令：python3 scripts/validate_repo.py
+```
+
+它会检查 skill frontmatter、skill 目录结构、agent metadata、plugin manifest、
+本地 Markdown 链接、模板布局、Python 依赖精确 pin、安装和脚手架脚本，以及
+Python/R/Stata 模板语法。CI 会安装 R 并运行 `make validate-strict`，因此不会静默跳过可选工具检查。
+
+## 关键参考文档
+
+- [Desk-rejection audit](docs/desk-rejection-audit.md)：从编辑/审稿人视角做投稿前 no-go 检查
+- [Methods reference](docs/methods-reference.md)：现代估计量、诊断、包调用和 BibTeX key
+- [Source register](docs/source-register.md)：AEA 官方政策来源，以及 repo 中依赖这些政策的表面
+
+## 项目脚手架
+
+无需手工复制模板目录，可以直接生成一个新项目：
+
+```bash
+python3 scripts/scaffold_project.py stata /path/to/new-project
+python3 scripts/scaffold_project.py r /path/to/new-project
+python3 scripts/scaffold_project.py python /path/to/new-project
+python3 scripts/scaffold_project.py skeleton /path/to/new-replication-package
+
+# 或使用 Make
+make scaffold-stata DEST=/path/to/new-project
+```
+
+可用 `--dry-run` 预览复制内容。脚手架会拒绝仓库内部路径、模板源目录等受保护目标；请在本仓库外创建论文项目。
 
 ---
 
