@@ -433,6 +433,7 @@ def check_skill_reference_docs(skill_names: list[str], errors: list[str]) -> Non
             fail(errors, f"{rel(workflow_map)}: missing {name}")
 
     primary_readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    chinese_readme = (ROOT / "README.zh-CN.md").read_text(encoding="utf-8")
     required_docs = (
         "desk-rejection-audit.md",
         "methods-reference.md",
@@ -443,8 +444,15 @@ def check_skill_reference_docs(skill_names: list[str], errors: list[str]) -> Non
         workflow_link = f"./{doc}"
         if readme_link not in primary_readme:
             fail(errors, f"README.md: missing link to {readme_link}")
+        if readme_link not in chinese_readme:
+            fail(errors, f"README.zh-CN.md: missing link to {readme_link}")
         if workflow_link not in text:
             fail(errors, f"{rel(workflow_map)}: missing link to {workflow_link}")
+
+    examples_readme = (ROOT / "examples" / "README.md").read_text(encoding="utf-8")
+    for doc in ("../docs/methods-reference.md", "../docs/desk-rejection-audit.md"):
+        if doc not in examples_readme:
+            fail(errors, f"examples/README.md: missing link to {doc}")
 
 
 def check_source_register(errors: list[str]) -> None:

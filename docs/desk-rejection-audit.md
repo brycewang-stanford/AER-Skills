@@ -30,7 +30,7 @@ contribution or a fragile design.
 
 | # | Self-check | If No, the editor thinks… | Fix with |
 |---|---|---|---|
-| 6 | If staggered DiD, is the main estimator **heterogeneity-robust** (not TWFE)? | "2024 referee will reject this on sight." | [`aer-identification`](../skills/aer-identification/SKILL.md) · [methods](./methods-reference.md#1-difference-in-differences-staggered-adoption) |
+| 6 | If staggered DiD, is the main estimator **heterogeneity-robust** (not TWFE)? | "Modern referees reject this on sight." | [`aer-identification`](../skills/aer-identification/SKILL.md) · [methods](./methods-reference.md#1-difference-in-differences-staggered-adoption) |
 | 7 | Did you report the **Goodman-Bacon weight** on forbidden comparisons? | "They don't know their TWFE is biased." | [methods §1](./methods-reference.md#1-difference-in-differences-staggered-adoption) |
 | 8 | DiD pre-trends shown as a **joint test + Honest DiD bounds**, not just a plot? | "A flat eyeball is not identification." | [`glossary`](./glossary.md) — *Honest DiD* |
 | 9 | IV: is inference **weak-IV-robust** (effective F + AR / `tF`), not `F > 10`? | "First-stage F = 12 is not a defense." | [methods §2](./methods-reference.md#2-instrumental-variables) |

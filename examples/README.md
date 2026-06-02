@@ -32,3 +32,9 @@ python3 scripts/scaffold_project.py skeleton /path/to/new-replication-package
 ```
 
 Add `--dry-run` first if you want to inspect the planned copies.
+
+Before copying an example's structure into a manuscript, cross-check the design
+against [`../docs/methods-reference.md`](../docs/methods-reference.md) and run
+the [`../docs/desk-rejection-audit.md`](../docs/desk-rejection-audit.md). The
+examples show architecture; the audit and methods reference decide whether that
+architecture is defensible for your paper.

@@ -1,10 +1,5 @@
 # AER-Skills
 
-<p align="center">
-  <img src="assets/aer-cover.jpg" alt="The American Economic Review — journal cover" width="170"><br>
-  <sub>Cover of <a href="https://www.aeaweb.org/journals/aer"><i>The American Economic Review</i></a>, published by the American Economic Association — shown for identification only (© AEA).</sub>
-</p>
-
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Top-5 focused](https://img.shields.io/badge/focus-AER%20%2F%20AER%3AInsights%20%2F%20AEJ-1f6feb)](docs/workflow-map.md)
 [![Workflow](https://img.shields.io/badge/workflow-identification--driven-blue)](docs/design-principles.md)
@@ -222,8 +217,6 @@ AER-skills/
 ├── LICENSE                 (MIT)
 ├── Makefile                (validation and install shortcuts)
 ├── CONTRIBUTING.md         (concurrent-agent workflow)
-├── assets/
-│   └── aer-cover.jpg       (README image asset)
 ├── .github/
 │   └── workflows/ci.yml    (repository validation)
 ├── .claude-plugin/
