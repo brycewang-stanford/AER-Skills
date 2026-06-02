@@ -82,6 +82,8 @@ If you cannot fit, the paper is an AER (or AEJ) paper, not an AER: Insights pape
 \section{...}              (in-paper appendix only — short)
 ```
 
+AER numbers sections with **Roman numerals** (I., II., III.) and subsections with capital letters (A., B., C.); the introduction is unnumbered. In LaTeX, set `\renewcommand{\thesection}{\Roman{section}}` or use the AEA sample article class, which applies house style automatically.
+
 Move long appendices to a separate Supplemental Appendix file.
 
 ## File Package for ScholarOne

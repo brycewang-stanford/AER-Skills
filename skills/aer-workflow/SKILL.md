@@ -71,7 +71,7 @@ If the user says...
 
 - Using a generic "scientific writing" skill in place of `aer-introduction` — the introduction conventions differ (no heading, five-paragraph Head formula, ≤ 100-word abstract)
 - Using a generic "data availability" skill in place of `aer-replication` — the AEA policy is *unusually* strict and the openICPSR workflow is specific
-- Skipping `aer-topic-selection` because "I already know this is an AER paper" — desk rejection at AER is ~60% and the top-5 bar is *cross-subfield interest*, not technical competence
+- Skipping `aer-topic-selection` because "I already know this is an AER paper" — desk rejection across the AER family is high, and the top-5 bar is *cross-subfield interest*, not technical competence
 
 ## Handoff Contract
 
