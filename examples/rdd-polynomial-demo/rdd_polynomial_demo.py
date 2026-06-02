@@ -16,7 +16,7 @@ The script asserts both facts and exits non-zero if they fail to reproduce, so
 it doubles as a regression test of the skill stack's RDD advice.
 
 Run:  python3 rdd_polynomial_demo.py
-Deps: numpy, pandas, scipy, statsmodels, rdrobust, matplotlib
+Deps: numpy, pandas, statsmodels, rdrobust, matplotlib
       (pinned in ../../templates/python/requirements.txt)
 
 References (keys in ../../references.bib): gelman_imbens_2019,

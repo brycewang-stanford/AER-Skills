@@ -9,6 +9,7 @@ agent profile.
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import re
 import shutil
@@ -50,6 +51,46 @@ REQUIRED_CLI_SCRIPTS = (
     ROOT / "scripts" / "scaffold_project.py",
     ROOT / "scripts" / "validate_repo.py",
 )
+PYTHON_IMPORT_PACKAGE_MAP = {
+    "dateutil": "python-dateutil",
+    "differences": "differences",
+    "econtools": "econtools",
+    "joblib": "joblib",
+    "linearmodels": "linearmodels",
+    "matplotlib": "matplotlib",
+    "numpy": "numpy",
+    "pandas": "pandas",
+    "polars": "polars",
+    "pyarrow": "pyarrow",
+    "pyfixest": "pyfixest",
+    "rddensity": "rddensity",
+    "rdrobust": "rdrobust",
+    "scipy": "scipy",
+    "seaborn": "seaborn",
+    "statsmodels": "statsmodels",
+    "tqdm": "tqdm",
+}
+PYTHON_STDLIB_FALLBACK = {
+    "__future__",
+    "argparse",
+    "ast",
+    "csv",
+    "dataclasses",
+    "json",
+    "logging",
+    "math",
+    "os",
+    "pathlib",
+    "random",
+    "re",
+    "shutil",
+    "subprocess",
+    "sys",
+    "tempfile",
+    "time",
+    "typing",
+    "urllib",
+}
 EXPECTED_TEMPLATE_FILES = {
     "stata": {
         "00_globals.do",
@@ -816,8 +857,40 @@ def check_template_layout(errors: list[str]) -> None:
             fail(errors, f"{rel(skeleton / 'run_all.do')}: missing do step code/{step}")
 
 
+def python_requirement_names() -> set[str]:
+    requirements = ROOT / "templates" / "python" / "requirements.txt"
+    names: set[str] = set()
+    for raw_line in requirements.read_text(encoding="utf-8").splitlines():
+        line = raw_line.split("#", 1)[0].strip()
+        if not line or "==" not in line:
+            continue
+        names.add(line.split("==", 1)[0].strip().lower())
+    return names
+
+
+def r_setup_package_names() -> set[str]:
+    setup = ROOT / "templates" / "r" / "00_setup.R"
+    text = setup.read_text(encoding="utf-8")
+    match = re.search(r"required_pkgs\s*<-\s*c\((.*?)\)", text, re.DOTALL)
+    if not match:
+        return set()
+    return {name.lower() for name in re.findall(r'"([^"]+)"', match.group(1))}
+
+
+def declared_deps(script: Path) -> list[str]:
+    for raw_line in script.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip().lstrip("#").strip()
+        if not line.startswith("Deps:"):
+            continue
+        deps_text = line.removeprefix("Deps:").split("(", 1)[0]
+        return [dep.strip().lower() for dep in deps_text.split(",") if dep.strip()]
+    return []
+
+
 def check_example_demos(errors: list[str]) -> None:
     examples_readme = (ROOT / "examples" / "README.md").read_text(encoding="utf-8")
+    python_deps = python_requirement_names()
+    r_deps = r_setup_package_names()
     tracked_examples = set(
         subprocess.run(
             ["git", "ls-files", "examples"],
@@ -851,6 +924,18 @@ def check_example_demos(errors: list[str]) -> None:
         if f"]({link_target})" not in examples_readme:
             fail(errors, f"examples/README.md: missing link to {link_target}")
 
+    registered_demos = set(EXPECTED_EXAMPLE_DEMOS)
+    for demo_dir in sorted(path for path in (ROOT / "examples").iterdir() if path.is_dir()):
+        demo_rel = rel(demo_dir)
+        tracked_children = [
+            tracked for tracked in tracked_examples if tracked.startswith(f"{demo_rel}/")
+        ]
+        has_runnable_script = any(
+            Path(tracked).suffix in {".py", ".R"} for tracked in tracked_children
+        )
+        if has_runnable_script and demo_dir.name not in registered_demos:
+            fail(errors, f"{demo_rel}: runnable demo should be listed in EXPECTED_EXAMPLE_DEMOS")
+
     for demo_name, expected_files in EXPECTED_EXAMPLE_DEMOS.items():
         demo_dir = ROOT / "examples" / demo_name
         if not demo_dir.is_dir():
@@ -881,6 +966,44 @@ def check_example_demos(errors: list[str]) -> None:
             if "../../templates/r/00_setup.R" not in demo_text:
                 fail(errors, f"{rel(demo_readme)}: missing R setup link")
 
+        for script_name in sorted(name for name in expected_files if name.endswith(".py")):
+            script_path = demo_dir / script_name
+            declared = set(declared_deps(script_path))
+            imported = third_party_python_import_packages(script_path)
+            if not declared:
+                fail(errors, f"{rel(script_path)}: missing Deps declaration")
+            for dep in sorted(declared):
+                if dep not in python_deps:
+                    fail(
+                        errors,
+                        f"{rel(script_path)}: declared dependency {dep} is not pinned",
+                    )
+                if f"`{dep}`" not in demo_text:
+                    fail(errors, f"{rel(demo_readme)}: missing dependency `{dep}`")
+            for dep in sorted(imported - declared):
+                fail(errors, f"{rel(script_path)}: imported dependency {dep} missing from Deps")
+            for dep in sorted(declared - imported):
+                fail(errors, f"{rel(script_path)}: declared dependency {dep} is not imported")
+
+        for script_name in sorted(name for name in expected_files if name.endswith(".R")):
+            script_path = demo_dir / script_name
+            declared = set(declared_deps(script_path))
+            imported = r_library_packages(script_path)
+            if not declared:
+                fail(errors, f"{rel(script_path)}: missing Deps declaration")
+            for dep in sorted(declared):
+                if dep not in r_deps:
+                    fail(
+                        errors,
+                        f"{rel(script_path)}: declared dependency {dep} is not in R setup",
+                    )
+                if f"`{dep}`" not in demo_text:
+                    fail(errors, f"{rel(demo_readme)}: missing dependency `{dep}`")
+            for dep in sorted(imported - declared):
+                fail(errors, f"{rel(script_path)}: imported dependency {dep} missing from Deps")
+            for dep in sorted(declared - imported):
+                fail(errors, f"{rel(script_path)}: declared dependency {dep} is not loaded")
+
 
 def check_python_templates(errors: list[str]) -> None:
     py_files = sorted((ROOT / "templates" / "python").glob("*.py"))
@@ -891,6 +1014,58 @@ def check_python_templates(errors: list[str]) -> None:
             compile(path.read_text(encoding="utf-8"), str(path), "exec")
         except SyntaxError as exc:
             fail(errors, f"{rel(path)}: Python syntax error: {exc}")
+
+
+def python_dependency_surface_files() -> list[Path]:
+    py_files = sorted((ROOT / "templates" / "python").glob("*.py"))
+    py_files.extend(sorted((ROOT / "examples").rglob("*.py")))
+    return py_files
+
+
+def top_level_python_imports(path: Path) -> set[str]:
+    try:
+        tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+    except SyntaxError:
+        return set()
+
+    imports: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            imports.update(alias.name.split(".", 1)[0] for alias in node.names)
+        elif isinstance(node, ast.ImportFrom) and node.level == 0 and node.module:
+            imports.add(node.module.split(".", 1)[0])
+    return imports
+
+
+def python_stdlib_modules() -> set[str]:
+    modules = set(getattr(sys, "stdlib_module_names", ()))
+    modules.update(sys.builtin_module_names)
+    modules.update(PYTHON_STDLIB_FALLBACK)
+    return modules
+
+
+def local_python_modules() -> set[str]:
+    return {path.stem for path in python_dependency_surface_files()}
+
+
+def third_party_python_import_packages(path: Path) -> set[str]:
+    packages: set[str] = set()
+    stdlib_modules = python_stdlib_modules()
+    local_modules = local_python_modules()
+    for import_name in top_level_python_imports(path):
+        if import_name in stdlib_modules or import_name in local_modules:
+            continue
+        package = PYTHON_IMPORT_PACKAGE_MAP.get(import_name)
+        if package:
+            packages.add(package)
+    return packages
+
+
+def r_library_packages(path: Path) -> set[str]:
+    packages: set[str] = set()
+    for match in re.finditer(r"\blibrary\(\s*([A-Za-z0-9_.]+)\s*\)", path.read_text(encoding="utf-8")):
+        packages.add(match.group(1).lower())
+    return packages
 
 
 def check_cli_scripts(errors: list[str]) -> None:
@@ -1214,9 +1389,13 @@ def check_scaffolder(errors: list[str]) -> None:
             fail(errors, f"{rel(scaffolder)} should refuse repository-internal destinations")
 
 
-def check_requirements(errors: list[str]) -> None:
+def check_requirements(errors: list[str]) -> dict[str, int]:
     requirements = ROOT / "templates" / "python" / "requirements.txt"
     seen: dict[str, int] = {}
+    if not requirements.is_file():
+        fail(errors, f"{rel(requirements)}: missing")
+        return seen
+
     for lineno, raw_line in enumerate(requirements.read_text(encoding="utf-8").splitlines(), 1):
         line = raw_line.split("#", 1)[0].strip()
         if not line:
@@ -1228,6 +1407,31 @@ def check_requirements(errors: list[str]) -> None:
         if package in seen:
             fail(errors, f"{rel(requirements)}:{lineno}: duplicate dependency {package}")
         seen[package] = lineno
+    return seen
+
+
+def check_python_dependency_pins(errors: list[str], pinned_packages: dict[str, int]) -> None:
+    stdlib_modules = python_stdlib_modules()
+    local_modules = local_python_modules()
+
+    for path in python_dependency_surface_files():
+        for import_name in sorted(top_level_python_imports(path)):
+            if import_name in stdlib_modules or import_name in local_modules:
+                continue
+            package = PYTHON_IMPORT_PACKAGE_MAP.get(import_name)
+            if not package:
+                fail(
+                    errors,
+                    f"{rel(path)}: third-party import {import_name!r} is not mapped "
+                    "to a pinned package",
+                )
+                continue
+            if package not in pinned_packages:
+                fail(
+                    errors,
+                    f"{rel(path)}: import {import_name!r} requires {package!r} "
+                    "in templates/python/requirements.txt",
+                )
 
 
 def check_makefile(errors: list[str]) -> None:
@@ -1377,7 +1581,8 @@ def validate(require_optional_tools: bool = False) -> None:
     check_stata_templates(errors)
     check_installer(errors)
     check_scaffolder(errors)
-    check_requirements(errors)
+    python_requirements = check_requirements(errors)
+    check_python_dependency_pins(errors, python_requirements)
     check_makefile(errors)
     check_gitignore(errors)
     check_no_tracked_generated_files(errors)
