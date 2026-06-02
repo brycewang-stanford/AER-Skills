@@ -50,6 +50,7 @@ The validator checks:
 - public CLI script entrypoints
 - CI workflow wiring
 - text hygiene and accidental local absolute paths in executable surfaces
+- generated/cache paths are not tracked, except required `.gitkeep` placeholders
 - `docs/methods-reference.md` citation keys against `references.bib`
 - duplicate BibTeX keys and missing DOI / no-DOI notes
 - unresolved generic article-link placeholders in Markdown examples

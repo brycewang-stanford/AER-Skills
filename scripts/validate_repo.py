@@ -810,10 +810,32 @@ def check_template_layout(errors: list[str]) -> None:
 
 def check_example_demos(errors: list[str]) -> None:
     examples_readme = (ROOT / "examples" / "README.md").read_text(encoding="utf-8")
+    tracked_examples = set(
+        subprocess.run(
+            ["git", "ls-files", "examples"],
+            cwd=ROOT,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            check=False,
+        ).stdout.splitlines()
+    )
     for artifact in sorted((ROOT / "examples").iterdir()):
         if artifact.name == "README.md" or artifact.name.startswith("."):
             continue
+        artifact_rel = rel(artifact)
+        if artifact.is_file() and artifact_rel not in tracked_examples:
+            continue
+        if artifact.is_dir() and not any(
+            tracked.startswith(f"{artifact_rel}/") for tracked in tracked_examples
+        ):
+            continue
         if artifact.is_file() and artifact.suffix != ".md":
+            continue
+        if artifact.is_dir() and not any(
+            child.is_file() and not any(part in GENERATED_OR_CACHE_DIRS for part in child.parts)
+            for child in artifact.rglob("*")
+        ):
             continue
         if any(part in GENERATED_OR_CACHE_DIRS for part in artifact.parts):
             continue
@@ -1212,6 +1234,31 @@ def check_gitignore(errors: list[str]) -> None:
             fail(errors, f".gitignore: missing {pattern}")
 
 
+def check_no_tracked_generated_files(errors: list[str]) -> None:
+    allowed = {
+        "examples/replication-package-skeleton/logs/.gitkeep",
+        "examples/replication-package-skeleton/output/figures/.gitkeep",
+        "examples/replication-package-skeleton/output/tables/.gitkeep",
+    }
+    result = subprocess.run(
+        ["git", "ls-files"],
+        cwd=ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+    if result.returncode != 0:
+        fail(errors, f"git ls-files failed\n{result.stdout.strip()}")
+        return
+
+    for tracked in result.stdout.splitlines():
+        if tracked in allowed:
+            continue
+        if any(part in GENERATED_OR_CACHE_DIRS for part in Path(tracked).parts):
+            fail(errors, f"{tracked}: generated/cache path should not be tracked")
+
+
 def check_ci_workflow(errors: list[str]) -> None:
     workflow = ROOT / ".github" / "workflows" / "ci.yml"
     if not workflow.is_file():
@@ -1304,6 +1351,7 @@ def validate(require_optional_tools: bool = False) -> None:
     check_requirements(errors)
     check_makefile(errors)
     check_gitignore(errors)
+    check_no_tracked_generated_files(errors)
     check_ci_workflow(errors)
     check_no_local_paths(errors)
     check_placeholder_links(errors)
