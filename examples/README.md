@@ -11,6 +11,7 @@ Worked examples that show what the skills produce in practice.
 | [`intro-example.md`](intro-example.md) | A full Keith Head five-paragraph introduction + 97-word abstract, written to AER house style |
 | [`rebuttal-example.md`](rebuttal-example.md) | A complete R&R response letter with cover letter, editor response, three referee responses, and a triage summary table |
 | [`replication-package-skeleton/`](replication-package-skeleton/) | A deposit-ready directory layout with AEA-compliant README, master script, and globals file. Drop-in starting point for your own openICPSR submission |
+| [`staggered-did-demo/`](staggered-did-demo/) | Runnable Python/R simulation showing why TWFE fails under staggered adoption with heterogeneous dynamic effects |
 
 ## How to Use
 
