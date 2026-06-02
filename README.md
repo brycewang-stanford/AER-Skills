@@ -185,6 +185,9 @@ See the full examples index in [examples/README.md](examples/README.md).
 | [`examples/intro-example.md`](examples/intro-example.md) | Full Keith Head five-paragraph introduction + 97-word abstract, with a counterexample of what not to write |
 | [`examples/rebuttal-example.md`](examples/rebuttal-example.md) | Complete R&R response: cover letter + editor + 3 referees, demonstrating concede / clarify / push-back / decline outcomes |
 | [`examples/replication-package-skeleton/`](examples/replication-package-skeleton/) | Deposit-ready directory layout with AEA-compliant README template, master script, and globals file — drop-in starting point for an openICPSR submission |
+| [`examples/staggered-did-demo/`](examples/staggered-did-demo/) | Runnable Python/R simulation showing why naive TWFE fails under staggered adoption |
+| [`examples/iv-weak-instrument-demo/`](examples/iv-weak-instrument-demo/) | Runnable Python simulation contrasting conventional 2SLS inference with Anderson-Rubin inference |
+| [`examples/rdd-polynomial-demo/`](examples/rdd-polynomial-demo/) | Runnable Python simulation showing why high-order global-polynomial RDD is unsafe |
 
 ---
 
