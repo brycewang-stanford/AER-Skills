@@ -746,6 +746,72 @@ def check_validator_self_tests(errors: list[str]) -> None:
         if missing:
             fail(errors, f"validator: markdown anchor self-test missed {', '.join(missing)}")
 
+    with tempfile.TemporaryDirectory() as tempdir:
+        fixture_dir = Path(tempdir)
+        python_fixture = fixture_dir / "deps_demo.py"
+        python_fixture.write_text(
+            "\n".join(
+                [
+                    '"""Demo.',
+                    "Deps: numpy, pandas",
+                    '"""',
+                    "from __future__ import annotations",
+                    "from pathlib import Path",
+                    "import numpy as np",
+                    "import pandas as pd",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+        expected_python_deps = ["numpy", "pandas"]
+        actual_python_deps = declared_deps(python_fixture)
+        if actual_python_deps != expected_python_deps:
+            fail(
+                errors,
+                "validator: Python Deps self-test returned "
+                f"{actual_python_deps!r}, expected {expected_python_deps!r}",
+            )
+        actual_python_imports = third_party_python_import_packages(python_fixture)
+        expected_python_imports = {"numpy", "pandas"}
+        if actual_python_imports != expected_python_imports:
+            fail(
+                errors,
+                "validator: Python import self-test returned "
+                f"{sorted(actual_python_imports)!r}, expected {sorted(expected_python_imports)!r}",
+            )
+
+        r_fixture = fixture_dir / "deps_demo.R"
+        r_fixture.write_text(
+            "\n".join(
+                [
+                    "# Deps: fixest, did",
+                    "suppressMessages({",
+                    "  library(fixest)",
+                    "  library(did)",
+                    "})",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+        expected_r_deps = ["fixest", "did"]
+        actual_r_deps = declared_deps(r_fixture)
+        if actual_r_deps != expected_r_deps:
+            fail(
+                errors,
+                f"validator: R Deps self-test returned {actual_r_deps!r}, "
+                f"expected {expected_r_deps!r}",
+            )
+        actual_r_libraries = r_library_packages(r_fixture)
+        expected_r_libraries = {"fixest", "did"}
+        if actual_r_libraries != expected_r_libraries:
+            fail(
+                errors,
+                "validator: R library self-test returned "
+                f"{sorted(actual_r_libraries)!r}, expected {sorted(expected_r_libraries)!r}",
+            )
+
 
 def check_markdown_links(errors: list[str]) -> None:
     anchor_cache: dict[Path, set[str]] = {}
