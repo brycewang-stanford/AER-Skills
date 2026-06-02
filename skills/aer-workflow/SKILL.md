@@ -30,6 +30,7 @@ Use:
 - `aer-replication` when preparing the AEA Data and Code Availability deposit, writing the README, or auditing reproducibility before acceptance
 - `aer-submission` when running the final preflight before clicking submit — length, format, cover letter, conflicts
 - `aer-rebuttal` when reviewer comments exist and a point-by-point response letter plus aligned manuscript edits are needed
+- `aer-statspai` (optional engine) when the design is already fixed and the user wants to *run* the empirics from the agent — a unified Python API / MCP server covering DiD, IV, RDD, SCM, robustness, and table export. It executes what `aer-identification` chose; it does not replace that choice.
 
 ## Default Sequence
 
@@ -57,6 +58,7 @@ If the user says...
 - *"The Data Editor flagged my README"* → `aer-replication`
 - *"I'm submitting tomorrow"* → `aer-submission`
 - *"I got an R&R with three reports"* → `aer-rebuttal`
+- *"Just run my staggered DiD / IV / RDD for me"* → `aer-statspai` (after the design is settled in `aer-identification`)
 
 ## Common Mistakes
 

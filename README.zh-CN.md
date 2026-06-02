@@ -108,6 +108,14 @@ aer-topic-selection     # 选题 + AER/Insights/AEJ 路由
 | [`aer-submission`](skills/aer-submission/SKILL.md) | 格式预审、cover letter、长度审计、利益冲突声明。 |
 | [`aer-rebuttal`](skills/aer-rebuttal/SKILL.md) | R&R 回复信、分类、让步 / 澄清 / 反驳的决策规则。 |
 
+### 可选 — 实现引擎
+
+在手写模板之外，多给你一个**跑实证**的选择。
+
+| Skill | 用途 |
+|---|---|
+| [`aer-statspai`](skills/aer-statspai/SKILL.md) | 用我们自研的 [StatsPAI](https://github.com/brycewang-stanford/StatsPAI) 跑分析 — agent 原生的统一 Python 引擎 + MCP server，覆盖 DiD / IV / RDD / SCM / DML、`audit_result` 稳健性、honest-DiD / Oster 敏感性，以及 `to_latex` / `to_docx` 表格导出。它负责**执行**设计；选哪种设计仍由 `aer-identification` 决定。 |
+
 ## 示例
 
 完整索引见 [examples/README.md](examples/README.md)。

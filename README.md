@@ -47,7 +47,7 @@ Generic "scientific writing" skills (e.g. [Nature-Paper-Skills](https://github.c
 /reload-plugins
 ```
 
-All nine skills are then available automatically.
+All ten skills are then available automatically.
 
 ### Option B — Scripted Install
 
@@ -118,6 +118,14 @@ See [docs/workflow-map.md](docs/workflow-map.md).
 | [`aer-replication`](skills/aer-replication/SKILL.md) | AEA Data and Code Availability Policy, README, openICPSR. |
 | [`aer-submission`](skills/aer-submission/SKILL.md) | Format preflight, cover letter, length audit, conflict declaration. |
 | [`aer-rebuttal`](skills/aer-rebuttal/SKILL.md) | R&R response letter, triage, concede / clarify / push-back rules. |
+
+### Optional — Implementation Engine
+
+A second way to *run* the empirics, alongside the hand-written templates below.
+
+| Skill | Purpose |
+|---|---|
+| [`aer-statspai`](skills/aer-statspai/SKILL.md) | Run the analysis with [StatsPAI](https://github.com/brycewang-stanford/StatsPAI) — an agent-native unified Python engine + MCP server covering DiD / IV / RDD / SCM / DML, `audit_result` robustness, honest-DiD / Oster sensitivity, and `to_latex` / `to_docx` table export. Executes the design; `aer-identification` still chooses it. |
 
 ---
 
@@ -246,7 +254,7 @@ AER-Skills/
 │   ├── pnas-nexus-submission-checklist.md
 │   ├── source-register.md
 │   └── workflow-map.md
-├── skills/                 (9 skill directories — SKILL.md + agents/openai.yaml)
+├── skills/                 (10 skill directories — SKILL.md + agents/openai.yaml)
 │   ├── aer-workflow/
 │   ├── aer-topic-selection/
 │   ├── aer-introduction/
@@ -255,7 +263,8 @@ AER-Skills/
 │   ├── aer-tables-figures/
 │   ├── aer-replication/
 │   ├── aer-submission/
-│   └── aer-rebuttal/
+│   ├── aer-rebuttal/
+│   └── aer-statspai/       (optional implementation engine)
 ├── templates/              (drop-in pipelines, all three languages)
 │   ├── stata/
 │   ├── r/
