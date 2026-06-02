@@ -54,6 +54,7 @@ The validator checks:
 - public CLI script entrypoints
 - CI workflow wiring
 - text hygiene and accidental local absolute paths in executable surfaces
+- unfinished-work markers outside approved template and example surfaces
 - generated/cache paths are not tracked, except required `.gitkeep` placeholders
 - repository resource links in skill `Repository Resources` sections
 - `docs/methods-reference.md` citation keys against `references.bib`

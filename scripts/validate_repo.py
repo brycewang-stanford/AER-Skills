@@ -220,6 +220,22 @@ LOCAL_PATH_MARKERS = (
     "C:" + "\\" + "Users" + "\\",
     "/" + "var" + "/" + "folders" + "/",
 )
+UNFINISHED_MARKERS = (
+    "T" + "ODO",
+    "FIX" + "ME",
+    "T" + "BD",
+    "X" + "XX",
+    "not " + "implemented",
+    "coming " + "soon",
+)
+ALLOWED_UNFINISHED_MARKER_DIRS = (
+    ROOT / "templates",
+    ROOT / "examples" / "replication-package-skeleton",
+)
+ALLOWED_UNFINISHED_MARKER_FILES = {
+    ROOT / "examples" / "rebuttal-example.md",
+    ROOT / "skills" / "aer-rebuttal" / "SKILL.md",
+}
 REQUIRED_POLICY_PHRASES = {
     ROOT / "README.md": (
         "100 words",
@@ -1789,6 +1805,23 @@ def check_no_local_paths(errors: list[str]) -> None:
                 fail(errors, f"{rel(path)}: local absolute path marker {marker!r}")
 
 
+def path_allows_unfinished_markers(path: Path) -> bool:
+    if path in ALLOWED_UNFINISHED_MARKER_FILES:
+        return True
+    return any(path.is_relative_to(directory) for directory in ALLOWED_UNFINISHED_MARKER_DIRS)
+
+
+def check_unfinished_markers(errors: list[str]) -> None:
+    for path in text_files():
+        if path_allows_unfinished_markers(path):
+            continue
+        text = path.read_text(encoding="utf-8")
+        for marker in UNFINISHED_MARKERS:
+            if re.search(rf"\b{re.escape(marker)}\b", text, flags=re.IGNORECASE):
+                fail(errors, f"{rel(path)}: unfinished-work marker {marker!r} is not allowed here")
+                break
+
+
 def check_text_hygiene(errors: list[str]) -> None:
     for path in text_files():
         try:
@@ -1842,6 +1875,7 @@ def validate(require_optional_tools: bool = False) -> None:
     check_no_tracked_generated_files(errors)
     check_ci_workflow(errors)
     check_no_local_paths(errors)
+    check_unfinished_markers(errors)
     check_placeholder_links(errors)
 
     if errors:
