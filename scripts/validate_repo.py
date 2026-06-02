@@ -948,6 +948,16 @@ def check_validator_self_tests(errors: list[str]) -> None:
             )
 
     with tempfile.TemporaryDirectory() as tempdir:
+        executable_fixture = Path(tempdir) / "entrypoint.py"
+        executable_fixture.write_text("#!/usr/bin/env python3\n", encoding="utf-8")
+        executable_fixture.chmod(0o644)
+        if has_executable_bit(executable_fixture):
+            fail(errors, "validator: executable-bit self-test accepted mode 0644")
+        executable_fixture.chmod(0o755)
+        if not has_executable_bit(executable_fixture):
+            fail(errors, "validator: executable-bit self-test rejected mode 0755")
+
+    with tempfile.TemporaryDirectory() as tempdir:
         fixture = Path(tempdir) / "anchors.md"
         fixture.write_text(
             "\n".join(
@@ -1376,6 +1386,10 @@ def r_library_packages(path: Path) -> set[str]:
     return packages
 
 
+def has_executable_bit(path: Path) -> bool:
+    return bool(path.stat().st_mode & 0o111)
+
+
 def check_cli_scripts(errors: list[str]) -> None:
     for path in REQUIRED_CLI_SCRIPTS:
         if not path.is_file():
@@ -1384,7 +1398,7 @@ def check_cli_scripts(errors: list[str]) -> None:
         text = path.read_text(encoding="utf-8")
         if not text.startswith("#!/usr/bin/env python3\n"):
             fail(errors, f"{rel(path)}: missing python3 shebang")
-        if not (path.stat().st_mode & 0o111):
+        if not has_executable_bit(path):
             fail(errors, f"{rel(path)}: should be executable")
         if "if __name__ == \"__main__\":" not in text:
             fail(errors, f"{rel(path)}: missing __main__ guard")
