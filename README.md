@@ -131,7 +131,7 @@ AER-style booktabs regression table, and a README.
 |---|---|---|
 | Stata | `reghdfe`, `csdid`, `estout`, `bacondecomp`, `honestdid` | [`templates/stata/`](templates/stata/) |
 | R | `fixest`, `did`, `HonestDiD`, `modelsummary`, `fwildclusterboot` | [`templates/r/`](templates/r/) |
-| Python | `pyfixest`, `differences`, `linearmodels`, `statsmodels` | [`templates/python/`](templates/python/) |
+| Python | `pyfixest`, `differences`, `linearmodels`, `statsmodels`, `rdrobust`, `rddensity` | [`templates/python/`](templates/python/) |
 
 Each template enforces: fixed seed (`20260101`), relative paths, package
 version documentation or exact pins where the stack supports them, AER booktabs
@@ -165,8 +165,8 @@ make validate
 
 The validator checks skill frontmatter, skill directory shape, agent metadata,
 plugin manifests, local Markdown links, template layout, exact Python
-dependency pins, installer and scaffolder behavior, generated/cache file
-exclusions, and Python/R/Stata template syntax. R syntax checks are skipped
+dependency pins and import coverage, installer and scaffolder behavior,
+generated/cache file exclusions, and Python/R/Stata template syntax. R syntax checks are skipped
 with a warning when `Rscript` is unavailable. CI installs R and runs
 `make validate-strict`, which fails instead of skipping optional-tool checks.
 

@@ -45,6 +45,7 @@ The validator checks:
 - Claude plugin and marketplace manifests
 - local Markdown links
 - exact Python dependency pins
+- third-party Python imports in templates/examples mapped to pinned packages
 - template and replication skeleton file layout
 - installer and scaffolder smoke tests, including unsafe destination refusals
 - public CLI script entrypoints
