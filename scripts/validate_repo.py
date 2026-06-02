@@ -508,6 +508,8 @@ def check_skill_reference_docs(skill_names: list[str], errors: list[str]) -> Non
     chinese_readme = (ROOT / "README.zh-CN.md").read_text(encoding="utf-8")
     if "examples/README.md" not in primary_readme:
         fail(errors, "README.md: missing link to examples/README.md")
+    if "examples/README.md" not in chinese_readme:
+        fail(errors, "README.zh-CN.md: missing link to examples/README.md")
 
     docs = sorted(path.name for path in (ROOT / "docs").glob("*.md"))
     for doc in docs:
@@ -958,6 +960,7 @@ def declared_deps(script: Path) -> list[str]:
 
 def check_example_demos(errors: list[str]) -> None:
     primary_readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    chinese_readme = (ROOT / "README.zh-CN.md").read_text(encoding="utf-8")
     examples_readme = (ROOT / "examples" / "README.md").read_text(encoding="utf-8")
     python_deps = python_requirement_names()
     r_deps = r_setup_package_names()
@@ -1017,6 +1020,8 @@ def check_example_demos(errors: list[str]) -> None:
         root_demo_link = f"examples/{demo_name}/"
         if root_demo_link not in primary_readme:
             fail(errors, f"README.md: missing link to {root_demo_link}")
+        if root_demo_link not in chinese_readme:
+            fail(errors, f"README.zh-CN.md: missing link to {root_demo_link}")
 
         demo_readme = demo_dir / "README.md"
         if not demo_readme.is_file():

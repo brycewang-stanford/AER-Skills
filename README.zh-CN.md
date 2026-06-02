@@ -108,6 +108,17 @@ aer-topic-selection     # 选题 + AER/Insights/AEJ 路由
 | [`aer-submission`](skills/aer-submission/SKILL.md) | 格式预审、cover letter、长度审计、利益冲突声明。 |
 | [`aer-rebuttal`](skills/aer-rebuttal/SKILL.md) | R&R 回复信、分类、让步 / 澄清 / 反驳的决策规则。 |
 
+## 示例
+
+完整索引见 [examples/README.md](examples/README.md)。
+
+| 示例 | 用途 |
+|---|---|
+| [`examples/replication-package-skeleton/`](examples/replication-package-skeleton/) | AEA-compliant 复现包骨架，可作为 openICPSR deposit 起点。 |
+| [`examples/staggered-did-demo/`](examples/staggered-did-demo/) | Python/R 可运行模拟：错时处理下 naive TWFE 为什么会失败。 |
+| [`examples/iv-weak-instrument-demo/`](examples/iv-weak-instrument-demo/) | Python 可运行模拟：弱工具变量下传统 2SLS 推断与 Anderson-Rubin 推断对比。 |
+| [`examples/rdd-polynomial-demo/`](examples/rdd-polynomial-demo/) | Python 可运行模拟：高阶 global-polynomial RDD 为什么不稳健。 |
+
 ## 校验
 
 在复制 skill 或提交 PR 前运行：
