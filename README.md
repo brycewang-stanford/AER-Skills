@@ -1,5 +1,10 @@
 # AER-Skills
 
+<p align="center">
+  <img src="assets/aer-cover.jpg" alt="The American Economic Review — cover" width="220">
+</p>
+<p align="center"><em>An agent skill stack for targeting the <a href="https://www.aeaweb.org/journals/aer">American Economic Review</a>, <em>AER: Insights</em>, and the AEJ family.</em></p>
+
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Top-5 focused](https://img.shields.io/badge/focus-AER%20%2F%20AER%3AInsights%20%2F%20AEJ-1f6feb)](docs/workflow-map.md)
 [![Workflow](https://img.shields.io/badge/workflow-identification--driven-blue)](docs/design-principles.md)

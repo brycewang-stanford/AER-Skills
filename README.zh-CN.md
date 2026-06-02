@@ -1,5 +1,10 @@
 # AER-Skills（中文版）
 
+<p align="center">
+  <img src="assets/aer-cover.jpg" alt="《美国经济评论》（AER）封面" width="220">
+</p>
+<p align="center"><em>面向 <a href="https://www.aeaweb.org/journals/aer">《美国经济评论》</a>（AER）、<em>AER: Insights</em> 及 AEJ 系列期刊的 agent skill 栈。</em></p>
+
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![聚焦](https://img.shields.io/badge/focus-AER%20%2F%20AER%3AInsights%20%2F%20AEJ-1f6feb)](docs/workflow-map.md)
 [![工作流](https://img.shields.io/badge/workflow-识别驱动-blue)](docs/design-principles.md)
