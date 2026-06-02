@@ -22,7 +22,7 @@ Last reviewed: 2026-06-02.
 
 | Topic | Source | Repo surfaces that depend on it | Review trigger |
 |---|---|---|---|
-| PNAS Nexus article types, page expectations, manuscript components, data/materials/code availability, statistics, AI-use, ethics, figures, alt text, and submission metadata | https://academic.oup.com/pnasnexus/pages/general-instructions | `docs/pnas-nexus-publication-plan.md`, `docs/source-register.md` | Before changing PNAS Nexus venue-fit, reproducibility, disclosure, figure, or submission-preflight guidance |
+| PNAS Nexus article types, page expectations, manuscript components, data/materials/code availability, statistics, AI-use, ethics, figures, alt text, and submission metadata | https://academic.oup.com/pnasnexus/pages/general-instructions | `docs/pnas-nexus-publication-plan.md`, `docs/pnas-nexus-submission-checklist.md`, `docs/source-register.md` | Before changing PNAS Nexus venue-fit, reproducibility, disclosure, figure, or submission-preflight guidance |
 
 ## Econometrics Sources
 

@@ -282,6 +282,18 @@ REQUIRED_POLICY_PHRASES = {
         "alt text",
         "maximum 12 pages",
     ),
+    ROOT / "docs" / "pnas-nexus-submission-checklist.md": (
+        "Evidence to record",
+        "250 words",
+        "50-120 words",
+        "public repository",
+        "DOI",
+        "exact sample size",
+        "software source and version",
+        "alt text",
+        "ORCID",
+        "commit hash",
+    ),
 }
 INSTALL_DOC_GUARDRAIL_PHRASES = {
     ROOT / "docs" / "installation-codex.md": (

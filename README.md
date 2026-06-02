@@ -212,6 +212,8 @@ Key references:
   diagnostics, package calls, and BibTeX keys
 - [PNAS Nexus publication plan](docs/pnas-nexus-publication-plan.md) —
   reviewer-style audit and one-week venue-compliance plan
+- [PNAS Nexus submission checklist](docs/pnas-nexus-submission-checklist.md) —
+  evidence-driven final preflight for manuscript, data, code, and figures
 - [Source register](docs/source-register.md) — official AEA policy sources and
   repo surfaces that depend on them
 - [Glossary](docs/glossary.md) — shared vocabulary for journal, identification,
