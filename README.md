@@ -210,6 +210,8 @@ Key references:
   checks from an editor/referee perspective
 - [Methods reference](docs/methods-reference.md) — estimator defaults,
   diagnostics, package calls, and BibTeX keys
+- [PNAS Nexus publication plan](docs/pnas-nexus-publication-plan.md) —
+  reviewer-style audit and one-week venue-compliance plan
 - [Source register](docs/source-register.md) — official AEA policy sources and
   repo surfaces that depend on them
 - [Glossary](docs/glossary.md) — shared vocabulary for journal, identification,

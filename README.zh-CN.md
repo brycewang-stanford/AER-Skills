@@ -140,6 +140,7 @@ make preflight
 - [Desk-rejection audit](docs/desk-rejection-audit.md)：从编辑/审稿人视角做投稿前 no-go 检查
 - [Design principles](docs/design-principles.md)：这个 skill 栈背后的编辑判断与工程取舍
 - [Methods reference](docs/methods-reference.md)：现代估计量、诊断、包调用和 BibTeX key
+- [PNAS Nexus publication plan](docs/pnas-nexus-publication-plan.md)：PNAS Nexus 审稿人式审计与一周合规改进计划
 - [Source register](docs/source-register.md)：AEA 官方政策来源，以及 repo 中依赖这些政策的表面
 - [Glossary](docs/glossary.md)：期刊、识别、复现和回复信术语表
 

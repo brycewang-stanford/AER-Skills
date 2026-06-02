@@ -18,6 +18,12 @@ Last reviewed: 2026-06-02.
 | AEA Data and Code Availability Form | https://www.aeaweb.org/journals/forms/data-code-availability | `skills/aer-replication/SKILL.md`, `skills/aer-submission/SKILL.md` | Before naming required final-stage data/code forms |
 | AEA Data and Code Repository at ICPSR | https://www.icpsr.umich.edu/sites/aea/home | `skills/aer-replication/SKILL.md`, `examples/replication-package-skeleton/README.md` | Before changing openICPSR deposit workflow |
 
+## Official PNAS Nexus Policy Sources
+
+| Topic | Source | Repo surfaces that depend on it | Review trigger |
+|---|---|---|---|
+| PNAS Nexus article types, page expectations, manuscript components, data/materials/code availability, statistics, AI-use, ethics, figures, alt text, and submission metadata | https://academic.oup.com/pnasnexus/pages/general-instructions | `docs/pnas-nexus-publication-plan.md`, `docs/source-register.md` | Before changing PNAS Nexus venue-fit, reproducibility, disclosure, figure, or submission-preflight guidance |
+
 ## Econometrics Sources
 
 `docs/methods-reference.md` is the canonical repo surface for estimator and

@@ -272,6 +272,16 @@ REQUIRED_POLICY_PHRASES = {
         "7,000 words",
         "openICPSR-ready",
     ),
+    ROOT / "docs" / "pnas-nexus-publication-plan.md": (
+        "250 words",
+        "50-120 word",
+        "public repository",
+        "dataset citations",
+        "exact sample sizes",
+        "software versions",
+        "alt text",
+        "maximum 12 pages",
+    ),
 }
 INSTALL_DOC_GUARDRAIL_PHRASES = {
     ROOT / "docs" / "installation-codex.md": (
@@ -664,6 +674,7 @@ def check_source_register(errors: list[str]) -> None:
         "https://www.aeaweb.org/journals/data/data-code-policy",
         "https://www.aeaweb.org/journals/forms/data-code-availability",
         "https://www.icpsr.umich.edu/sites/aea/home",
+        "https://academic.oup.com/pnasnexus/pages/general-instructions",
     )
     for source in required_sources:
         if source not in text:
@@ -1361,6 +1372,8 @@ def check_cli_scripts(errors: list[str]) -> None:
         text = path.read_text(encoding="utf-8")
         if not text.startswith("#!/usr/bin/env python3\n"):
             fail(errors, f"{rel(path)}: missing python3 shebang")
+        if not (path.stat().st_mode & 0o111):
+            fail(errors, f"{rel(path)}: should be executable")
         if "if __name__ == \"__main__\":" not in text:
             fail(errors, f"{rel(path)}: missing __main__ guard")
         if "argparse.ArgumentParser" not in text:

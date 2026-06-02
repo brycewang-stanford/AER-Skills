@@ -51,7 +51,7 @@ The validator checks:
 - third-party Python imports in templates/examples mapped to pinned packages
 - template and replication skeleton file layout
 - installer and scaffolder smoke tests, including unsafe destination refusals
-- public CLI script entrypoints
+- public CLI script entrypoints and executable bits
 - CI workflow wiring
 - text hygiene and accidental local absolute paths in executable surfaces
 - unfinished-work markers outside approved template and example surfaces
