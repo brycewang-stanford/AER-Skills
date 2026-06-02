@@ -102,6 +102,10 @@ EXPECTED_SKELETON_CODE_FILES = {
     "07_figures.do",
 }
 EXPECTED_EXAMPLE_DEMOS = {
+    "iv-weak-instrument-demo": {
+        "README.md",
+        "iv_weak_instrument_demo.py",
+    },
     "staggered-did-demo": {
         "README.md",
         "staggered_did_demo.R",
