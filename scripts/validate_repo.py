@@ -655,6 +655,18 @@ def check_installation_guardrails(errors: list[str]) -> None:
                 fail(errors, f"{rel(path)}: missing installer guardrail phrase {phrase!r}")
 
 
+def repository_resources_from_skill(text: str) -> list[str]:
+    if "## Repository Resources" not in text:
+        return []
+    resources_section = text.split("## Repository Resources", 1)[1].split("\n## ", 1)[0]
+    resources = []
+    for match in BACKTICK_RE.finditer(resources_section):
+        resource = match.group(1)
+        if resource.startswith(("docs/", "examples/", "skills/", "templates/")):
+            resources.append(resource)
+    return resources
+
+
 def check_skill_resource_links(errors: list[str]) -> None:
     """Keep core skills tied to runnable templates and citation-backed docs."""
 
@@ -663,13 +675,8 @@ def check_skill_resource_links(errors: list[str]) -> None:
         if "## Repository Resources" not in text:
             fail(errors, f"{rel(skill_path)}: missing Repository Resources section")
             continue
-        resources_section = text.split("## Repository Resources", 1)[1].split("\n## ", 1)[0]
-        section_resources = []
-        for match in BACKTICK_RE.finditer(resources_section):
-            resource = match.group(1)
-            if not resource.startswith(("docs/", "examples/", "skills/", "templates/")):
-                continue
-            section_resources.append(resource)
+        section_resources = repository_resources_from_skill(text)
+        for resource in section_resources:
             if not (ROOT / resource.rstrip("/")).exists():
                 fail(errors, f"{rel(skill_path)}: listed repository resource missing: {resource}")
         if not section_resources:
@@ -818,6 +825,36 @@ def check_validator_self_tests(errors: list[str]) -> None:
                 errors,
                 f"validator: heading slug for {heading!r} was {actual!r}, expected {expected!r}",
             )
+
+    resource_fixture = "\n".join(
+        [
+            "# Skill",
+            "",
+            "## Repository Resources",
+            "",
+            "- Docs: `docs/methods-reference.md`",
+            "- Demo: `examples/rdd-polynomial-demo/`",
+            "- Template: `templates/python/`",
+            "- Skill: `skills/aer-identification/SKILL.md`",
+            "- Non-resource token: `aer-identification`",
+            "",
+            "## Handoff",
+            "",
+        ]
+    )
+    actual_resources = repository_resources_from_skill(resource_fixture)
+    expected_resources = [
+        "docs/methods-reference.md",
+        "examples/rdd-polynomial-demo/",
+        "templates/python/",
+        "skills/aer-identification/SKILL.md",
+    ]
+    if actual_resources != expected_resources:
+        fail(
+            errors,
+            "validator: repository resource self-test returned "
+            f"{actual_resources!r}, expected {expected_resources!r}",
+        )
 
     with tempfile.TemporaryDirectory() as tempdir:
         fixture = Path(tempdir) / "anchors.md"
