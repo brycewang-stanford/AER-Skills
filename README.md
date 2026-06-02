@@ -206,6 +206,8 @@ Key references:
   diagnostics, package calls, and BibTeX keys
 - [Source register](docs/source-register.md) — official AEA policy sources and
   repo surfaces that depend on them
+- [Glossary](docs/glossary.md) — shared vocabulary for journal, identification,
+  replication, and response-letter terms
 
 ---
 

@@ -65,6 +65,9 @@ python3 scripts/install_skills.py codex
 用 aer-workflow 告诉我这篇稿子下一步该用哪个 skill。
 ```
 
+更完整安装说明见 [docs/installation-claude.md](docs/installation-claude.md)
+和 [docs/installation-codex.md](docs/installation-codex.md)。
+
 ---
 
 ## 默认工作流
@@ -86,6 +89,8 @@ aer-topic-selection     # 选题 + AER/Insights/AEJ 路由
 - **AER vs AER:Insights vs AEJ** 是个**选刊路由**问题，要在写摘要之前先决定
 - **复现包质量是论文的一部分**，不是事后补的工作
 - **审稿回复信永远针对修改后的稿件**，不要对着旧稿写
+
+完整路线图见 [docs/workflow-map.md](docs/workflow-map.md)。
 
 ---
 
@@ -120,8 +125,10 @@ make validate
 ## 关键参考文档
 
 - [Desk-rejection audit](docs/desk-rejection-audit.md)：从编辑/审稿人视角做投稿前 no-go 检查
+- [Design principles](docs/design-principles.md)：这个 skill 栈背后的编辑判断与工程取舍
 - [Methods reference](docs/methods-reference.md)：现代估计量、诊断、包调用和 BibTeX key
 - [Source register](docs/source-register.md)：AEA 官方政策来源，以及 repo 中依赖这些政策的表面
+- [Glossary](docs/glossary.md)：期刊、识别、复现和回复信术语表
 
 ## 项目脚手架
 
