@@ -672,6 +672,31 @@ def check_validator_self_tests(errors: list[str]) -> None:
                 f"validator: heading slug for {heading!r} was {actual!r}, expected {expected!r}",
             )
 
+    with tempfile.TemporaryDirectory() as tempdir:
+        fixture = Path(tempdir) / "anchors.md"
+        fixture.write_text(
+            "\n".join(
+                [
+                    "# Methods Reference",
+                    "## Methods Reference",
+                    "<a id=\"custom-anchor\"></a>",
+                    "<span name=\"legacy-anchor\"></span>",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+        actual_anchors = markdown_anchors(fixture)
+        expected_anchors = {
+            "methods-reference",
+            "methods-reference-1",
+            "custom-anchor",
+            "legacy-anchor",
+        }
+        missing = sorted(expected_anchors - actual_anchors)
+        if missing:
+            fail(errors, f"validator: markdown anchor self-test missed {', '.join(missing)}")
+
 
 def check_markdown_links(errors: list[str]) -> None:
     anchor_cache: dict[Path, set[str]] = {}
@@ -1211,7 +1236,7 @@ def check_ci_workflow(errors: list[str]) -> None:
 def check_no_local_paths(errors: list[str]) -> None:
     checked_roots = (
         ROOT / "templates",
-        ROOT / "examples" / "replication-package-skeleton" / "code",
+        ROOT / "examples",
         ROOT / "scripts",
         ROOT / ".github",
     )
@@ -1221,6 +1246,8 @@ def check_no_local_paths(errors: list[str]) -> None:
             checked_files.extend(path for path in root.rglob("*") if path.is_file())
 
     for path in sorted(set(checked_files)):
+        if any(part in GENERATED_OR_CACHE_DIRS for part in path.parts):
+            continue
         if path.suffix.lower() not in TEXT_SUFFIXES:
             continue
         text = path.read_text(encoding="utf-8")
