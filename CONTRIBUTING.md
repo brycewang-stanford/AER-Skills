@@ -17,7 +17,7 @@ When multiple agents or humans are editing at the same time:
    edits instead of overwriting them.
 5. Use `--dry-run` before broad install or scaffold operations, especially
    when `--replace` is involved.
-6. Run `python3 scripts/validate_repo.py` before handoff.
+6. Run `make preflight` before handoff.
 
 If another change touches the same file, read the current file and apply the
 smallest compatible patch. Do not revert work you did not make.
@@ -32,9 +32,10 @@ keeps policy edits localized when multiple agents are working at once.
 ## Validation
 
 ```bash
-make validate
+make preflight
 ```
 
+`make preflight` runs repository validation plus `git diff --check`.
 Use `make validate-strict` before release work; it fails instead of warning when
 optional tools such as `Rscript` are unavailable.
 

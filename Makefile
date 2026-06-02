@@ -1,4 +1,8 @@
-.PHONY: validate validate-strict install-codex install-claude scaffold-stata scaffold-r scaffold-python scaffold-skeleton
+.PHONY: preflight validate validate-strict install-codex install-claude scaffold-stata scaffold-r scaffold-python scaffold-skeleton
+
+preflight:
+	python3 scripts/validate_repo.py
+	git diff --check
 
 validate:
 	python3 scripts/validate_repo.py

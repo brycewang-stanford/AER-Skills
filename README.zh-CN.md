@@ -113,10 +113,11 @@ aer-topic-selection     # 选题 + AER/Insights/AEJ 路由
 在复制 skill 或提交 PR 前运行：
 
 ```bash
-make validate
+make preflight
 # 等价命令：python3 scripts/validate_repo.py
 ```
 
+`make preflight` 还会运行 `git diff --check`，检查空白和补丁格式问题。
 它会检查 skill frontmatter、skill 目录结构、agent metadata、plugin manifest、
 本地 Markdown 链接、模板布局、Python 依赖精确 pin 与 import 覆盖、
 安装和脚手架脚本、生成/缓存文件排除，以及 Python/R/Stata 模板语法。CI 会安装 R 并运行

@@ -1509,6 +1509,10 @@ def check_makefile(errors: list[str]) -> None:
         fail(errors, "Makefile: missing")
         return
     text = makefile.read_text(encoding="utf-8")
+    if "preflight:" not in text:
+        fail(errors, "Makefile: missing preflight target")
+    if "git diff --check" not in text:
+        fail(errors, "Makefile: preflight should run git diff --check")
     if "scaffold-skeleton:" not in text:
         fail(errors, "Makefile: missing scaffold-skeleton target")
     if "./aer-" in text:
