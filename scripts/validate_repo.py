@@ -239,6 +239,12 @@ REQUIRED_REPOSITORY_URL_SURFACES = (
     ROOT / "docs" / "installation-codex.md",
 )
 REQUIRED_RESOURCE_LINKS = {
+    ROOT / "skills" / "aer-workflow" / "SKILL.md": (
+        "docs/workflow-map.md",
+        "docs/desk-rejection-audit.md",
+        "docs/methods-reference.md",
+        "docs/source-register.md",
+    ),
     ROOT / "skills" / "aer-topic-selection" / "SKILL.md": (
         "examples/modern-aer-exemplars.md",
         "examples/aer-exemplars.md",

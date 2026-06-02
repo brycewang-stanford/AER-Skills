@@ -73,6 +73,16 @@ If the user says...
 - Using a generic "data availability" skill in place of `aer-replication` — the AEA policy is *unusually* strict and the openICPSR workflow is specific
 - Skipping `aer-topic-selection` because "I already know this is an AER paper" — desk rejection across the AER family is high, and the top-5 bar is *cross-subfield interest*, not technical competence
 
+## Repository Resources
+
+When working from the AER-skills repository or plugin bundle, load only the
+relevant resource:
+
+- Full workflow diagram: `docs/workflow-map.md`
+- Editor/referee no-go checklist: `docs/desk-rejection-audit.md`
+- Estimator and diagnostic defaults: `docs/methods-reference.md`
+- Policy source register: `docs/source-register.md`
+
 ## Handoff Contract
 
 Whenever this skill is invoked, end with:
