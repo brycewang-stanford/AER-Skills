@@ -172,6 +172,7 @@ REQUIRED_SKELETON_README_TEXT = (
     "data/raw/",
     "data/intermediate/",
     "data/codebook/",
+    "data/codebook/source-register.md",
     "docs/",
     "docs/exhibit-register.md",
     "exact sample size",
@@ -1159,6 +1160,23 @@ def check_template_layout(errors: list[str]) -> None:
 
     skeleton = ROOT / "examples" / "replication-package-skeleton"
     check_expected_file_set(skeleton / "code", EXPECTED_SKELETON_CODE_FILES, errors)
+    skeleton_source_register = skeleton / "data" / "codebook" / "source-register.md"
+    if not skeleton_source_register.is_file():
+        fail(errors, f"{rel(skeleton_source_register)}: missing")
+    else:
+        source_register_text = skeleton_source_register.read_text(encoding="utf-8")
+        for phrase in (
+            "Source Inventory",
+            "Variable Crosswalk",
+            "Derived Files",
+            "License or access terms",
+            "Date accessed",
+            "Restrictions / DUA",
+            "Unit of observation",
+            "Audit Rules",
+        ):
+            if phrase not in source_register_text:
+                fail(errors, f"{rel(skeleton_source_register)}: missing {phrase!r}")
     skeleton_exhibit_register = skeleton / "docs" / "exhibit-register.md"
     if not skeleton_exhibit_register.is_file():
         fail(errors, f"{rel(skeleton_exhibit_register)}: missing")
@@ -1649,6 +1667,11 @@ def check_scaffolder(errors: list[str]) -> None:
                     fail(
                         errors,
                         f"{rel(scaffolder)} skeleton smoke test missed docs/exhibit-register.md",
+                    )
+                if not (destination / "data" / "codebook" / "source-register.md").is_file():
+                    fail(
+                        errors,
+                        f"{rel(scaffolder)} skeleton smoke test missed data/codebook/source-register.md",
                     )
 
         non_empty = base / "non-empty"
