@@ -173,6 +173,8 @@ REQUIRED_SKELETON_README_TEXT = (
     "data/intermediate/",
     "data/codebook/",
     "docs/",
+    "docs/exhibit-register.md",
+    "exact sample size",
     "do run_all.do",
     "output/tables/*.tex",
     "output/tables/",
@@ -1152,6 +1154,22 @@ def check_template_layout(errors: list[str]) -> None:
 
     skeleton = ROOT / "examples" / "replication-package-skeleton"
     check_expected_file_set(skeleton / "code", EXPECTED_SKELETON_CODE_FILES, errors)
+    skeleton_exhibit_register = skeleton / "docs" / "exhibit-register.md"
+    if not skeleton_exhibit_register.is_file():
+        fail(errors, f"{rel(skeleton_exhibit_register)}: missing")
+    else:
+        exhibit_register_text = skeleton_exhibit_register.read_text(encoding="utf-8")
+        for phrase in (
+            "Claim supported",
+            "Script and lines",
+            "Input data",
+            "Estimator or statistic",
+            "Exact sample size",
+            "Accessibility note",
+            "alt text",
+        ):
+            if phrase not in exhibit_register_text:
+                fail(errors, f"{rel(skeleton_exhibit_register)}: missing {phrase!r}")
     skeleton_top_level = {child.name for child in skeleton.iterdir() if child.is_file()}
     expected_top_level = {"LICENSE", "README.md", "run_all.do"}
     missing = sorted(expected_top_level - skeleton_top_level)
@@ -1622,6 +1640,11 @@ def check_scaffolder(errors: list[str]) -> None:
                             errors,
                             f"{rel(scaffolder)} skeleton smoke test missed {directory}/",
                         )
+                if not (destination / "docs" / "exhibit-register.md").is_file():
+                    fail(
+                        errors,
+                        f"{rel(scaffolder)} skeleton smoke test missed docs/exhibit-register.md",
+                    )
 
         non_empty = base / "non-empty"
         non_empty.mkdir()
