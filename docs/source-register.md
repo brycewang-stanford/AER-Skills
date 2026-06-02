@@ -44,6 +44,9 @@ contain the high-risk constraints most likely to drift during rewrites:
 - disclosure statement and AI-use disclosure language
 - February 2026 Data and Code Availability Policy language
 - README PDF, Data and Code Availability Statement, and openICPSR guidance
+- PNAS Nexus abstract, significance-statement, public-repository,
+  statistical-reporting, figure-accessibility, ORCID, and final-gate evidence
+  requirements
 
 If an official source changes one of these constraints, update the source row
 above and the validator guardrail in the same patch.

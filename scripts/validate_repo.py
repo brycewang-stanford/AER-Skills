@@ -698,6 +698,11 @@ def check_source_register(errors: list[str]) -> None:
         if phrase not in text:
             fail(errors, f"{rel(source_register)}: missing {phrase!r}")
 
+    for path in REQUIRED_POLICY_PHRASES:
+        surface = rel(path)
+        if f"`{surface}`" not in text:
+            fail(errors, f"{rel(source_register)}: missing policy guardrail surface {surface}")
+
     for match in BACKTICK_RE.finditer(text):
         candidate = match.group(1)
         if " " in candidate or candidate.startswith(("http://", "https://")):
