@@ -269,6 +269,7 @@ AER-Skills/
     ├── intro-example.md
     ├── rebuttal-example.md
     └── replication-package-skeleton/
+        ├── data/codebook/source-register.md
         └── docs/exhibit-register.md
 ```
 

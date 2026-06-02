@@ -45,7 +45,8 @@ replication-package/
 ├── data/
 │   ├── raw/                        (original files as obtained, never modified)
 │   ├── intermediate/               (cleaned analytic datasets)
-│   └── codebook/                   (variable definitions, source mapping)
+│   └── codebook/
+│       └── source-register.md      (source inventory, crosswalk, derived files)
 ├── code/
 │   ├── 00_setup.do                 (or .R, .py)
 │   ├── 01_clean.do
@@ -92,6 +93,9 @@ If data cannot be deposited (proprietary, restricted, IRB), the author must:
 ### 3. Dataset List
 
 A table of every file in `data/`, with columns: Filename | Description | Source | Notes.
+Keep `data/codebook/source-register.md` synchronized with this section so every
+raw source, derived file, access restriction, and analytic variable has one
+auditable home.
 
 ### 4. Computational Requirements
 
@@ -212,6 +216,7 @@ If data is restricted:
 When working from the AER-skills repository or plugin bundle, load only the relevant resource:
 
 - Deposit skeleton: `examples/replication-package-skeleton/`
+- Data source register template: `examples/replication-package-skeleton/data/codebook/source-register.md`
 - Exhibit register template: `examples/replication-package-skeleton/docs/exhibit-register.md`
 - Language template: `templates/stata/`, `templates/r/`, or `templates/python/`
 - Classic replication examples and repository links: `examples/aer-exemplars.md`

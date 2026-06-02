@@ -346,6 +346,7 @@ REQUIRED_RESOURCE_LINKS = {
     ),
     ROOT / "skills" / "aer-replication" / "SKILL.md": (
         "examples/replication-package-skeleton/",
+        "examples/replication-package-skeleton/data/codebook/source-register.md",
         "examples/replication-package-skeleton/docs/exhibit-register.md",
         "templates/stata/",
         "templates/r/",
