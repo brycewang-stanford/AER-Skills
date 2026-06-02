@@ -56,6 +56,7 @@ replication-package/
 │   ├── tables/
 │   └── figures/
 └── docs/
+    ├── exhibit-register.md
     ├── data_appendix.pdf
     └── computing_environment.txt
 ```
@@ -128,6 +129,10 @@ A second table mapping each exhibit in the published paper to the script that pr
 | Table 1      | 03_tables.do        | 12             | output/tables/tab1.tex   |
 | Table 2      | 03_tables.do        | 67             | output/tables/tab2.tex   |
 | Figure 1     | 04_figures.do       | 8              | output/figures/fig1.pdf  |
+
+For a fuller audit, keep `docs/exhibit-register.md` synchronized with this
+README table. The register should also record the supported claim, exact sample
+size, estimator or statistic, table/figure note, and accessibility evidence.
 
 ## Coding Discipline for Reproducibility
 
@@ -207,6 +212,7 @@ If data is restricted:
 When working from the AER-skills repository or plugin bundle, load only the relevant resource:
 
 - Deposit skeleton: `examples/replication-package-skeleton/`
+- Exhibit register template: `examples/replication-package-skeleton/docs/exhibit-register.md`
 - Language template: `templates/stata/`, `templates/r/`, or `templates/python/`
 - Classic replication examples and repository links: `examples/aer-exemplars.md`
 

@@ -242,6 +242,8 @@ AER-Skills/
 │   ├── installation-claude.md
 │   ├── installation-codex.md
 │   ├── methods-reference.md
+│   ├── pnas-nexus-publication-plan.md
+│   ├── pnas-nexus-submission-checklist.md
 │   ├── source-register.md
 │   └── workflow-map.md
 ├── skills/                 (9 skill directories — SKILL.md + agents/openai.yaml)
@@ -267,6 +269,7 @@ AER-Skills/
     ├── intro-example.md
     ├── rebuttal-example.md
     └── replication-package-skeleton/
+        └── docs/exhibit-register.md
 ```
 
 ---
