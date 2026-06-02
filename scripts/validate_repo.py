@@ -133,6 +133,27 @@ EXPECTED_TEMPLATE_FILES = {
         "tables.py",
     },
 }
+REQUIRED_TEMPLATE_README_TEXT = {
+    "stata": (
+        "python3 scripts/scaffold_project.py stata",
+        "do run_all.do",
+        "00_install_packages.do",
+        "set seed 20260101",
+    ),
+    "r": (
+        "python3 scripts/scaffold_project.py r",
+        'source("run_all.R")',
+        "00_setup.R",
+        "set.seed(20260101)",
+    ),
+    "python": (
+        "scaffold_project.py python",
+        "pip install -r requirements.txt",
+        "python3 run_all.py",
+        "requirements.txt",
+        "default_rng(seed=20260101)",
+    ),
+}
 EXPECTED_SKELETON_CODE_FILES = {
     "00_globals.do",
     "00_install_packages.do",
@@ -144,6 +165,15 @@ EXPECTED_SKELETON_CODE_FILES = {
     "06_tables.do",
     "07_figures.do",
 }
+REQUIRED_SKELETON_README_TEXT = (
+    "Data Availability and Provenance Statement",
+    "code/00_install_packages.do",
+    "do run_all.do",
+    "output/tables/*.tex",
+    "output/figures/*.pdf",
+    "logs/run_all.log",
+    "[BRACKETED]",
+)
 EXPECTED_EXAMPLE_DEMOS = {
     "iv-weak-instrument-demo": {
         "README.md",
@@ -1014,6 +1044,11 @@ def check_expected_file_set(path: Path, expected: set[str], errors: list[str]) -
 def check_template_layout(errors: list[str]) -> None:
     for template_name, expected in EXPECTED_TEMPLATE_FILES.items():
         check_expected_file_set(ROOT / "templates" / template_name, expected, errors)
+        readme = ROOT / "templates" / template_name / "README.md"
+        text = readme.read_text(encoding="utf-8")
+        for required_text in REQUIRED_TEMPLATE_README_TEXT[template_name]:
+            if required_text not in text:
+                fail(errors, f"{rel(readme)}: missing {required_text!r}")
 
     stata_steps = sorted(
         name for name in EXPECTED_TEMPLATE_FILES["stata"] if name.endswith(".do")
@@ -1051,6 +1086,10 @@ def check_template_layout(errors: list[str]) -> None:
     missing = sorted(expected_top_level - skeleton_top_level)
     if missing:
         fail(errors, f"{rel(skeleton)}: missing expected files: {', '.join(missing)}")
+    skeleton_readme = (skeleton / "README.md").read_text(encoding="utf-8")
+    for required_text in REQUIRED_SKELETON_README_TEXT:
+        if required_text not in skeleton_readme:
+            fail(errors, f"{rel(skeleton / 'README.md')}: missing {required_text!r}")
 
     skeleton_run_all = (skeleton / "run_all.do").read_text(encoding="utf-8")
     for step in sorted(EXPECTED_SKELETON_CODE_FILES):

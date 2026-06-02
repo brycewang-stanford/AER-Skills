@@ -31,11 +31,11 @@ modern Python equivalent of `fixest`) for high-dim FE OLS and AER-style
 
 ```bash
 cd your-project/
-python3 path/to/AER-skills/scripts/scaffold_project.py python .
+python3 path/to/AER-Skills/scripts/scaffold_project.py python .
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python run_all.py
+python3 run_all.py
 ```
 
 The placeholder stages are intentionally conservative. `clean.py` stops with a
