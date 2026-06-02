@@ -167,11 +167,19 @@ EXPECTED_SKELETON_CODE_FILES = {
 }
 REQUIRED_SKELETON_README_TEXT = (
     "Data Availability and Provenance Statement",
+    "Package Layout",
     "code/00_install_packages.do",
+    "data/raw/",
+    "data/intermediate/",
+    "data/codebook/",
+    "docs/",
     "do run_all.do",
     "output/tables/*.tex",
+    "output/tables/",
     "output/figures/*.pdf",
+    "output/figures/",
     "logs/run_all.log",
+    "logs/",
     "[BRACKETED]",
 )
 EXPECTED_EXAMPLE_DEMOS = {
