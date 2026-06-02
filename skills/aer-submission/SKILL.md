@@ -160,6 +160,16 @@ AER charges a submission fee that scales with AEA membership status and country 
 - [ ] Single self-contained PDF; supplemental appendix as separate file
 - [ ] Corresponding author email and ORCID up to date
 
+## Repository Resources
+
+When working from the AER-skills repository or plugin bundle, load only the
+relevant resource:
+
+- Submission no-go checklist: `docs/desk-rejection-audit.md`
+- Current policy source register: `docs/source-register.md`
+- Replication planning surface: `skills/aer-replication/SKILL.md`
+- Deposit-ready scaffold: `examples/replication-package-skeleton/`
+
 ## After Submission
 
 - Expect 8-12 weeks to first decision for AER (median); shorter for Insights

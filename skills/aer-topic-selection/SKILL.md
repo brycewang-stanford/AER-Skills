@@ -95,6 +95,16 @@ Peer feedback measurably improves journal placement: one SD more comments → 47
 
 Skip none of these for an AER target. AER: Insights tolerates a shorter cycle because the contribution is sharper and the venue is younger.
 
+## Repository Resources
+
+When working from the AER-skills repository or plugin bundle, load only the
+relevant resource:
+
+- Recent AER/AEJ exemplars by subfield: `examples/modern-aer-exemplars.md`
+- Classic contribution archetypes: `examples/aer-exemplars.md`
+- Desk-rejection no-go audit: `docs/desk-rejection-audit.md`
+- Workflow routing after the topic decision: `docs/workflow-map.md`
+
 ## Handoff
 
 When this skill finishes, emit:

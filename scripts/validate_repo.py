@@ -239,6 +239,12 @@ REQUIRED_REPOSITORY_URL_SURFACES = (
     ROOT / "docs" / "installation-codex.md",
 )
 REQUIRED_RESOURCE_LINKS = {
+    ROOT / "skills" / "aer-topic-selection" / "SKILL.md": (
+        "examples/modern-aer-exemplars.md",
+        "examples/aer-exemplars.md",
+        "docs/desk-rejection-audit.md",
+        "docs/workflow-map.md",
+    ),
     ROOT / "skills" / "aer-identification" / "SKILL.md": (
         "docs/methods-reference.md",
         "examples/modern-aer-exemplars.md",
@@ -247,6 +253,12 @@ REQUIRED_RESOURCE_LINKS = {
         "docs/methods-reference.md",
         "templates/stata/04_robustness.do",
         "templates/stata/05_heterogeneity.do",
+    ),
+    ROOT / "skills" / "aer-submission" / "SKILL.md": (
+        "docs/desk-rejection-audit.md",
+        "docs/source-register.md",
+        "skills/aer-replication/SKILL.md",
+        "examples/replication-package-skeleton/",
     ),
 }
 
