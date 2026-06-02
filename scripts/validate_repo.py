@@ -27,6 +27,10 @@ HTML_LOCAL_ATTR_RE = re.compile(r"""\b(?:href|src)=["']([^"']+)["']""")
 BACKTICK_RE = re.compile(r"`([^`]+)`")
 BIB_ENTRY_RE = re.compile(r"@\w+\s*\{\s*([^,\s]+)\s*,", re.IGNORECASE)
 BIB_KEY_CANDIDATE_RE = re.compile(r"^[a-z][a-z0-9]*(?:_[a-z0-9]+)*_(?:19|20)\d{2}$")
+MD_HEADING_RE = re.compile(r"^(#{1,6})\s+(.+?)\s*#*\s*$")
+MD_LINK_TEXT_RE = re.compile(r"\[([^\]]+)\]\([^)]+\)")
+HTML_TAG_RE = re.compile(r"<[^>]+>")
+HTML_ANCHOR_RE = re.compile(r"""<[^>]+\s(?:id|name)=["']([^"']+)["']""", re.IGNORECASE)
 REQUIRED_AGENT_FIELDS = ("display_name", "short_description", "default_prompt")
 AGENT_FIELD_LIMITS = {
     "display_name": (4, 64),
@@ -97,6 +101,13 @@ EXPECTED_SKELETON_CODE_FILES = {
     "06_tables.do",
     "07_figures.do",
 }
+EXPECTED_EXAMPLE_DEMOS = {
+    "staggered-did-demo": {
+        "README.md",
+        "staggered_did_demo.R",
+        "staggered_did_demo.py",
+    },
+}
 TEXT_SUFFIXES = {
     "",
     ".bib",
@@ -109,6 +120,18 @@ TEXT_SUFFIXES = {
     ".txt",
     ".yaml",
     ".yml",
+}
+GENERATED_OR_CACHE_DIRS = {
+    ".git",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".venv",
+    "__pycache__",
+    "logs",
+    "node_modules",
+    "output",
+    "venv",
 }
 LOCAL_PATH_MARKERS = (
     "/" + "Users" + "/",
@@ -575,7 +598,7 @@ def markdown_files() -> list[Path]:
     return sorted(
         path
         for path in ROOT.rglob("*.md")
-        if ".git" not in path.parts and "__pycache__" not in path.parts
+        if not any(part in GENERATED_OR_CACHE_DIRS for part in path.parts)
     )
 
 
@@ -584,8 +607,7 @@ def text_files() -> list[Path]:
         path
         for path in ROOT.rglob("*")
         if path.is_file()
-        and ".git" not in path.parts
-        and "__pycache__" not in path.parts
+        and not any(part in GENERATED_OR_CACHE_DIRS for part in path.parts)
         and path.suffix.lower() in TEXT_SUFFIXES
     )
 
@@ -599,19 +621,68 @@ def normalize_markdown_target(target: str) -> str:
     return unquote(target)
 
 
+def github_heading_slug(heading: str) -> str:
+    heading = re.sub(r"`([^`]*)`", r"\1", heading.strip())
+    heading = MD_LINK_TEXT_RE.sub(r"\1", heading)
+    heading = HTML_TAG_RE.sub("", heading)
+    heading = re.sub(r"\s+#*$", "", heading).lower()
+    cleaned = "".join(
+        character
+        for character in heading
+        if character.isalnum() or character.isspace() or character in "-_"
+    )
+    return re.sub(r"\s", "-", cleaned.strip())
+
+
+def markdown_anchors(path: Path) -> set[str]:
+    anchors: set[str] = set()
+    seen: dict[str, int] = {}
+    text = path.read_text(encoding="utf-8")
+    for match in HTML_ANCHOR_RE.finditer(text):
+        anchors.add(unquote(match.group(1)).strip().lower())
+
+    for line in text.splitlines():
+        match = MD_HEADING_RE.match(line)
+        if not match:
+            continue
+        base = github_heading_slug(match.group(2))
+        suffix = seen.get(base, 0)
+        seen[base] = suffix + 1
+        anchors.add(base if suffix == 0 else f"{base}-{suffix}")
+    return anchors
+
+
+def check_validator_self_tests(errors: list[str]) -> None:
+    slug_cases = {
+        "1. Difference-in-differences (staggered adoption)": (
+            "1-difference-in-differences-staggered-adoption"
+        ),
+        "3. Shift-share / Bartik": "3-shift-share--bartik",
+        "AER: Insights `word-count` PDF": "aer-insights-word-count-pdf",
+        "[methods reference](./methods-reference.md)": "methods-reference",
+    }
+    for heading, expected in slug_cases.items():
+        actual = github_heading_slug(heading)
+        if actual != expected:
+            fail(
+                errors,
+                f"validator: heading slug for {heading!r} was {actual!r}, expected {expected!r}",
+            )
+
+
 def check_markdown_links(errors: list[str]) -> None:
+    anchor_cache: dict[Path, set[str]] = {}
+
     def check_local_target(path: Path, raw_target: str) -> None:
         raw_target = normalize_markdown_target(raw_target)
-        if (
-            not raw_target
-            or raw_target.startswith(("#", "http://", "https://", "mailto:"))
-        ):
+        if not raw_target or raw_target.startswith(("http://", "https://", "mailto:")):
             return
 
-        local_target = raw_target.split("#", 1)[0]
+        local_target, _, anchor = raw_target.partition("#")
         if not local_target:
-            return
-        resolved = (path.parent / local_target).resolve()
+            resolved = path
+        else:
+            resolved = (path.parent / local_target).resolve()
         try:
             resolved.relative_to(ROOT)
         except ValueError:
@@ -619,6 +690,13 @@ def check_markdown_links(errors: list[str]) -> None:
             return
         if not resolved.exists():
             fail(errors, f"{rel(path)}: broken local link: {raw_target}")
+            return
+        if anchor and resolved.suffix.lower() == ".md":
+            anchor_id = unquote(anchor).strip().lower()
+            if resolved not in anchor_cache:
+                anchor_cache[resolved] = markdown_anchors(resolved)
+            if anchor_id not in anchor_cache[resolved]:
+                fail(errors, f"{rel(path)}: broken markdown anchor: {raw_target}")
 
     for path in markdown_files():
         text = path.read_text(encoding="utf-8")
@@ -702,9 +780,22 @@ def check_template_layout(errors: list[str]) -> None:
             fail(errors, f"{rel(skeleton / 'run_all.do')}: missing do step code/{step}")
 
 
+def check_example_demos(errors: list[str]) -> None:
+    examples_readme = (ROOT / "examples" / "README.md").read_text(encoding="utf-8")
+    for demo_name, expected_files in EXPECTED_EXAMPLE_DEMOS.items():
+        demo_dir = ROOT / "examples" / demo_name
+        if not demo_dir.is_dir():
+            fail(errors, f"{rel(demo_dir)}: demo directory missing")
+            continue
+        check_expected_file_set(demo_dir, expected_files, errors)
+        if f"{demo_name}/" not in examples_readme:
+            fail(errors, f"examples/README.md: missing link to {demo_name}/")
+
+
 def check_python_templates(errors: list[str]) -> None:
     py_files = sorted((ROOT / "templates" / "python").glob("*.py"))
     py_files.extend(sorted((ROOT / "scripts").glob("*.py")))
+    py_files.extend(sorted((ROOT / "examples").rglob("*.py")))
     for path in py_files:
         try:
             compile(path.read_text(encoding="utf-8"), str(path), "exec")
@@ -737,8 +828,9 @@ def check_r_templates(errors: list[str], require_optional_tools: bool) -> None:
         return
 
     expression = (
-        'for (f in list.files("templates/r", pattern="[.]R$", full.names=TRUE)) '
-        '{ parse(f); cat("OK", f, "\\n") }'
+        'files <- c(list.files("templates/r", pattern="[.]R$", full.names=TRUE), '
+        'list.files("examples", pattern="[.]R$", full.names=TRUE, recursive=TRUE)); '
+        'for (f in files) { parse(f); cat("OK", f, "\\n") }'
     )
     run_command([rscript, "-e", expression], errors, "R template parse")
 
@@ -1149,6 +1241,7 @@ def check_placeholder_links(errors: list[str]) -> None:
 
 def validate(require_optional_tools: bool = False) -> None:
     errors: list[str] = []
+    check_validator_self_tests(errors)
     check_text_hygiene(errors)
     skill_names = check_skills(errors)
     check_plugin_manifest(skill_names, errors)
@@ -1160,6 +1253,7 @@ def validate(require_optional_tools: bool = False) -> None:
     check_bibliography_integrity(errors)
     check_markdown_links(errors)
     check_template_layout(errors)
+    check_example_demos(errors)
     check_python_templates(errors)
     check_cli_scripts(errors)
     check_r_templates(errors, require_optional_tools=require_optional_tools)
