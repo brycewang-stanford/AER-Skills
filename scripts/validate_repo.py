@@ -664,12 +664,16 @@ def check_skill_resource_links(errors: list[str]) -> None:
             fail(errors, f"{rel(skill_path)}: missing Repository Resources section")
             continue
         resources_section = text.split("## Repository Resources", 1)[1].split("\n## ", 1)[0]
+        section_resources = []
         for match in BACKTICK_RE.finditer(resources_section):
             resource = match.group(1)
             if not resource.startswith(("docs/", "examples/", "skills/", "templates/")):
                 continue
+            section_resources.append(resource)
             if not (ROOT / resource.rstrip("/")).exists():
                 fail(errors, f"{rel(skill_path)}: listed repository resource missing: {resource}")
+        if not section_resources:
+            fail(errors, f"{rel(skill_path)}: Repository Resources section lists no repo paths")
 
     for path, resources in REQUIRED_RESOURCE_LINKS.items():
         if not path.is_file():
