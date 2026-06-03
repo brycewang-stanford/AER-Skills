@@ -249,14 +249,14 @@ ALLOWED_UNFINISHED_MARKER_FILES = {
 }
 REQUIRED_POLICY_PHRASES = {
     ROOT / "README.md": (
-        "100 words",
-        "7,000 words minus 200 per exhibit",
-        "AEA Data and Code Availability Policy",
-    ),
-    ROOT / "README.zh-CN.md": (
         "7,000",
         "6,000",
         "Disclosure statements",
+    ),
+    ROOT / "README.en.md": (
+        "100 words",
+        "7,000 words minus 200 per exhibit",
+        "AEA Data and Code Availability Policy",
     ),
     ROOT / "skills" / "aer-submission" / "SKILL.md": (
         "100 words",
@@ -313,7 +313,7 @@ REQUIRED_REPOSITORY_URL_SURFACES = (
     ROOT / ".claude-plugin" / "plugin.json",
     ROOT / ".claude-plugin" / "marketplace.json",
     ROOT / "README.md",
-    ROOT / "README.zh-CN.md",
+    ROOT / "README.en.md",
     ROOT / "docs" / "installation-claude.md",
     ROOT / "docs" / "installation-codex.md",
 )
@@ -631,7 +631,7 @@ def check_plugin_manifest(skill_names: list[str], errors: list[str]) -> None:
 
 
 def check_skill_reference_docs(skill_names: list[str], errors: list[str]) -> None:
-    readme_paths = (ROOT / "README.md", ROOT / "README.zh-CN.md")
+    readme_paths = (ROOT / "README.md", ROOT / "README.en.md")
     for path in readme_paths:
         text = path.read_text(encoding="utf-8")
         for name in skill_names:
@@ -646,19 +646,19 @@ def check_skill_reference_docs(skill_names: list[str], errors: list[str]) -> Non
             fail(errors, f"{rel(workflow_map)}: missing {name}")
 
     primary_readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    chinese_readme = (ROOT / "README.zh-CN.md").read_text(encoding="utf-8")
+    english_readme = (ROOT / "README.en.md").read_text(encoding="utf-8")
     if "examples/README.md" not in primary_readme:
         fail(errors, "README.md: missing link to examples/README.md")
-    if "examples/README.md" not in chinese_readme:
-        fail(errors, "README.zh-CN.md: missing link to examples/README.md")
+    if "examples/README.md" not in english_readme:
+        fail(errors, "README.en.md: missing link to examples/README.md")
 
     docs = sorted(path.name for path in (ROOT / "docs").glob("*.md"))
     for doc in docs:
         readme_link = f"docs/{doc}"
         if readme_link not in primary_readme:
             fail(errors, f"README.md: missing link to {readme_link}")
-        if readme_link not in chinese_readme:
-            fail(errors, f"README.zh-CN.md: missing link to {readme_link}")
+        if readme_link not in english_readme:
+            fail(errors, f"README.en.md: missing link to {readme_link}")
 
     workflow_docs = (
         "desk-rejection-audit.md",
@@ -1243,7 +1243,7 @@ def declared_deps(script: Path) -> list[str]:
 
 def check_example_demos(errors: list[str]) -> None:
     primary_readme = (ROOT / "README.md").read_text(encoding="utf-8")
-    chinese_readme = (ROOT / "README.zh-CN.md").read_text(encoding="utf-8")
+    english_readme = (ROOT / "README.en.md").read_text(encoding="utf-8")
     examples_readme = (ROOT / "examples" / "README.md").read_text(encoding="utf-8")
     python_deps = python_requirement_names()
     r_deps = r_setup_package_names()
@@ -1303,8 +1303,8 @@ def check_example_demos(errors: list[str]) -> None:
         root_demo_link = f"examples/{demo_name}/"
         if root_demo_link not in primary_readme:
             fail(errors, f"README.md: missing link to {root_demo_link}")
-        if root_demo_link not in chinese_readme:
-            fail(errors, f"README.zh-CN.md: missing link to {root_demo_link}")
+        if root_demo_link not in english_readme:
+            fail(errors, f"README.en.md: missing link to {root_demo_link}")
 
         demo_readme = demo_dir / "README.md"
         if not demo_readme.is_file():
