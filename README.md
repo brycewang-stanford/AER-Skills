@@ -1,7 +1,7 @@
 # AER-Skills
 
 <p align="center">
-  <img src="assets/aer-cover.jpg" alt="《美国经济评论》（AER）封面" width="220">
+  <img src="assets/aer-cover.jpg" alt="《American Economics Review》（AER，美国经济评论）封面" width="220">
 </p>
 <p align="center"><em>面向 <a href="https://www.aeaweb.org/journals/aer">《美国经济评论》</a>（AER）、<em>AER: Insights</em> 及 AEJ 系列期刊的 agent skill 栈。</em></p>
 
