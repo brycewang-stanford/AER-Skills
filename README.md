@@ -52,7 +52,7 @@ Top-5 经济学期刊的硬约束在生命科学类期刊中并不存在：
 /reload-plugins
 ```
 
-之后十个 skill 会全部自动可用。
+之后十四个 skill 会全部自动可用。
 
 ### 方式 B — 脚本安装
 
@@ -88,19 +88,26 @@ python3 scripts/install_skills.py codex
 
 ```text
 aer-topic-selection
-    -> aer-identification
-        -> aer-robustness
-            -> aer-introduction
-                -> aer-tables-figures
-                    -> aer-replication
-                        -> aer-submission
-                            -> aer-rebuttal
+    -> aer-literature
+        -> aer-identification
+            -> aer-robustness
+                -> aer-paper-body
+                    -> aer-introduction
+                        -> aer-tables-figures
+                            -> aer-consistency
+                                -> aer-referee-sim   （循环直到 ≥ major R&R）
+                                    -> aer-replication
+                                        -> aer-submission
+                                            -> aer-rebuttal
 ```
 
 核心默认假设：
 
 - **识别先于写作** — 设计有问题，写得再漂亮也救不回来
 - **AER vs AER:Insights vs AEJ** 是个**选刊路由**问题，要在写摘要之前先决定
+- **先写正文再写引言** — 引言是对一篇已存在论文的总结，不是空头承诺
+- **任何引用都不能凭记忆写** — 每条参考文献都必须对照抓取到的源记录核验
+- **稿件必须先过自己的审稿人** — 一致性审计（`aer-consistency`）和对抗性模拟审稿（`aer-referee-sim`）是投稿前的硬门槛
 - **复现包质量是论文的一部分**，不是事后补的工作
 - **审稿回复信永远针对修改后的稿件**，绝不对着旧稿写
 
@@ -114,12 +121,16 @@ aer-topic-selection
 
 | Skill | 用途 |
 |---|---|
-| [`aer-workflow`](skills/aer-workflow/SKILL.md) | 路由总表。下一步该用哪个 skill 由它决定。 |
+| [`aer-workflow`](skills/aer-workflow/SKILL.md) | 路由总表 + 质量门。下一步该用哪个 skill 由它决定。 |
 | [`aer-topic-selection`](skills/aer-topic-selection/SKILL.md) | Top-5 标准检测、新颖性审计、AER/Insights/AEJ 路由。 |
+| [`aer-literature`](skills/aer-literature/SKILL.md) | 最近邻论文地图、定位策略、引用完整性协议 — 每条文献都核验，杜绝幻觉引用。 |
 | [`aer-identification`](skills/aer-identification/SKILL.md) | DiD（错时）、IV（弱 IV 稳健）、RDD、SCM、shift-share/Bartik。 |
 | [`aer-robustness`](skills/aer-robustness/SKILL.md) | 稳健性、异质性、机制、安慰剂 — 提前回应审稿人。 |
+| [`aer-paper-body`](skills/aer-paper-body/SKILL.md) | 正文各节写作 — 制度背景、数据、实证策略、"结论先行"的结果叙述、效应量解释、机制、结论。 |
 | [`aer-introduction`](skills/aer-introduction/SKILL.md) | Keith Head 五段式引言公式 + 100 词摘要起草。 |
 | [`aer-tables-figures`](skills/aer-tables-figures/SKILL.md) | AER booktabs 风格、`etable`/`estout`/`modelsummary`、figure notes。 |
+| [`aer-consistency`](skills/aer-consistency/SKILL.md) | 全稿完整性审计 — 正文数字对表格、样本漏斗、对数点换算、交叉引用、引用双向匹配；附可运行的 LaTeX 审计脚本。 |
+| [`aer-referee-sim`](skills/aer-referee-sim/SKILL.md) | 对抗性内部审稿 — desk screen + 三份校准过的审稿报告，按编辑量规打分；循环直到 ≥ major R&R。 |
 | [`aer-replication`](skills/aer-replication/SKILL.md) | AEA 数据与代码可用性政策、README、openICPSR。 |
 | [`aer-submission`](skills/aer-submission/SKILL.md) | 格式预审、cover letter、长度审计、利益冲突声明。 |
 | [`aer-rebuttal`](skills/aer-rebuttal/SKILL.md) | R&R 回复信、分类、让步 / 澄清 / 反驳的决策规则。 |
@@ -193,7 +204,9 @@ make preflight
 | [`examples/aer-exemplars.md`](examples/aer-exemplars.md) | 经典论文（Card-Krueger、AJR、ADH、Dell、Chetty-Hendren、Abadie、BDGK、Karlan-List …）逐一映射到各 skill，附 openICPSR / Dataverse 链接 |
 | [`examples/modern-aer-exemplars.md`](examples/modern-aer-exemplars.md) | **30+ 篇近期（2018-2025）论文，按 13 个子领域组织** — Labor、Public、Development、Trade、Macro、IO、Health、Environment、Urban、Education、Finance、Political Economy、Social Networks — 外加现代识别方法工具箱，每篇都带 deposit 链接 |
 | [`examples/intro-example.md`](examples/intro-example.md) | 完整的 Keith Head 五段式引言 + 97 词摘要，并附一个"不该这么写"的反例 |
+| [`examples/results-section-example.md`](examples/results-section-example.md) | 同一篇虚构论文的正文写作示范 — 样本漏斗、"结论先行"的结果段落、效应量三重换算、back-of-envelope 测算、按渠道组织的机制分析，外加"逐列念表格"反例 |
 | [`examples/rebuttal-example.md`](examples/rebuttal-example.md) | 完整 R&R 回复：cover letter + 编辑 + 3 位审稿人，演示让步 / 澄清 / 反驳 / 拒绝四种处理 |
+| [`examples/referee-report-example.md`](examples/referee-report-example.md) | 完整的内部模拟审稿 — desk screen、三份不同立场的对抗性报告、按量规打分的编辑综合意见、按 skill 路由的修改清单 — 在投稿前抓出虚构作者后来花一整轮 R&R 才修掉的问题 |
 | [`examples/replication-package-skeleton/`](examples/replication-package-skeleton/) | 可直接 deposit 的目录骨架，含 AEA 合规 README 模板、master 脚本和 globals 文件 — openICPSR 投稿的即用起点 |
 | [`examples/staggered-did-demo/`](examples/staggered-did-demo/) | 可运行的 Python/R 模拟：错时处理下 naive TWFE 为什么会失败 |
 | [`examples/iv-weak-instrument-demo/`](examples/iv-weak-instrument-demo/) | 可运行的 Python 模拟：弱工具变量下传统 2SLS 推断与 Anderson-Rubin 推断对比 |
@@ -207,6 +220,8 @@ make preflight
 - **一篇论文只讲一个贡献。** AER 编辑会枪毙"合格但常规的扩展"；围绕一个最锋利的主张重写。
 - **跨领域可读性是硬筛选。** 一篇 labor 文章必须能让 public、macro、IO 经济学家也读懂，否则 desk-reject。
 - **用现代计量，不要用 1990 年代的默认值。** TWFE → Callaway-Sant'Anna；first-stage F → Anderson-Rubin；朴素 RDD → 协变量调整的 local linear。
+- **任何引用都不能凭记忆写。** 每条参考文献都对照抓取到的源记录核验；每句"X 发现了 Y"都对照原文检查。
+- **稿件必须先过自己的审稿人。** 投稿前必须通过全稿一致性审计（`aer-consistency`）和对抗性模拟审稿（`aer-referee-sim`）。
 - **复现包是论文的一部分。** README 跑不通就是 AEA Data Editor 卡你的理由。
 - **编辑的时间是最稀缺资源。** Cover letter ≤ 200 词。回复信先引用 comment、再说 action、再标出修改后的位置。
 
@@ -218,6 +233,10 @@ make preflight
   投稿前 no-go 检查
 - [Methods reference](docs/methods-reference.md) — 估计量默认值、诊断、包调用，
   以及 BibTeX key
+- [Style guide](docs/style-guide.md) — 经济学论文的句子与段落级文风规则，
+  外加 AI 痕迹清除清单
+- [Referee report rubric](docs/referee-report-rubric.md) — `aer-referee-sim`
+  使用的 0-5 锚定评分维度与校准的 verdict 映射
 - [PNAS Nexus publication plan](docs/pnas-nexus-publication-plan.md) —
   审稿人式审计与一周合规改进计划
 - [PNAS Nexus submission checklist](docs/pnas-nexus-submission-checklist.md) —
@@ -251,15 +270,21 @@ AER-Skills/
 │   ├── methods-reference.md
 │   ├── pnas-nexus-publication-plan.md
 │   ├── pnas-nexus-submission-checklist.md
+│   ├── referee-report-rubric.md
 │   ├── source-register.md
+│   ├── style-guide.md
 │   └── workflow-map.md
-├── skills/                 (10 个 skill 目录 — SKILL.md + agents/openai.yaml)
+├── skills/                 (14 个 skill 目录 — SKILL.md + agents/openai.yaml)
 │   ├── aer-workflow/
 │   ├── aer-topic-selection/
-│   ├── aer-introduction/
+│   ├── aer-literature/
 │   ├── aer-identification/
 │   ├── aer-robustness/
+│   ├── aer-paper-body/
+│   ├── aer-introduction/
 │   ├── aer-tables-figures/
+│   ├── aer-consistency/    (附 scripts/audit_manuscript.py)
+│   ├── aer-referee-sim/
 │   ├── aer-replication/
 │   ├── aer-submission/
 │   ├── aer-rebuttal/

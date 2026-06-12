@@ -17,6 +17,12 @@ correct coverage *regardless of instrument strength*, so it is the recommended
 primary inference for just-identified models instead of the 2SLS `t`-interval,
 which over-rejects when instruments are weak (`andrews_stock_sun_2019`).
 
+### Antecedents map
+The table of the 3-6 closest prior papers — question, data, identification,
+finding, and what each does not do — built before the introduction is drafted.
+It is the evidence base for the value-added claim and the checklist a field
+referee will run. See [`aer-literature`](../skills/aer-literature/SKILL.md).
+
 ### ATT(g,t) — group-time average treatment effect
 The average treatment effect at calendar time `t` for the cohort first treated at
 time `g`. Modern staggered-DiD estimators report ATT(g,t) and then *aggregate*
@@ -39,6 +45,21 @@ The LaTeX table style (top/mid/bottom rules, **no vertical lines**) that is the
 AER house convention. Captions go *above* tables and *below* figures. See
 [`aer-tables-figures`](../skills/aer-tables-figures/SKILL.md).
 
+### Citation integrity ledger
+The per-reference verification record (existence, field accuracy, claim
+accuracy, version, date checked) maintained alongside the bibliography. A
+manuscript ships only when every row is all-yes; unverifiable entries are
+removed, never kept on probability. The protocol exists because language
+models fabricate plausible citations and misattribute findings to real
+papers. See [`aer-literature`](../skills/aer-literature/SKILL.md).
+
+### Claim-evidence map
+The audit table pairing every empirical claim in the abstract, introduction,
+and conclusion with the exhibit or citation that supports it. Claims with no
+evidence pointer are rewritten or deleted; mechanism claims must be worded as
+consistency, not identification. See
+[`aer-consistency`](../skills/aer-consistency/SKILL.md).
+
 ### Cluster-robust standard errors (CRVE)
 Standard errors that allow arbitrary within-cluster correlation. They are
 asymptotically valid in the number of *clusters*, not observations, and are
@@ -59,6 +80,12 @@ publication. See [`aer-replication`](../skills/aer-replication/SKILL.md).
 Rejection by the editor without external review, typically within days. At AER it
 is common; at AER: Insights roughly 45% of submissions. The first three pages and
 the identification strategy decide it.
+
+### Desk screen
+The simulated version of the editor's first pass — ten minutes, first three
+pages, main tables, bibliography — run internally before submission as Stage 1
+of [`aer-referee-sim`](../skills/aer-referee-sim/SKILL.md). A failed desk
+screen ends the run; referee reports are only simulated for drafts that pass.
 
 ### Donut RDD
 A regression discontinuity that drops observations in a small window *exactly* at
@@ -113,6 +140,13 @@ and estimates latent factors from the control pool (`xu_2017`).
 A decomposition of the TWFE DiD coefficient into a weighted average of all
 underlying 2×2 comparisons, exposing how much weight comes from *forbidden
 comparisons* (`goodmanbacon_2021`).
+
+### Headline-number register
+The audit table listing every number that appears more than once in the
+manuscript, its single source of truth (table or replication output), and
+each location quoting it. Prose must match tables to the digit; the abstract,
+introduction, and conclusion must quote the same headline specification. See
+[`aer-consistency`](../skills/aer-consistency/SKILL.md).
 
 ### Honest DiD (Rambachan-Roth)
 A sensitivity analysis that replaces the untestable exact-parallel-trends
@@ -191,6 +225,23 @@ before unblinding. Keeps confirmatory analysis distinct from exploratory.
 A single test of the joint null that *all* pre-treatment event-study coefficients
 equal zero — more informative than eyeballing the plot, but still low-powered,
 which is why it is paired with Honest DiD (`roth_2022`).
+
+### Quality gates
+The pass/fail checkpoints that order end-to-end drafting in
+[`aer-workflow`](../skills/aer-workflow/SKILL.md): design survives
+identification review before prose; every claim traces to evidence before the
+introduction; the consistency audit and citation ledger close before the
+referee simulation; the simulated verdict reaches major R&R before
+submission. A failed gate blocks advancement — it does not get noted and
+passed.
+
+### Referee simulation
+The adversarial internal review of a finished draft: a desk screen plus three
+independently drafted referee reports with distinct priors (identification
+specialist, field expert, generalist), scored on the
+[referee report rubric](./referee-report-rubric.md). Its only export is the
+routed revise list; simulated praise certifies nothing. See
+[`aer-referee-sim`](../skills/aer-referee-sim/SKILL.md).
 
 ### Robust bias-corrected (RBC) confidence interval
 The RDD confidence interval that recenters for the bias introduced by the

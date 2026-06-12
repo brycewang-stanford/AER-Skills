@@ -52,7 +52,7 @@ Generic "scientific writing" skills (e.g. [Nature-Paper-Skills](https://github.c
 /reload-plugins
 ```
 
-All ten skills are then available automatically.
+All fourteen skills are then available automatically.
 
 ### Option B — Scripted Install
 
@@ -88,19 +88,26 @@ For longer install instructions see [docs/installation-claude.md](docs/installat
 
 ```text
 aer-topic-selection
-    -> aer-identification
-        -> aer-robustness
-            -> aer-introduction
-                -> aer-tables-figures
-                    -> aer-replication
-                        -> aer-submission
-                            -> aer-rebuttal
+    -> aer-literature
+        -> aer-identification
+            -> aer-robustness
+                -> aer-paper-body
+                    -> aer-introduction
+                        -> aer-tables-figures
+                            -> aer-consistency
+                                -> aer-referee-sim   (loop until ≥ major R&R)
+                                    -> aer-replication
+                                        -> aer-submission
+                                            -> aer-rebuttal
 ```
 
 The default assumption is:
 
 - **identification before writing** — if your design is fragile, no prose will save it
 - **AER vs AER:Insights vs AEJ** is a *routing* decision made before the abstract is written
+- **the body is written before the introduction** — the intro summarizes a paper, it does not promise one
+- **no citation is written from memory** — every reference is verified against a fetched source
+- **the manuscript must survive its own referees** — a consistency audit and an adversarial referee simulation gate the submission
 - **replication package quality** is part of the paper, not an afterthought
 - **rebuttal letters** are written against the *revised* manuscript, never against the old draft
 
@@ -114,12 +121,16 @@ See [docs/workflow-map.md](docs/workflow-map.md).
 
 | Skill | Purpose |
 |---|---|
-| [`aer-workflow`](skills/aer-workflow/SKILL.md) | Routing map. Tells you which skill to use next. |
+| [`aer-workflow`](skills/aer-workflow/SKILL.md) | Routing map with quality gates. Tells you which skill to use next. |
 | [`aer-topic-selection`](skills/aer-topic-selection/SKILL.md) | Top-5 bar test, novelty audit, AER vs Insights vs AEJ routing. |
+| [`aer-literature`](skills/aer-literature/SKILL.md) | Closest-papers map, positioning moves, and the citation-integrity protocol — every reference verified, no hallucinated citations. |
 | [`aer-identification`](skills/aer-identification/SKILL.md) | DiD (staggered), IV (weak-IV-robust), RDD, SCM, shift-share/Bartik. |
 | [`aer-robustness`](skills/aer-robustness/SKILL.md) | Robustness, heterogeneity, mechanism, placebo. Referee-anticipating. |
+| [`aer-paper-body`](skills/aer-paper-body/SKILL.md) | Body sections — background, data, empirical strategy, finding-first results narration, magnitude interpretation, mechanisms, conclusion. |
 | [`aer-introduction`](skills/aer-introduction/SKILL.md) | Keith Head five-paragraph formula + 100-word abstract drafting. |
 | [`aer-tables-figures`](skills/aer-tables-figures/SKILL.md) | AER booktabs style, `etable`/`estout`/`modelsummary`, figure notes. |
+| [`aer-consistency`](skills/aer-consistency/SKILL.md) | Full-manuscript integrity audit — numbers vs tables, sample funnels, log-point conversions, cross-references, citation two-way match. Ships a runnable LaTeX audit script. |
+| [`aer-referee-sim`](skills/aer-referee-sim/SKILL.md) | Adversarial internal review — desk screen plus three calibrated referee reports, scored against the editorial rubric; loop until ≥ major R&R. |
 | [`aer-replication`](skills/aer-replication/SKILL.md) | AEA Data and Code Availability Policy, README, openICPSR. |
 | [`aer-submission`](skills/aer-submission/SKILL.md) | Format preflight, cover letter, length audit, conflict declaration. |
 | [`aer-rebuttal`](skills/aer-rebuttal/SKILL.md) | R&R response letter, triage, concede / clarify / push-back rules. |
@@ -198,7 +209,9 @@ See the full examples index in [examples/README.md](examples/README.md).
 | [`examples/aer-exemplars.md`](examples/aer-exemplars.md) | Classic papers (Card-Krueger, AJR, ADH, Dell, Chetty-Hendren, Abadie, BDGK, Karlan-List …) mapped to each skill, with openICPSR / Dataverse links |
 | [`examples/modern-aer-exemplars.md`](examples/modern-aer-exemplars.md) | **30+ recent (2018-2025) papers organized by 13 subfields** — Labor, Public, Development, Trade, Macro, IO, Health, Environment, Urban, Education, Finance, Political Economy, Social Networks — plus the modern identification-methods toolkit. Each with deposit link |
 | [`examples/intro-example.md`](examples/intro-example.md) | Full Keith Head five-paragraph introduction + 97-word abstract, with a counterexample of what not to write |
+| [`examples/results-section-example.md`](examples/results-section-example.md) | Worked body-section narration for the same fictional paper — sample funnel, finding-first results paragraphs, magnitude conversions, back-of-envelope calculation, mechanisms by channel, plus a table-walk-through counterexample |
 | [`examples/rebuttal-example.md`](examples/rebuttal-example.md) | Complete R&R response: cover letter + editor + 3 referees, demonstrating concede / clarify / push-back / decline outcomes |
+| [`examples/referee-report-example.md`](examples/referee-report-example.md) | Full internal referee simulation — desk screen, three adversarial reports, rubric-scored synthesis, routed revise list — catching before submission the issues that cost the fictional authors an R&R round |
 | [`examples/replication-package-skeleton/`](examples/replication-package-skeleton/) | Deposit-ready directory layout with AEA-compliant README template, master script, and globals file — drop-in starting point for an openICPSR submission |
 | [`examples/staggered-did-demo/`](examples/staggered-did-demo/) | Runnable Python/R simulation showing why naive TWFE fails under staggered adoption |
 | [`examples/iv-weak-instrument-demo/`](examples/iv-weak-instrument-demo/) | Runnable Python simulation contrasting conventional 2SLS inference with Anderson-Rubin inference |
@@ -212,6 +225,8 @@ See the full examples index in [examples/README.md](examples/README.md).
 - **One contribution per paper.** AER editors reject competent extensions; rewrite around a single sharpest claim.
 - **Cross-subfield interest is a hard filter.** A labor paper must speak to public, macro, and IO economists or it desk-rejects.
 - **Modern econometrics, not 1990s defaults.** TWFE → Callaway-Sant'Anna; first-stage F → Anderson-Rubin; naive RDD → covariate-adjusted local linear.
+- **No citation from memory.** Every reference is verified against a fetched source; every attributed claim is checked against the paper's text.
+- **The manuscript must survive its own referees.** A full consistency audit (`aer-consistency`) and an adversarial referee simulation (`aer-referee-sim`) gate every submission.
 - **The replication package is part of the paper.** A README that does not run is grounds for AEA Data Editor delay.
 - **Editor time is the scarcest resource.** Cover letter ≤ 200 words. Response letter quotes the comment, states the action, and cites the revised location.
 
@@ -223,6 +238,10 @@ Key references:
   checks from an editor/referee perspective
 - [Methods reference](docs/methods-reference.md) — estimator defaults,
   diagnostics, package calls, and BibTeX keys
+- [Style guide](docs/style-guide.md) — sentence- and paragraph-level
+  economics prose rules, plus the AI-pattern scrub
+- [Referee report rubric](docs/referee-report-rubric.md) — anchored 0-5
+  scoring dimensions and calibrated verdict mapping for `aer-referee-sim`
 - [PNAS Nexus publication plan](docs/pnas-nexus-publication-plan.md) —
   reviewer-style audit and one-week venue-compliance plan
 - [PNAS Nexus submission checklist](docs/pnas-nexus-submission-checklist.md) —
@@ -257,15 +276,21 @@ AER-Skills/
 │   ├── methods-reference.md
 │   ├── pnas-nexus-publication-plan.md
 │   ├── pnas-nexus-submission-checklist.md
+│   ├── referee-report-rubric.md
 │   ├── source-register.md
+│   ├── style-guide.md
 │   └── workflow-map.md
-├── skills/                 (10 skill directories — SKILL.md + agents/openai.yaml)
+├── skills/                 (14 skill directories — SKILL.md + agents/openai.yaml)
 │   ├── aer-workflow/
 │   ├── aer-topic-selection/
-│   ├── aer-introduction/
+│   ├── aer-literature/
 │   ├── aer-identification/
 │   ├── aer-robustness/
+│   ├── aer-paper-body/
+│   ├── aer-introduction/
 │   ├── aer-tables-figures/
+│   ├── aer-consistency/    (ships scripts/audit_manuscript.py)
+│   ├── aer-referee-sim/
 │   ├── aer-replication/
 │   ├── aer-submission/
 │   ├── aer-rebuttal/
