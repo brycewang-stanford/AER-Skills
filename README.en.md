@@ -13,9 +13,19 @@
 
 [简体中文](README.md) | English
 
-Agent skills for **selecting, writing, identifying, formatting, submitting, and revising** manuscripts targeted at the *American Economic Review* (AER), *AER: Insights*, and the *AEJ* family.
+Agent skills for **selecting, positioning, writing, identifying, formatting, internally refereeing, submitting, and revising** manuscripts targeted at the *American Economic Review* (AER), *AER: Insights*, and the *AEJ* family.
 
 This repository is opinionated. It is **not** a generic economics writing toolbox. It is a **top-5 economics skill stack** for: identification-first empirics, AEA-policy-compliant replication packages, Keith-Head-style introductions, AER-style booktabs tables, and editor-efficient rebuttals.
+
+## Recent Upgrades
+
+v1.1 expands AER-Skills from ten core skills to fourteen, and turns the fragile late-stage checks after "the draft is done" into explicit quality gates:
+
+- New `aer-literature`: closest-papers mapping and citation verification before literature claims enter the manuscript.
+- New `aer-paper-body`: background, data, empirical strategy, results, mechanisms, and conclusion writing, with the body drafted before the introduction.
+- New `aer-consistency`: audit numbers, tables, sample funnels, unit conversions, cross-references, and the bibliography; ships a runnable LaTeX audit script.
+- New `aer-referee-sim`: pre-submission desk screen plus three adversarial referee reports, scored with a rubric and converted into a revise list.
+- New supporting resources: `docs/style-guide.md`, `docs/referee-report-rubric.md`, `examples/results-section-example.md`, and `examples/referee-report-example.md`.
 
 ---
 

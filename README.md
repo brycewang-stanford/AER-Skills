@@ -13,9 +13,19 @@
 
 简体中文 | [English](README.en.md)
 
-面向 *American Economic Review*（AER）、*AER: Insights* 以及 *AEJ* 系列期刊的 **agent skill 包**：覆盖**选题、写作、识别策略、表图规范、投稿、审稿回复**的全流程。
+面向 *American Economic Review*（AER）、*AER: Insights* 以及 *AEJ* 系列期刊的 **agent skill 包**：覆盖**选题、文献定位、正文写作、识别策略、表图规范、投稿、模拟审稿、审稿回复**的全流程。
 
 本仓库是有立场的。它**不是**通用经济学写作工具箱，而是一套**面向 top-5 经济学**的 skill 栈：识别优先的实证、AEA 政策合规的复现包、Keith Head 风格的引言、AER 风格的 booktabs 表格、以及对编辑友好的 rebuttal 文体。
+
+## 最近升级
+
+v1.1 把 AER-Skills 从十个核心 skill 扩展到十四个，并把"写完稿"之后最容易出错的环节前移成质量门：
+
+- 新增 `aer-literature`：先做最近邻论文地图和引用核验，避免凭记忆写文献与幻觉引用。
+- 新增 `aer-paper-body`：覆盖 background、data、empirical strategy、results、mechanisms、conclusion，强调先写正文再写引言。
+- 新增 `aer-consistency`：审计正文数字、表格、样本漏斗、单位换算、交叉引用和 bibliography；附可运行的 LaTeX 检查脚本。
+- 新增 `aer-referee-sim`：在投稿前模拟 desk screen 和三位 adversarial referees，按 rubric 输出 revise list。
+- 新增配套资源：`docs/style-guide.md`、`docs/referee-report-rubric.md`、`examples/results-section-example.md`、`examples/referee-report-example.md`。
 
 ---
 
