@@ -60,7 +60,8 @@ If any blank cannot be filled in:
 
 ## Novelty Audit
 
-Run these five questions:
+Run these five questions (the search protocol and antecedents map live in
+`aer-literature` — use it to answer them with evidence, not recall):
 
 1. Has someone in NBER, IZA, CEPR, or SSRN already done this? (Search before writing.)
 2. Is the closest published paper in a top-5 within the last 5 years? If yes, what does yours add — new method, new setting, new mechanism, opposite sign?
@@ -114,7 +115,7 @@ CONTRIBUTION SENTENCE: <one line>
 TARGET VENUE: <AER | AER:Insights | AEJ:Applied | AEJ:Policy | AEJ:Macro | AEJ:Micro>
 TOP-5 BAR TESTS PASSED: <count>/4
 KILL SWITCHES TRIGGERED: <list, or "none">
-NEXT SKILL: <aer-identification | aer-introduction>
+NEXT SKILL: <aer-literature | aer-identification>
 ```
 
 ## Anti-Patterns

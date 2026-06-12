@@ -128,7 +128,7 @@ HETEROGENEITY: <pre-specified / exploratory>
 MECHANISM EVIDENCE: <channel / ruling-out / both>
 PLACEBO TESTS: <list>
 ANTICIPATED REFEREE COMMENTS PRE-EMPTED: <count>
-NEXT SKILL: <aer-introduction | aer-tables-figures>
+NEXT SKILL: <aer-paper-body | aer-tables-figures>
 ```
 
 ## Anti-Patterns

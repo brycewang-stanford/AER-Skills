@@ -127,7 +127,9 @@ If the draft is over 100 words:
 
 ## Repository Resources
 
-When working from the AER-skills repository or plugin bundle, read `examples/intro-example.md` only when the user asks for a model introduction, a concrete before/after rewrite, or abstract compression.
+When working from the AER-skills repository or plugin bundle, read `examples/intro-example.md` only when the user asks for a model introduction, a concrete before/after rewrite, or abstract compression. Sentence-level prose rules shared with the body sections live in `docs/style-guide.md`; the antecedents paragraph consumes the map built by `skills/aer-literature/SKILL.md`.
+
+Draft the introduction **after** the body sections exist (`skills/aer-paper-body/SKILL.md`) — the introduction summarizes a paper, it does not promise one.
 
 ## Handoff
 
@@ -136,7 +138,7 @@ ABSTRACT WORD COUNT: <n>/100
 INTRODUCTION PARAGRAPHS: Hook | Question | Identification | Antecedents+Value | Roadmap
 CONTRIBUTIONS LISTED: <n> (target: 3, max 4)
 KILL SWITCHES: <list of remaining red flags, or "none">
-NEXT SKILL: <aer-tables-figures | aer-submission>
+NEXT SKILL: <aer-tables-figures | aer-consistency>
 ```
 
 ## Reference Pattern
