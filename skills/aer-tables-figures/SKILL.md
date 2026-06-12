@@ -177,5 +177,5 @@ MAIN TABLES: <count>
 APPENDIX TABLES: <count>
 FIGURES: <count>
 STYLE COMPLIANT: <yes / list of remaining fixes>
-NEXT SKILL: <aer-replication | aer-submission>
+NEXT SKILL: <aer-consistency | aer-replication>
 ```
