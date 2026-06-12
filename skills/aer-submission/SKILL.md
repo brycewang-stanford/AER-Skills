@@ -143,6 +143,8 @@ AER charges a submission fee that scales with AEA membership status and country 
 
 ## Final Preflight Checklist
 
+- [ ] `aer-consistency` audit reports all-pass on the final PDF's source
+- [ ] `aer-referee-sim` verdict is at least major R&R on a fresh run
 - [ ] Abstract ≤ 100 words (run a word count, not a glance)
 - [ ] Main text within length limit (≤ 40 pages for AER; word-count for Insights)
 - [ ] No "Introduction" heading; introductory material starts on page 1 after title
