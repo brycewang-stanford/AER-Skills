@@ -120,6 +120,17 @@ resource needed for the paper's design:
 - Robustness implementation starting points: `templates/stata/04_robustness.do`, `templates/r/04_robustness.R`, or `templates/python/robustness.py`
 - Heterogeneity implementation starting points: `templates/stata/05_heterogeneity.do`, `templates/r/05_heterogeneity.R`, or `templates/python/heterogeneity.py`
 
+## Coverage Gate
+
+The empirical section is referee-ready only when **all** are present and theory-motivated (not mined):
+
+- [ ] Robustness spans specification, sample, outcome definition, clustering, and estimator
+- [ ] Heterogeneity is mechanism-predicted (interaction form), labeled pre-specified vs. exploratory
+- [ ] Mechanism shows both channel evidence and explicit ruling-out of the 2-3 leading alternatives
+- [ ] Placebo / falsification covers pre-treatment, cross-unit, and outcome placebo as applicable
+- [ ] Each of the top-5 anticipated referee comments has a visible pre-emption in the paper
+- [ ] Any null is reported with demonstrated power and tight CIs, never over-claimed as "no effect"
+
 ## Handoff
 
 ```text
