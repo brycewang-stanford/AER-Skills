@@ -307,7 +307,9 @@ AER-Skills/
 │   └── python/
 ├── scripts/
 │   ├── install_skills.py
+│   ├── run_skillopt_gate.py    (SkillOpt 路由门)
 │   ├── scaffold_project.py
+│   ├── skill_audit.py          (SkillOpt 文档质量审计)
 │   └── validate_repo.py
 └── examples/
     ├── aer-exemplars.md

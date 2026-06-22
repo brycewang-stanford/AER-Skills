@@ -313,7 +313,9 @@ AER-Skills/
 │   └── python/
 ├── scripts/
 │   ├── install_skills.py
+│   ├── run_skillopt_gate.py    (SkillOpt routing gate)
 │   ├── scaffold_project.py
+│   ├── skill_audit.py          (SkillOpt document-quality audit)
 │   └── validate_repo.py
 └── examples/
     ├── aer-exemplars.md
