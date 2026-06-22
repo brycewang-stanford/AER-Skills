@@ -22,3 +22,5 @@ jobs:
         run: make preflight
       - name: Validate optional-tool coverage
         run: make validate-strict
+      - name: Enforce skill document-quality floor
+        run: make audit-skills-gate
