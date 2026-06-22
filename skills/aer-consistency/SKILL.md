@@ -1,6 +1,6 @@
 ---
 name: aer-consistency
-description: Use when auditing a finished or near-finished AER, AER:Insights, or AEJ manuscript for internal consistency — headline numbers matching across abstract, introduction, results, and tables; sample sizes that add up; correct log-point and percentage-point conversions; resolvable cross-references; and a two-way match between in-text citations and the bibliography. Apply after the body and exhibits exist, before aer-referee-sim and aer-submission.
+description: Use when auditing a finished or near-finished AER, AER:Insights, or AEJ manuscript for internal consistency: headline numbers across abstract, introduction, results, and tables; sample sizes; log-point and percentage-point conversions; cross-references; and in-text-citation/bibliography matching. Apply after the body and exhibits exist, before aer-referee-sim and aer-submission.
 ---
 
 # AER Consistency

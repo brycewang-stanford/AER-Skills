@@ -1,6 +1,6 @@
 ---
 name: aer-introduction
-description: Use when drafting or rewriting the introduction of an economics manuscript targeted at AER, AER:Insights, or an AEJ, or when compressing an abstract to the mandatory 100-word limit. Implements the Keith Head / Bellemare five-paragraph formula and AER-specific formatting conventions.
+description: Use when drafting or rewriting the introduction of an economics manuscript targeted at AER, AER:Insights, or an AEJ, or when compressing an abstract to the mandatory 100-word limit. Implements the Keith Head / Bellemare five-paragraph formula and AER-specific formatting conventions. Apply after the body sections exist.
 ---
 
 # AER Introduction
@@ -116,7 +116,7 @@ If the draft is over 100 words:
 - **Style emphasis sparingly.** No `\textbf` for emphasis in body text — italics only, rarely.
 - **Sections use Roman numerals.** Per the AER Style Guide, major sections are numbered with Roman numerals (I., II., III.) and subsections with capital letters (A., B., C.). The introduction itself receives **no number and no heading** — the first *numbered* section is the one after it (e.g. "I. Data"). In LaTeX, switch the numbering with `\renewcommand{\thesection}{\Roman{section}}` or use the AEA sample article class, which does this for you.
 
-## Common Failure Modes
+## Anti-Patterns
 
 - Three-page introduction that never names the identification strategy → desk reject
 - Five contributions in the value-added paragraph, one of them weak → referee picks the weak one
