@@ -116,6 +116,17 @@ relevant resource:
 - Prose rules shared by the writing skills: `docs/style-guide.md`
 - Scoring rubric for the internal review gate: `docs/referee-report-rubric.md`
 - Policy source register: `docs/source-register.md`
+- SkillOpt-style improvement protocol: `docs/skillopt-evaluation-protocol.md`
+- Held-out routing scenarios: `examples/skillopt-routing-scenarios.json`
+
+## Skill Optimization Loop
+
+When improving this skill stack, treat `aer-workflow` as the router under
+test. Use `docs/skillopt-evaluation-protocol.md` to collect failures, keep each
+patch bounded, and accept routing or gate changes only after
+`python3 scripts/run_skillopt_gate.py` and `make preflight` pass. Do not tune the
+router by naming only the expected skill; use user-like manuscript prompts from
+`examples/skillopt-routing-scenarios.json` or add a new scenario first.
 
 ## Handoff Contract
 

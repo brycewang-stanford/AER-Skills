@@ -252,6 +252,8 @@ Key references:
   economics prose rules, plus the AI-pattern scrub
 - [Referee report rubric](docs/referee-report-rubric.md) — anchored 0-5
   scoring dimensions and calibrated verdict mapping for `aer-referee-sim`
+- [SkillOpt evaluation protocol](docs/skillopt-evaluation-protocol.md) —
+  fixed scenarios and gates for skill optimization patches
 - [PNAS Nexus publication plan](docs/pnas-nexus-publication-plan.md) —
   reviewer-style audit and one-week venue-compliance plan
 - [PNAS Nexus submission checklist](docs/pnas-nexus-submission-checklist.md) —

@@ -247,6 +247,8 @@ make preflight
   外加 AI 痕迹清除清单
 - [Referee report rubric](docs/referee-report-rubric.md) — `aer-referee-sim`
   使用的 0-5 锚定评分维度与校准的 verdict 映射
+- [SkillOpt evaluation protocol](docs/skillopt-evaluation-protocol.md) —
+  用固定场景和 gate 约束 skill 优化补丁
 - [PNAS Nexus publication plan](docs/pnas-nexus-publication-plan.md) —
   审稿人式审计与一周合规改进计划
 - [PNAS Nexus submission checklist](docs/pnas-nexus-submission-checklist.md) —
