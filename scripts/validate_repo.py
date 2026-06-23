@@ -54,6 +54,7 @@ REQUIRED_CLI_SCRIPTS = (
     ROOT / "scripts" / "validate_repo.py",
     ROOT / "scripts" / "skill_audit.py",
     ROOT / "scripts" / "run_skillopt_gate.py",
+    ROOT / "scripts" / "verify_citations.py",
 )
 PYTHON_IMPORT_PACKAGE_MAP = {
     "dateutil": "python-dateutil",
