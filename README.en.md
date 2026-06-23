@@ -237,6 +237,7 @@ See the full examples index in [examples/README.md](examples/README.md).
 | [`examples/rdd-polynomial-demo/`](examples/rdd-polynomial-demo/) | Runnable Python simulation showing why high-order global-polynomial RDD is unsafe |
 | [`examples/synthetic-control-demo/`](examples/synthetic-control-demo/) | Runnable Python simulation showing why synthetic-control inference comes from the placebo-in-space permutation distribution, not visual pre-period fit |
 | [`examples/shift-share-demo/`](examples/shift-share-demo/) | Runnable Python simulation showing why shift-share/Bartik inference belongs at the shock (industry) level, not the region level — region-clustered SEs over-reject |
+| [`examples/few-clusters-demo/`](examples/few-clusters-demo/) | Runnable Python simulation showing why a cluster-robust t-test over-rejects with few clusters and the wild cluster bootstrap restores nominal size |
 
 ---
 
