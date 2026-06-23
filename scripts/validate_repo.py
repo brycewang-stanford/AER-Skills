@@ -221,6 +221,10 @@ EXPECTED_EXAMPLE_DEMOS = {
         "staggered_did_demo.R",
         "staggered_did_demo.py",
     },
+    "synthetic-control-demo": {
+        "README.md",
+        "synthetic_control_demo.py",
+    },
 }
 TEXT_SUFFIXES = {
     "",

@@ -17,6 +17,7 @@ Worked examples that show what the skills produce in practice.
 | [`staggered-did-demo/`](staggered-did-demo/) | Runnable Python/R simulation showing why TWFE fails under staggered adoption with heterogeneous dynamic effects |
 | [`iv-weak-instrument-demo/`](iv-weak-instrument-demo/) | Runnable Python simulation showing why conventional 2SLS inference can over-reject with weak instruments and why Anderson-Rubin inference is safer |
 | [`rdd-polynomial-demo/`](rdd-polynomial-demo/) | Runnable Python simulation showing why high-order global polynomials mislead in RDD and local-linear `rdrobust` is safer |
+| [`synthetic-control-demo/`](synthetic-control-demo/) | Runnable Python simulation showing why synthetic-control inference comes from the placebo-in-space permutation distribution, not visual pre-period fit |
 
 ## How to Use
 

@@ -227,6 +227,7 @@ make preflight
 | [`examples/staggered-did-demo/`](examples/staggered-did-demo/) | 可运行的 Python/R 模拟：错时处理下 naive TWFE 为什么会失败 |
 | [`examples/iv-weak-instrument-demo/`](examples/iv-weak-instrument-demo/) | 可运行的 Python 模拟：弱工具变量下传统 2SLS 推断与 Anderson-Rubin 推断对比 |
 | [`examples/rdd-polynomial-demo/`](examples/rdd-polynomial-demo/) | 可运行的 Python 模拟：高阶 global-polynomial RDD 为什么不安全 |
+| [`examples/synthetic-control-demo/`](examples/synthetic-control-demo/) | 可运行的 Python 模拟：合成控制法的推断来自 placebo-in-space 置换分布，而非肉眼可见的事前拟合 |
 
 ---
 
