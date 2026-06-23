@@ -43,6 +43,19 @@ python3 scripts/scaffold_project.py skeleton /path/to/new-replication-package
 
 Add `--dry-run` first if you want to inspect the planned copies.
 
+For runnable demos, install the pinned Python stack in
+[`../templates/python/requirements.txt`](../templates/python/requirements.txt)
+and run the optional smoke gate from the repository root:
+
+```bash
+make smoke-examples
+```
+
+The smoke gate executes demo assertions when dependencies are present and skips
+missing optional stacks by default. Use
+`python3 scripts/run_example_smoke.py --strict-deps` before release to fail on
+any missing dependency or failed demo assertion.
+
 Before copying an example's structure into a manuscript, cross-check the design
 against [`../docs/methods-reference.md`](../docs/methods-reference.md) and run
 the [`../docs/desk-rejection-audit.md`](../docs/desk-rejection-audit.md). The

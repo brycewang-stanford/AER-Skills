@@ -55,6 +55,7 @@ REQUIRED_CLI_SCRIPTS = (
     ROOT / "scripts" / "validate_repo.py",
     ROOT / "scripts" / "skill_audit.py",
     ROOT / "scripts" / "run_skillopt_gate.py",
+    ROOT / "scripts" / "run_example_smoke.py",
     ROOT / "scripts" / "verify_citations.py",
 )
 PYTHON_IMPORT_PACKAGE_MAP = {
@@ -1970,6 +1971,10 @@ def check_makefile(errors: list[str]) -> None:
     expected_audit_gate = "python3 scripts/skill_audit.py --gate 85 --substance-gate 8"
     if expected_audit_gate not in audit_gate_body:
         fail(errors, f"Makefile: audit-skills-gate should run {expected_audit_gate}")
+    smoke_body = make_target_body(text, "smoke-examples")
+    expected_smoke = "python3 scripts/run_example_smoke.py"
+    if expected_smoke not in smoke_body:
+        fail(errors, f"Makefile: smoke-examples should run {expected_smoke}")
 
 
 def check_gitignore(errors: list[str]) -> None:

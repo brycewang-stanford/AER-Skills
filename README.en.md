@@ -207,6 +207,19 @@ with a warning when `Rscript` is unavailable. CI installs R, runs
 `make preflight`, then runs `make validate-strict`, which fails instead of
 skipping optional-tool checks.
 
+Runnable example Monte Carlo assertions are the optional second-layer gate.
+After installing the dependencies in `templates/python/requirements.txt` (and
+the R packages when needed), run:
+
+```bash
+make smoke-examples
+# or: python3 scripts/run_example_smoke.py --strict-deps
+```
+
+The default mode skips demos whose optional dependencies are missing. Use
+`--strict-deps` before release so any missing dependency or failed assertion
+returns a non-zero status.
+
 `make preflight` also runs the citation-integrity gate
 (`verify_citations.py --selftest`): a hermetic, gold-set check that
 `references.bib` still matches the Crossref/OpenAlex metadata it was verified

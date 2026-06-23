@@ -202,6 +202,17 @@ make preflight
 检查会带告警跳过。CI 会安装 R，先运行 `make preflight`，再运行 `make validate-strict` —
 后者在缺少可选工具时直接失败，而不是静默跳过。
 
+可运行示例的 Monte Carlo 断言是可选的第二层 gate。安装
+`templates/python/requirements.txt` 中的依赖（以及需要时的 R 包）后运行：
+
+```bash
+make smoke-examples
+# 或：python3 scripts/run_example_smoke.py --strict-deps
+```
+
+默认模式会跳过缺少可选依赖的 demo；发布前用 `--strict-deps`，让任何缺失依赖或失败断言
+直接返回非零状态。
+
 `make preflight` 还运行引用完整性门（`verify_citations.py --selftest`）：用 gold set
 离线核验，确保 `references.bib` 与其录制的 Crossref/OpenAlex 元数据一致——把"任何引用
 都不能凭记忆写"从原则变成可复跑的检查。对照线上索引核验用 `make verify-citations-online`，
