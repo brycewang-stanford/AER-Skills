@@ -238,6 +238,18 @@ EXPECTED_EXAMPLE_DEMOS = {
         "README.md",
         "multiple_testing_demo.py",
     },
+    "spec-curve-demo": {
+        "README.md",
+        "spec_curve_demo.py",
+    },
+    "oster-ovb-demo": {
+        "README.md",
+        "oster_ovb_demo.py",
+    },
+    "honest-did-demo": {
+        "README.md",
+        "honest_did_demo.py",
+    },
 }
 TEXT_SUFFIXES = {
     "",
