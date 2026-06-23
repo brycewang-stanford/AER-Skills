@@ -21,7 +21,7 @@ audit-skills:
 	python3 scripts/skill_audit.py
 
 audit-skills-gate:
-	python3 scripts/skill_audit.py --gate 85 --substance-gate 4
+	python3 scripts/skill_audit.py --gate 85 --substance-gate 8
 
 verify-citations:
 	python3 scripts/verify_citations.py --offline

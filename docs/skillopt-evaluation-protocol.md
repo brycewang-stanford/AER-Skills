@@ -89,12 +89,13 @@ python3 scripts/skill_audit.py                       # ranked table (advisory)
 python3 scripts/skill_audit.py --skill <name> -v     # one skill + edit tips
 python3 scripts/skill_audit.py --baseline before.json   # snapshot, then edit
 python3 scripts/skill_audit.py --against before.json     # exit 1 if a score dropped
-python3 scripts/skill_audit.py --gate 85             # exit 1 if any skill < 85
+python3 scripts/skill_audit.py --gate 85 --substance-gate 8  # CI floor: score + substance
 python3 scripts/skill_audit.py --selftest            # scorer self-tests (run by preflight)
 ```
 
-`make audit-skills` runs the table; `make audit-skills-gate` enforces a floor.
-The auditor is advisory by default — `make preflight` runs only its
+`make audit-skills` runs the table; `make audit-skills-gate` enforces both the
+85-point document-quality floor and the 8-anchor substance floor. The auditor is
+advisory by default — `make preflight` runs only its
 `--selftest` so a broken heuristic is caught without blocking unrelated work.
 
 ### The score is a tripwire, not a target
@@ -119,7 +120,7 @@ exemplars, equations and code — that makes a domain skill teach. It is reporte
 beside the score (`anch` column) but deliberately **not folded into it**:
 
 ```text
-python3 scripts/skill_audit.py --substance-gate 4   # exit 1 if a skill is gutted below 4 anchors
+python3 scripts/skill_audit.py --substance-gate 8   # exit 1 if a skill is below the substance floor
 python3 scripts/skill_audit.py --against before.json  # exit 1 if score OR substance dropped
 ```
 
