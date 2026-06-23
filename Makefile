@@ -1,4 +1,4 @@
-.PHONY: preflight validate validate-strict skillopt-gate audit-skills audit-skills-gate verify-citations verify-citations-online smoke-examples install-codex install-claude scaffold-stata scaffold-r scaffold-python scaffold-skeleton
+.PHONY: preflight validate validate-strict skillopt-gate audit-skills audit-skills-gate verify-citations verify-citations-online verify-citations-groundedness smoke-examples install-codex install-claude scaffold-stata scaffold-r scaffold-python scaffold-skeleton
 
 preflight:
 	python3 scripts/validate_repo.py
@@ -28,6 +28,9 @@ verify-citations:
 
 verify-citations-online:
 	python3 scripts/verify_citations.py --online
+
+verify-citations-groundedness:
+	python3 scripts/verify_citations.py --groundedness
 
 smoke-examples:
 	python3 scripts/run_example_smoke.py
