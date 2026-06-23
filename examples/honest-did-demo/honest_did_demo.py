@@ -40,6 +40,7 @@ trends." See ../../docs/methods-reference.md section 1 for the per-stack tooling
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -48,6 +49,9 @@ from scipy import stats
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from _aer_numeric_check import numeric_check  # noqa: E402
 
 SEED = 20260101
 G = 0.10                 # differential linear trend per period (the violation)
@@ -145,14 +149,11 @@ def main() -> int:
     print(f"\nFigure written to {pdf.relative_to(pdf.parents[2])}")
 
     # ---- assertions: the demo is also a test -------------------------
-    assert cov["naive"] < 0.90, (
-        "the naive parallel-trends CI should under-cover under a continuing trend")
-    assert cov_at_1 >= 0.94, (
-        f"the honest CI should cover at >= 95% by M=1, got {cov_at_1:.3f}")
-    assert cov["by_m"][0] == cov["naive"] or abs(cov["by_m"][0] - cov["naive"]) < 1e-9, (
-        "honest CI at M=0 should coincide with the naive CI")
-    assert cov["by_m"][-1] >= cov_at_1, (
-        "coverage should be monotonically non-decreasing in M")
+    numeric_check("naive CI under-covers under a continuing pre-trend", cov["naive"], hi=0.90)
+    numeric_check("honest-DiD coverage at M=1 restores ~nominal", cov_at_1, lo=0.94)
+    numeric_check("honest-DiD M=0 equals naive coverage",
+                  abs(cov["by_m"][0] - cov["naive"]), hi=1e-9)
+    numeric_check("coverage is non-decreasing in M", cov["by_m"][-1], lo=cov_at_1)
     print("\nAll assertions passed: a continuing pre-trend breaks naive "
           "parallel-trends\ncoverage; the relative-magnitudes honest CI restores "
           "it by M = 1.")

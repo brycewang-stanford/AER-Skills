@@ -33,6 +33,7 @@ robomit) and ../../skills/aer-identification/SKILL.md for the design context.
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -40,6 +41,9 @@ import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from _aer_numeric_check import numeric_check  # noqa: E402
 
 SEED = 20260101
 N = 2000                 # observations
@@ -143,15 +147,14 @@ def main() -> int:
     print(f"\nFigure written to {pdf.relative_to(pdf.parents[2])}")
 
     # ---- assertions: the demo is also a test -------------------------
-    assert abs(m["full"] - BETA_TRUE) < 0.03, (
-        "the full model (controlling W) should recover the true zero")
-    assert m["med"] > 0.15, (
-        "the observed-controls estimate should stay biased away from zero")
-    assert abs(m["oster"] - BETA_TRUE) < 0.03, (
-        "Oster's beta*(delta=1, R_max=R_full) should recover the true zero")
-    assert 0.85 < m["delta0"] < 1.15, (
-        f"delta-for-zero should be about 1 under proportional selection, "
-        f"got {m['delta0']:.2f}")
+    # Each numeric_check pins an estimate to its known target and emits a
+    # NUMERIC-CHECK line that scripts/run_example_smoke.py verifies.
+    numeric_check("full model recovers true zero", m["full"], target=BETA_TRUE, tol=0.03)
+    numeric_check("observed-controls estimate stays biased", m["med"], lo=0.15)
+    numeric_check("Oster beta*(delta=1, R_max=R_full) recovers zero",
+                  m["oster"], target=BETA_TRUE, tol=0.03)
+    numeric_check("delta-for-zero ~ 1 under proportional selection",
+                  m["delta0"], lo=0.85, hi=1.15)
     print("\nAll assertions passed: the controlled estimate stays biased, while "
           "Oster's\nR^2-scaled adjustment (delta=1) recovers the truth -- "
           "stability alone proves nothing.")

@@ -59,6 +59,18 @@ missing optional stacks by default. Use
 `python3 scripts/run_example_smoke.py --strict-deps` before release to fail on
 any missing dependency or failed demo assertion.
 
+**Numeric-check contract.** Each runnable demo is also a regression test: it pins
+every headline estimate to a *known* target — a Monte Carlo truth, a coverage
+rate, or a published number — and fails if the estimate drifts outside a stated
+tolerance. Demos express this through the shared helper
+[`_aer_numeric_check.py`](_aer_numeric_check.py) (Python) or an inline equivalent
+(R), which emits one machine-checkable `NUMERIC-CHECK | name | got | spec | PASS`
+line per assertion. The smoke gate fails a demo that runs but emits no such line
+(so the assertions cannot silently rot into a no-op that still exits 0), and
+`scripts/validate_repo.py` statically requires every demo to use the protocol.
+This is the econometric analogue of an L1-tolerance replication gate: "the demo
+ran" is not enough; the answer must be numerically correct.
+
 Before copying an example's structure into a manuscript, cross-check the design
 against [`../docs/methods-reference.md`](../docs/methods-reference.md) and run
 the [`../docs/desk-rejection-audit.md`](../docs/desk-rejection-audit.md). The

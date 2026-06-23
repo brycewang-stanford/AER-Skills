@@ -39,6 +39,7 @@ design context.
 
 from __future__ import annotations
 
+import sys
 from itertools import combinations
 from pathlib import Path
 
@@ -48,6 +49,9 @@ from scipy import stats
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from _aer_numeric_check import numeric_check  # noqa: E402
 
 SEED = 20260101
 N = 200                  # units
@@ -204,15 +208,11 @@ def main() -> int:
     print(f"\nFigure written to {pdf.relative_to(pdf.parents[2])}")
 
     # ---- assertions: the demo is also a test -------------------------
-    assert size["naive_reject"] > 0.10, (
-        "searching over 2^K specs should inflate the false-positive rate")
-    assert size["perm_reject"] <= 0.09, (
-        f"the permutation test should hold ~{ALPHA} size, "
-        f"got {size['perm_reject']:.3f}")
-    assert size["naive_reject"] > size["perm_reject"], (
-        "naive spec search should reject a true null more than the joint test")
-    assert power["perm_reject"] > 0.50, (
-        "the permutation test should have power against a real effect")
+    numeric_check("naive any-specification rejection is inflated", size["naive_reject"], lo=0.10)
+    numeric_check("permutation test controls size", size["perm_reject"], hi=0.09)
+    numeric_check("naive rejects more than the permutation test",
+                  size["naive_reject"] - size["perm_reject"], lo=0.0)
+    numeric_check("permutation test retains power", power["perm_reject"], lo=0.50)
     print("\nAll assertions passed: specification search inflates false "
           "positives; the\nspecification-curve permutation test holds size and "
           "keeps power.")

@@ -2297,6 +2297,29 @@ def check_tool_bindings(errors: list[str]) -> None:
                 )
 
 
+NUMERIC_CHECK_HELPER = ROOT / "examples" / "_aer_numeric_check.py"
+
+
+def check_numeric_contract(errors: list[str]) -> None:
+    """Every runnable demo must pin its results through the NUMERIC-CHECK
+    protocol, so 'the demo ran' cannot mask 'the answer is wrong' and the
+    assertions cannot silently rot into a no-op (see examples/_aer_numeric_check.py
+    and scripts/run_example_smoke.py)."""
+    if not NUMERIC_CHECK_HELPER.is_file():
+        fail(errors, f"{rel(NUMERIC_CHECK_HELPER)}: numeric-check helper missing")
+    for demo_name, expected_files in EXPECTED_EXAMPLE_DEMOS.items():
+        for script_name in sorted(n for n in expected_files if n.endswith((".py", ".R"))):
+            script_path = ROOT / "examples" / demo_name / script_name
+            if not script_path.is_file():
+                continue  # missing file is reported by check_example_demos
+            if "numeric_check" not in script_path.read_text(encoding="utf-8"):
+                fail(
+                    errors,
+                    f"{rel(script_path)}: demo must pin results via numeric_check "
+                    "(the NUMERIC-CHECK correctness contract)",
+                )
+
+
 def validate(require_optional_tools: bool = False) -> None:
     errors: list[str] = []
     check_validator_self_tests(errors)
@@ -2314,6 +2337,7 @@ def validate(require_optional_tools: bool = False) -> None:
     check_markdown_links(errors)
     check_template_layout(errors)
     check_example_demos(errors)
+    check_numeric_contract(errors)
     check_python_templates(errors)
     check_cli_scripts(errors)
     check_r_templates(errors, require_optional_tools=require_optional_tools)
