@@ -180,7 +180,7 @@ For one or a few treated units with a long pre-period and a clean donor pool.
 |---|---|---|---|---|---|
 | Few clusters (< ~50) | wild cluster bootstrap | `boottest` | `fwildclusterboot` | `wildboottest` | `cameron_gelbach_miller_2008`, `mackinnon_webb_2017` |
 | Unequal cluster sizes | wild bootstrap (not CRVE) | `boottest` | `fwildclusterboot` | `wildboottest` | `mackinnon_webb_2017` |
-| Many hypotheses | FWER / FDR control | `wyoung` | `multcomp`, `fixest` | `statsmodels` `multipletests` | `roth_santanna_bilinski_poe_2023` |
+| Many hypotheses | FWER / FDR control | `wyoung` | `multcomp`, `fixest` | `statsmodels` `multipletests` | `list_shaikh_xu_2019`, `romano_wolf_2005` |
 | Omitted-variable bias | Oster δ bounding | `psacalc` | `robomit` | — | `oster_2019` |
 | "Researcher-chose-the-spec" | specification curve | `speccurve` | `specr` | — | `simonsohn_simmons_nelson_2020` |
 

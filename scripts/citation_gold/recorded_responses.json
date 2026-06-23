@@ -13,6 +13,19 @@
       "venue": "Journal of Applied Econometrics",
       "status": "ok"
     },
+    "10.1007/s10683-018-09597-5": {
+      "found": true,
+      "source": "crossref",
+      "title": "Multiple hypothesis testing in experimental economics",
+      "surnames": [
+        "list",
+        "shaikh",
+        "xu"
+      ],
+      "year": 2019,
+      "venue": "Experimental Economics",
+      "status": "ok"
+    },
     "10.1016/j.jeconom.2007.05.005": {
       "found": true,
       "source": "crossref",
@@ -219,6 +232,18 @@
       ],
       "year": 2024,
       "venue": "Review of Economic Studies",
+      "status": "ok"
+    },
+    "10.1111/j.1468-0262.2005.00615.x": {
+      "found": true,
+      "source": "crossref",
+      "title": "Stepwise Multiple Testing as Formalized Data Snooping",
+      "surnames": [
+        "romano",
+        "wolf"
+      ],
+      "year": 2005,
+      "venue": "Econometrica",
       "status": "ok"
     },
     "10.1146/annurev-economics-080218-025643": {
