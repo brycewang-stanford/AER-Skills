@@ -115,7 +115,7 @@ execution surface.
 
 | Strategy | Modern default (see `aer-identification`) | StatsPAI entry point |
 |---|---|---|
-| Staggered DiD | Callaway-Sant'Anna ATT(g,t); never raw TWFE | `callaway_santanna`, `aggte`, `did_imputation`, `sun_abraham` |
+| Staggered DiD | Callaway-Sant'Anna ATT(g,t); never raw TWFE | `callaway_santanna`, `aggte`, `did_imputation`, `sun_abraham`, `did_multiplegt` |
 | Forbidden-comparison check | Goodman-Bacon decomposition | `bacon_decomposition`, `bacon_plot` |
 | Event study / pre-trends | Joint pre-period test, not just the plot | `event_study`, `pretrends_test`, `honest_did` |
 | IV / weak instruments | Anderson-Rubin, not first-stage F > 10 | `ivreg`, `anderson_rubin_ci`, `effective_f_test`, `tF_adjustment` |
@@ -123,6 +123,8 @@ execution surface.
 | RDD | Local-linear, MSE-optimal bandwidth, RBC CI | `rdrobust`, `rdbwselect`, `rdplot`, `rddensity` (McCrary) |
 | Synthetic control | Placebo inference; modern variants | `synth`, `gsynth`, `augsynth`, `sdid`, `synth_time_placebo`, `synth_loo` |
 | DML / causal ML | Cross-fit nuisance; honest CIs | `dml`, `causal_forest`, `metalearner`, `tmle` |
+| Robustness / few-cluster inference | Specification curve; cluster-robust variance | `spec_curve`, `wild_cluster_bootstrap`, `twoway_cluster`, `conley` |
+| Sensitivity to confounding / multiplicity | Oster δ-R²; FWER control | `oster_delta`, `oster_bounds`, `romano_wolf` |
 
 When in doubt about *whether* an estimator is appropriate, that decision belongs
 to `aer-identification`. This table is for *how* to run the one you've chosen.

@@ -1054,6 +1054,33 @@ def check_validator_self_tests(errors: list[str]) -> None:
                 f"expected {expected!r}",
             )
 
+    binding_fixture = "\n".join(
+        [
+            "intro prose with a `bib_key_2021` mention that is not a tool",
+            TOOL_BINDING_OPEN,
+            "| Design | Call (StatsPAI) | Do not hand-roll |",
+            "|---|---|---|",
+            "| Staggered DiD | `callaway_santanna` then `aggte` | a `poly4` TWFE by hand |",
+            "| RDD | `rdrobust`, `rddensity` | a global polynomial |",
+            TOOL_BINDING_CLOSE,
+            "trailing prose",
+        ]
+    )
+    block = extract_tool_binding_block(binding_fixture)
+    parsed = bound_tools_in_block(block) if block is not None else set()
+    expected_bound = {"callaway_santanna", "aggte", "rdrobust", "rddensity"}
+    if parsed != expected_bound:
+        fail(
+            errors,
+            f"validator: tool-binding self-test parsed {sorted(parsed)!r}, "
+            f"expected {sorted(expected_bound)!r}",
+        )
+    # The "Do not hand-roll" column (`poly4`) must be excluded from the tool set.
+    if "poly4" in parsed:
+        fail(errors, "validator: tool-binding self-test leaked the do-not-hand-roll column")
+    if extract_tool_binding_block("no markers in this text") is not None:
+        fail(errors, "validator: tool-binding block self-test should return None when markers absent")
+
     with tempfile.TemporaryDirectory() as tempdir:
         executable_fixture = Path(tempdir) / "entrypoint.py"
         executable_fixture.write_text("#!/usr/bin/env python3\n", encoding="utf-8")
@@ -2124,6 +2151,152 @@ def check_placeholder_links(errors: list[str]) -> None:
             fail(errors, f"{rel(path)}: replace 'journal site' placeholder with a DOI or stable URL")
 
 
+# --------------------------------------------------------------------------- #
+# StatsPAI tool bindings: method skills must route to validated tools, not
+# hand-rolled estimators. "Select the validated tool, then generate code."
+# --------------------------------------------------------------------------- #
+
+STATSPAI_REGISTRY_FILE = ROOT / "scripts" / "statspai_tools.txt"
+STATSPAI_HUB_SKILL = "aer-statspai"
+TOOL_BINDING_SKILLS = ("aer-identification", "aer-robustness")
+TOOL_BINDING_OPEN = "<!-- tool-bindings -->"
+TOOL_BINDING_CLOSE = "<!-- /tool-bindings -->"
+_TOOL_WORD_RE = re.compile(r"[a-z][a-z0-9_]{2,}")
+
+
+def load_statspai_registry(path: Path) -> set[str]:
+    """One tool name per line; ``#`` comments and blank lines ignored."""
+    tools: set[str] = set()
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line and not line.startswith("#"):
+            tools.add(line)
+    return tools
+
+
+def inline_code_spans(text: str) -> list[str]:
+    """Inline code-span contents, following the CommonMark rule that a run of N
+    backticks closes only on a run of exactly N. This treats a ```` ```fence ````
+    as one span rather than letting its backticks mis-pair the inline spans that
+    follow it (e.g. a mapping table after a code block)."""
+    spans: list[str] = []
+    i, n = 0, len(text)
+    while i < n:
+        if text[i] != "`":
+            i += 1
+            continue
+        j = i
+        while j < n and text[j] == "`":
+            j += 1
+        run = j - i
+        k = j
+        closed = False
+        while k < n:
+            if text[k] == "`":
+                m = k
+                while m < n and text[m] == "`":
+                    m += 1
+                if m - k == run:
+                    spans.append(text[j:k])
+                    i, closed = m, True
+                    break
+                k = m
+            else:
+                k += 1
+        if not closed:
+            i = j
+    return spans
+
+
+def tool_tokens_in(text: str) -> set[str]:
+    """Tool-shaped words (snake_case, length >= 3) inside inline ``code`` spans."""
+    tokens: set[str] = set()
+    for span in inline_code_spans(text):
+        tokens.update(_TOOL_WORD_RE.findall(span))
+    return tokens
+
+
+def extract_tool_binding_block(text: str) -> str | None:
+    start = text.find(TOOL_BINDING_OPEN)
+    end = text.find(TOOL_BINDING_CLOSE)
+    if start == -1 or end == -1 or end < start:
+        return None
+    return text[start + len(TOOL_BINDING_OPEN):end]
+
+
+def bound_tools_in_block(block: str) -> set[str]:
+    """Tools named in the 'Call (StatsPAI)' column of the bindings table."""
+    tools: set[str] = set()
+    call_col: int | None = None
+    for raw in block.splitlines():
+        line = raw.strip()
+        if not line.startswith("|"):
+            continue
+        cells = [c.strip() for c in line.strip("|").split("|")]
+        if call_col is None:  # header row identifies the StatsPAI column
+            for index, cell in enumerate(cells):
+                if "statspai" in cell.lower():
+                    call_col = index
+                    break
+            continue
+        if call_col < len(cells):
+            tools |= tool_tokens_in(cells[call_col])
+    return tools
+
+
+def check_tool_bindings(errors: list[str]) -> None:
+    if not STATSPAI_REGISTRY_FILE.is_file():
+        fail(errors, f"{rel(STATSPAI_REGISTRY_FILE)}: StatsPAI tool registry missing")
+        return
+    registry = load_statspai_registry(STATSPAI_REGISTRY_FILE)
+    if not registry:
+        fail(errors, f"{rel(STATSPAI_REGISTRY_FILE)}: StatsPAI tool registry is empty")
+        return
+
+    # Registry <-> hub sync: every registry tool must be documented in the hub
+    # skill (in inline code), so the human index and the machine registry agree.
+    hub_path = ROOT / "skills" / STATSPAI_HUB_SKILL / "SKILL.md"
+    hub_tokens = tool_tokens_in(hub_path.read_text(encoding="utf-8")) if hub_path.is_file() else set()
+    for tool in sorted(registry):
+        if tool not in hub_tokens:
+            fail(
+                errors,
+                f"{rel(STATSPAI_REGISTRY_FILE)}: tool {tool!r} is not documented in "
+                f"skills/{STATSPAI_HUB_SKILL}/SKILL.md (registry and hub must agree)",
+            )
+
+    # Each designated method skill must carry a bindings block routing to tools
+    # that exist in the registry (no typos, drift, or hallucinated tool names).
+    for skill in TOOL_BINDING_SKILLS:
+        skill_path = ROOT / "skills" / skill / "SKILL.md"
+        if not skill_path.is_file():
+            fail(errors, f"skills/{skill}/SKILL.md: missing (expected StatsPAI tool bindings)")
+            continue
+        block = extract_tool_binding_block(skill_path.read_text(encoding="utf-8"))
+        if block is None:
+            fail(
+                errors,
+                f"skills/{skill}/SKILL.md: missing {TOOL_BINDING_OPEN} block "
+                "(route methods to validated StatsPAI tools, do not hand-roll)",
+            )
+            continue
+        bound = bound_tools_in_block(block)
+        if not bound:
+            fail(
+                errors,
+                f"skills/{skill}/SKILL.md: tool-bindings block names no StatsPAI tools "
+                "in its 'Call (StatsPAI)' column",
+            )
+            continue
+        for tool in sorted(bound):
+            if tool not in registry:
+                fail(
+                    errors,
+                    f"skills/{skill}/SKILL.md: bound tool {tool!r} is not in the StatsPAI "
+                    f"registry ({rel(STATSPAI_REGISTRY_FILE)})",
+                )
+
+
 def validate(require_optional_tools: bool = False) -> None:
     errors: list[str] = []
     check_validator_self_tests(errors)
@@ -2137,6 +2310,7 @@ def validate(require_optional_tools: bool = False) -> None:
     check_installation_guardrails(errors)
     check_skill_resource_links(errors)
     check_bibliography_integrity(errors)
+    check_tool_bindings(errors)
     check_markdown_links(errors)
     check_template_layout(errors)
     check_example_demos(errors)
