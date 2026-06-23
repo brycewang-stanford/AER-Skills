@@ -199,6 +199,14 @@ CLAIM_LEDGER_COLUMNS = (
     "status",
     "notes",
 )
+REQUIRED_PREFLIGHT_COMMANDS = (
+    "python3 scripts/validate_repo.py",
+    "python3 scripts/run_skillopt_gate.py",
+    "python3 scripts/skill_audit.py --selftest",
+    "python3 scripts/verify_citations.py --selftest",
+    "git diff --check",
+    "git diff --cached --check",
+)
 EXPECTED_EXAMPLE_DEMOS = {
     "iv-weak-instrument-demo": {
         "README.md",
@@ -941,6 +949,21 @@ def markdown_anchors(path: Path) -> set[str]:
     return anchors
 
 
+def make_target_body(makefile_text: str, target: str) -> str:
+    body: list[str] = []
+    in_target = False
+    for line in makefile_text.splitlines():
+        target_match = re.match(r"^([A-Za-z0-9_.-]+)\s*:", line)
+        if target_match:
+            if in_target:
+                break
+            in_target = target_match.group(1) == target
+            continue
+        if in_target:
+            body.append(line)
+    return "\n".join(body).strip()
+
+
 def check_validator_self_tests(errors: list[str]) -> None:
     slug_cases = {
         "1. Difference-in-differences (staggered adoption)": (
@@ -1036,6 +1059,27 @@ def check_validator_self_tests(errors: list[str]) -> None:
         missing = sorted(expected_anchors - actual_anchors)
         if missing:
             fail(errors, f"validator: markdown anchor self-test missed {', '.join(missing)}")
+
+    makefile_fixture = "\n".join(
+        [
+            ".PHONY: preflight other",
+            "",
+            "preflight:",
+            "\tpython3 scripts/validate_repo.py",
+            "\tgit diff --check",
+            "",
+            "other:",
+            "\tgit diff --cached --check",
+            "",
+        ]
+    )
+    preflight_body = make_target_body(makefile_fixture, "preflight")
+    if "python3 scripts/validate_repo.py" not in preflight_body:
+        fail(errors, "validator: Makefile target parser missed preflight body")
+    if "git diff --cached --check" in preflight_body:
+        fail(errors, "validator: Makefile target parser leaked commands from next target")
+    if make_target_body(makefile_fixture, "missing"):
+        fail(errors, "validator: Makefile target parser returned body for missing target")
 
     with tempfile.TemporaryDirectory() as tempdir:
         fixture_dir = Path(tempdir)
@@ -1891,20 +1935,25 @@ def check_makefile(errors: list[str]) -> None:
         fail(errors, "Makefile: missing")
         return
     text = makefile.read_text(encoding="utf-8")
-    if "preflight:" not in text:
+    preflight_body = make_target_body(text, "preflight")
+    if not preflight_body:
         fail(errors, "Makefile: missing preflight target")
-    if "git diff --check" not in text:
-        fail(errors, "Makefile: preflight should run git diff --check")
-    if "git diff --cached --check" not in text:
-        fail(errors, "Makefile: preflight should run git diff --cached --check")
+    else:
+        for command in REQUIRED_PREFLIGHT_COMMANDS:
+            if command not in preflight_body:
+                fail(errors, f"Makefile: preflight should run {command}")
     if "scaffold-skeleton:" not in text:
         fail(errors, "Makefile: missing scaffold-skeleton target")
     if "./aer-" in text:
         fail(errors, "Makefile: scaffold targets should require explicit DEST")
     for target in ("scaffold-stata", "scaffold-r", "scaffold-python", "scaffold-skeleton"):
-        pattern = rf"{target}:\n\t@test -n \"\$\(DEST\)\""
-        if not re.search(pattern, text):
+        body = make_target_body(text, target)
+        if '@test -n "$(DEST)"' not in body:
             fail(errors, f"Makefile: {target} should require DEST")
+    audit_gate_body = make_target_body(text, "audit-skills-gate")
+    expected_audit_gate = "python3 scripts/skill_audit.py --gate 85 --substance-gate 8"
+    if expected_audit_gate not in audit_gate_body:
+        fail(errors, f"Makefile: audit-skills-gate should run {expected_audit_gate}")
 
 
 def check_gitignore(errors: list[str]) -> None:
@@ -1965,6 +2014,7 @@ def check_ci_workflow(errors: list[str]) -> None:
         "sudo apt-get install -y r-base",
         "make preflight",
         "make validate-strict",
+        "make audit-skills-gate",
     )
     for snippet in required_snippets:
         if snippet not in text:
