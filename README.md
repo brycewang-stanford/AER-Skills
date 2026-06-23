@@ -228,6 +228,7 @@ make preflight
 | [`examples/iv-weak-instrument-demo/`](examples/iv-weak-instrument-demo/) | 可运行的 Python 模拟：弱工具变量下传统 2SLS 推断与 Anderson-Rubin 推断对比 |
 | [`examples/rdd-polynomial-demo/`](examples/rdd-polynomial-demo/) | 可运行的 Python 模拟：高阶 global-polynomial RDD 为什么不安全 |
 | [`examples/synthetic-control-demo/`](examples/synthetic-control-demo/) | 可运行的 Python 模拟：合成控制法的推断来自 placebo-in-space 置换分布，而非肉眼可见的事前拟合 |
+| [`examples/shift-share-demo/`](examples/shift-share-demo/) | 可运行的 Python 模拟：shift-share/Bartik 推断应落在 shock（行业）层面而非地区层面——地区聚类标准误会过度拒绝 |
 
 ---
 

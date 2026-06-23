@@ -225,6 +225,10 @@ EXPECTED_EXAMPLE_DEMOS = {
         "README.md",
         "synthetic_control_demo.py",
     },
+    "shift-share-demo": {
+        "README.md",
+        "shift_share_demo.py",
+    },
 }
 TEXT_SUFFIXES = {
     "",
