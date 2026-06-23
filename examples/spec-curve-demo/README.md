@@ -49,4 +49,5 @@ and
 [`../../skills/aer-identification/SKILL.md`](../../skills/aer-identification/SKILL.md).
 The methods reference lists the per-stack tooling (`speccurve`, `specr`); this
 demo is the runnable form of why the curve plus joint inference, not a single
-starred coefficient, is the honest report.
+starred coefficient, is the honest report. See `simonsohn_simmons_nelson_2020`
+and `romano_wolf_2005` in `../../references.bib`.

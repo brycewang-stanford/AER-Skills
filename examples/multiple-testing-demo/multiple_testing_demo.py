@@ -29,8 +29,9 @@ Run:  python3 multiple_testing_demo.py
 Deps: numpy, scipy, matplotlib
       (all pinned in ../../templates/python/requirements.txt)
 
-References: Bonferroni; Holm (1979) step-down; Romano-Wolf (2005) resampling
-FWER control; Benjamini-Hochberg (1995) for FDR. See
+References (keys in ../../references.bib): romano_wolf_2005 (resampling FWER
+control), list_shaikh_xu_2019 (multiple testing in experimental economics).
+Also Bonferroni; Holm (1979) step-down; Benjamini-Hochberg (1995) for FDR. See
 ../../docs/methods-reference.md section 6 for the per-stack tooling, and
 ../../skills/aer-identification/SKILL.md for when a referee will demand it.
 """

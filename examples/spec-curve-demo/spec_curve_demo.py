@@ -30,10 +30,11 @@ Run:  python3 spec_curve_demo.py
 Deps: numpy, scipy, matplotlib
       (all pinned in ../../templates/python/requirements.txt)
 
-References: Simonsohn, Simmons & Nelson (2020), "Specification curve analysis."
-See ../../docs/methods-reference.md section 6 for the per-stack tooling
-(speccurve, specr) and ../../skills/aer-identification/SKILL.md for the design
-context.
+References (keys in ../../references.bib): simonsohn_simmons_nelson_2020
+("Specification curve analysis"), romano_wolf_2005 (the permutation/resampling
+joint test). See ../../docs/methods-reference.md section 6 for the per-stack
+tooling (speccurve, specr) and ../../skills/aer-identification/SKILL.md for the
+design context.
 """
 
 from __future__ import annotations
