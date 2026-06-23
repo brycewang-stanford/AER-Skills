@@ -230,6 +230,7 @@ make preflight
 | [`examples/synthetic-control-demo/`](examples/synthetic-control-demo/) | 可运行的 Python 模拟：合成控制法的推断来自 placebo-in-space 置换分布，而非肉眼可见的事前拟合 |
 | [`examples/shift-share-demo/`](examples/shift-share-demo/) | 可运行的 Python 模拟：shift-share/Bartik 推断应落在 shock（行业）层面而非地区层面——地区聚类标准误会过度拒绝 |
 | [`examples/few-clusters-demo/`](examples/few-clusters-demo/) | 可运行的 Python 模拟：聚类数较少时聚类稳健 t 检验会过度拒绝，wild cluster bootstrap 可恢复名义检验水平 |
+| [`examples/multiple-testing-demo/`](examples/multiple-testing-demo/) | 可运行的 Python 模拟：检验多个结果变量会抬高族系误差率，Bonferroni/Holm 校正可在保留功效的同时将其控制住 |
 
 ---
 

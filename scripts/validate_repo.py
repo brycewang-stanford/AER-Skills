@@ -233,6 +233,10 @@ EXPECTED_EXAMPLE_DEMOS = {
         "README.md",
         "few_clusters_demo.py",
     },
+    "multiple-testing-demo": {
+        "README.md",
+        "multiple_testing_demo.py",
+    },
 }
 TEXT_SUFFIXES = {
     "",
