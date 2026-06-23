@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+import csv
 import json
 import re
 import shutil
@@ -178,6 +179,7 @@ REQUIRED_SKELETON_README_TEXT = (
     "data/codebook/source-register.md",
     "docs/",
     "docs/exhibit-register.md",
+    "docs/claim-evidence-ledger.csv",
     "exact sample size",
     "do run_all.do",
     "output/tables/*.tex",
@@ -187,6 +189,15 @@ REQUIRED_SKELETON_README_TEXT = (
     "logs/run_all.log",
     "logs/",
     "[BRACKETED]",
+)
+CLAIM_LEDGER_COLUMNS = (
+    "claim_id",
+    "claim_text",
+    "claim_location",
+    "evidence_type",
+    "evidence_ref",
+    "status",
+    "notes",
 )
 EXPECTED_EXAMPLE_DEMOS = {
     "iv-weak-instrument-demo": {
@@ -206,6 +217,7 @@ EXPECTED_EXAMPLE_DEMOS = {
 TEXT_SUFFIXES = {
     "",
     ".bib",
+    ".csv",
     ".do",
     ".json",
     ".md",
@@ -343,6 +355,7 @@ REQUIRED_RESOURCE_LINKS = {
     ),
     ROOT / "skills" / "aer-consistency" / "SKILL.md": (
         "examples/replication-package-skeleton/docs/exhibit-register.md",
+        "examples/replication-package-skeleton/docs/claim-evidence-ledger.csv",
         "skills/aer-paper-body/SKILL.md",
         "skills/aer-literature/SKILL.md",
         "docs/style-guide.md",
@@ -1227,6 +1240,35 @@ def check_template_layout(errors: list[str]) -> None:
         ):
             if phrase not in exhibit_register_text:
                 fail(errors, f"{rel(skeleton_exhibit_register)}: missing {phrase!r}")
+    skeleton_claim_ledger = skeleton / "docs" / "claim-evidence-ledger.csv"
+    if not skeleton_claim_ledger.is_file():
+        fail(errors, f"{rel(skeleton_claim_ledger)}: missing")
+    else:
+        with skeleton_claim_ledger.open(newline="", encoding="utf-8") as handle:
+            reader = csv.DictReader(handle)
+            fieldnames = reader.fieldnames or []
+            missing_columns = [name for name in CLAIM_LEDGER_COLUMNS if name not in fieldnames]
+            if missing_columns:
+                fail(
+                    errors,
+                    f"{rel(skeleton_claim_ledger)}: missing columns "
+                    + ", ".join(missing_columns),
+                )
+            rows = list(reader)
+        if len(rows) < 3:
+            fail(errors, f"{rel(skeleton_claim_ledger)}: expected at least 3 example rows")
+        for index, row in enumerate(rows, start=2):
+            label = row.get("claim_id") or f"row {index}"
+            for column in CLAIM_LEDGER_COLUMNS:
+                if not (row.get(column) or "").strip():
+                    fail(errors, f"{rel(skeleton_claim_ledger)}: {label} missing {column}")
+            if (row.get("status") or "").strip() != "NEEDS-EVIDENCE":
+                fail(errors, f"{rel(skeleton_claim_ledger)}: {label} should start as NEEDS-EVIDENCE")
+            evidence_ref = row.get("evidence_ref") or ""
+            if not any(
+                marker in evidence_ref for marker in ("label:", "cite:", "file:", "external:")
+            ):
+                fail(errors, f"{rel(skeleton_claim_ledger)}: {label} lacks typed evidence_ref")
     skeleton_top_level = {child.name for child in skeleton.iterdir() if child.is_file()}
     expected_top_level = {"LICENSE", "README.md", "run_all.do"}
     missing = sorted(expected_top_level - skeleton_top_level)

@@ -207,6 +207,15 @@ with a warning when `Rscript` is unavailable. CI installs R, runs
 `make preflight`, then runs `make validate-strict`, which fails instead of
 skipping optional-tool checks.
 
+`make preflight` also runs the citation-integrity gate
+(`verify_citations.py --selftest`): a hermetic, gold-set check that
+`references.bib` still matches the Crossref/OpenAlex metadata it was verified
+against — turning *"no citation from memory"* from a principle into a
+re-runnable test. Verify against the live indexes with
+`make verify-citations-online`, and check a draft's `\cite` ↔ bib
+correspondence with `--manuscript`. See the
+[citation-integrity protocol](docs/citation-integrity-protocol.md).
+
 ---
 
 ## Examples
@@ -244,6 +253,8 @@ See [docs/design-principles.md](docs/design-principles.md).
 
 Key references:
 
+- [Academic Research Skills reference review](docs/academic-research-skills-review.md) —
+  what transferred from the external ARS repository and what stayed out
 - [Desk-rejection audit](docs/desk-rejection-audit.md) — pre-submission no-go
   checks from an editor/referee perspective
 - [Methods reference](docs/methods-reference.md) — estimator defaults,
@@ -280,6 +291,8 @@ AER-Skills/
 │   ├── plugin.json         (plugin manifest)
 │   └── marketplace.json    (Claude Code marketplace entry)
 ├── docs/
+│   ├── academic-research-skills-review.md
+│   ├── citation-integrity-protocol.md
 │   ├── desk-rejection-audit.md
 │   ├── design-principles.md
 │   ├── glossary.md
@@ -316,14 +329,17 @@ AER-Skills/
 │   ├── run_skillopt_gate.py    (SkillOpt routing gate)
 │   ├── scaffold_project.py
 │   ├── skill_audit.py          (SkillOpt document-quality audit)
-│   └── validate_repo.py
+│   ├── validate_repo.py
+│   ├── verify_citations.py     (citation-integrity verifier)
+│   └── citation_gold/          (hermetic gold set + recorded index responses)
 └── examples/
     ├── aer-exemplars.md
     ├── intro-example.md
     ├── rebuttal-example.md
     └── replication-package-skeleton/
         ├── data/codebook/source-register.md
-        └── docs/exhibit-register.md
+        ├── docs/exhibit-register.md
+        └── docs/claim-evidence-ledger.csv
 ```
 
 ---

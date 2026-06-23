@@ -202,6 +202,12 @@ make preflight
 检查会带告警跳过。CI 会安装 R，先运行 `make preflight`，再运行 `make validate-strict` —
 后者在缺少可选工具时直接失败，而不是静默跳过。
 
+`make preflight` 还运行引用完整性门（`verify_citations.py --selftest`）：用 gold set
+离线核验，确保 `references.bib` 与其录制的 Crossref/OpenAlex 元数据一致——把"任何引用
+都不能凭记忆写"从原则变成可复跑的检查。对照线上索引核验用 `make verify-citations-online`，
+对草稿做 `\cite` ↔ bib 双向核验用 `--manuscript`。详见
+[引用完整性协议](docs/citation-integrity-protocol.md)。
+
 ---
 
 ## 示例
@@ -239,6 +245,8 @@ make preflight
 
 关键参考文档：
 
+- [Academic Research Skills reference review](docs/academic-research-skills-review.md) —
+  本轮参考外部 ARS 仓库后的取舍与本地改动记录
 - [Desk-rejection audit](docs/desk-rejection-audit.md) — 从编辑/审稿人视角做的
   投稿前 no-go 检查
 - [Methods reference](docs/methods-reference.md) — 估计量默认值、诊断、包调用，
@@ -274,6 +282,8 @@ AER-Skills/
 │   ├── plugin.json         (插件清单)
 │   └── marketplace.json    (Claude Code marketplace 条目)
 ├── docs/
+│   ├── academic-research-skills-review.md
+│   ├── citation-integrity-protocol.md
 │   ├── desk-rejection-audit.md
 │   ├── design-principles.md
 │   ├── glossary.md
@@ -310,14 +320,17 @@ AER-Skills/
 │   ├── run_skillopt_gate.py    (SkillOpt 路由门)
 │   ├── scaffold_project.py
 │   ├── skill_audit.py          (SkillOpt 文档质量审计)
-│   └── validate_repo.py
+│   ├── validate_repo.py
+│   ├── verify_citations.py     (引用完整性核验器)
+│   └── citation_gold/          (离线 gold set + 录制的索引响应)
 └── examples/
     ├── aer-exemplars.md
     ├── intro-example.md
     ├── rebuttal-example.md
     └── replication-package-skeleton/
         ├── data/codebook/source-register.md
-        └── docs/exhibit-register.md
+        ├── docs/exhibit-register.md
+        └── docs/claim-evidence-ledger.csv
 ```
 
 ---
