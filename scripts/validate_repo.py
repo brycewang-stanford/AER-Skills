@@ -267,6 +267,7 @@ TEXT_SUFFIXES = {
 }
 GENERATED_OR_CACHE_DIRS = {
     ".git",
+    ".DS_Store",
     ".mypy_cache",
     ".pytest_cache",
     ".ruff_cache",
