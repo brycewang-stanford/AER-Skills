@@ -64,6 +64,7 @@ implement in all three languages.
 | Imputation (efficient under homoskedasticity) | `did_imputation` | `didimputation::did_imputation` / `did2s::did2s` | `pyfixest` `did2s` | `borusyak_jaravel_spiess_2024` |
 | Interaction-weighted event study | `eventstudyinteract` | `fixest::sunab` | `pyfixest` `i(t, treat, ref)` | `sun_abraham_2021` |
 | Multiple groups & periods | `did_multiplegt` / `did_multiplegt_dyn` | `DIDmultiplegtDYN` | — | `dechaisemartin_dhaultfoeuille_2020` |
+| LP-DiD (local projections, clean controls) | `lpdid` | `lpdid` | StatsPAI `lp_did` | `dube_girardi_jorda_taylor_2023`, `jorda_2005` |
 
 **Required diagnostics** (see [`03_main_did`](../templates/stata/03_main_did.do)):
 
@@ -163,6 +164,7 @@ For one or a few treated units with a long pre-period and a clean donor pool.
 | Generalized SCM | several treated units, IFE | — | `gsynth::gsynth` | `xu_2017` |
 | Augmented SCM | poor pre-fit / bias correction | — | `augsynth::augsynth` | `benmichael_feller_rothstein_2021` |
 | Synthetic DiD | SCM × DiD weighting | — | `synthdid::synthdid_estimate` | `arkhangelsky_etal_2021` |
+| Matrix completion (MC-NNM) | larger treated blocks, factor confounding | — | `fect::fect(..., method = "mc")` | `athey_etal_2021` |
 
 **Required diagnostics** (`abadie_2021` is the practitioner's checklist):
 
@@ -183,6 +185,8 @@ For one or a few treated units with a long pre-period and a clean donor pool.
 | Many hypotheses | FWER / FDR control | `wyoung` | `multcomp`, `fixest` | `statsmodels` `multipletests` | `list_shaikh_xu_2019`, `romano_wolf_2005` |
 | Omitted-variable bias | Oster δ bounding | `psacalc` | `robomit` | — | `oster_2019` |
 | "Researcher-chose-the-spec" | specification curve | `speccurve` | `specr` | — | `simonsohn_simmons_nelson_2020` |
+| Small N / concentrated leverage | randomization (Fisher) test | `ritest` | `ri2` | StatsPAI `ri_test` | `young_2019` |
+| Mean effect hides distributional action | quantile treatment effects | `qreg` / `ivqreg2` | `quantreg` | `statsmodels` `QuantReg`; StatsPAI `qte` | `koenker_bassett_1978` |
 
 See [`aer-robustness`](../skills/aer-robustness/SKILL.md) for *which* of these a
 referee will demand, and [`04_robustness`](../templates/stata/04_robustness.do)
