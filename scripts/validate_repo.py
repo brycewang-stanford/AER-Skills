@@ -57,6 +57,7 @@ REQUIRED_CLI_SCRIPTS = (
     ROOT / "scripts" / "run_skillopt_gate.py",
     ROOT / "scripts" / "run_example_smoke.py",
     ROOT / "scripts" / "verify_citations.py",
+    ROOT / "scripts" / "quality_scorecard.py",
 )
 PYTHON_IMPORT_PACKAGE_MAP = {
     "dateutil": "python-dateutil",
@@ -205,6 +206,7 @@ REQUIRED_PREFLIGHT_COMMANDS = (
     "python3 scripts/run_skillopt_gate.py",
     "python3 scripts/skill_audit.py --selftest",
     "python3 scripts/verify_citations.py --selftest",
+    "python3 scripts/quality_scorecard.py --check",
     "git diff --check",
     "git diff --cached --check",
 )
@@ -249,6 +251,10 @@ EXPECTED_EXAMPLE_DEMOS = {
     "honest-did-demo": {
         "README.md",
         "honest_did_demo.py",
+    },
+    "dml-plr-demo": {
+        "README.md",
+        "dml_plr_demo.py",
     },
 }
 TEXT_SUFFIXES = {
