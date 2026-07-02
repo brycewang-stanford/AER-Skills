@@ -234,6 +234,23 @@
       "venue": "Review of Economic Studies",
       "status": "ok"
     },
+    "10.1111/ectj.12097": {
+      "found": true,
+      "source": "crossref",
+      "title": "Double/debiased machine learning for treatment and structural parameters",
+      "surnames": [
+        "chernozhukov",
+        "chetverikov",
+        "demirer",
+        "duflo",
+        "hansen",
+        "newey",
+        "robins"
+      ],
+      "year": 2018,
+      "venue": "The Econometrics Journal",
+      "status": "ok"
+    },
     "10.1111/j.1468-0262.2005.00615.x": {
       "found": true,
       "source": "crossref",
@@ -430,6 +447,17 @@
       ],
       "year": 2021,
       "venue": "Journal of Economic Literature",
+      "status": "ok"
+    },
+    "10.2307/1912705": {
+      "found": true,
+      "source": "crossref",
+      "title": "Root-N-Consistent Semiparametric Regression",
+      "surnames": [
+        "robinson"
+      ],
+      "year": 1988,
+      "venue": "Econometrica",
       "status": "ok"
     },
     "10.3982/ecta11757": {
