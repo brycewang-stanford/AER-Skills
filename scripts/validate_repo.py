@@ -255,6 +255,26 @@ EXPECTED_EXAMPLE_DEMOS = {
         "README.md",
         "dml_plr_demo.py",
     },
+    "randomization-inference-demo": {
+        "README.md",
+        "randomization_inference_demo.py",
+    },
+    "qte-demo": {
+        "README.md",
+        "qte_demo.py",
+    },
+    "lp-did-demo": {
+        "README.md",
+        "lp_did_demo.py",
+    },
+    "bunching-demo": {
+        "README.md",
+        "bunching_demo.py",
+    },
+    "matrix-completion-demo": {
+        "README.md",
+        "matrix_completion_demo.py",
+    },
 }
 TEXT_SUFFIXES = {
     "",
