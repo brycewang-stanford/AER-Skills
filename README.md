@@ -6,6 +6,7 @@
 <p align="center"><em>面向 <a href="https://www.aeaweb.org/journals/aer">《美国经济评论》</a>（AER）、<em>AER: Insights</em> 及 AEJ 系列期刊的 agent skill 栈。</em></p>
 
 [![CI](https://github.com/brycewang-stanford/AER-Skills/actions/workflows/ci.yml/badge.svg)](https://github.com/brycewang-stanford/AER-Skills/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/brycewang-stanford/AER-Skills)](https://github.com/brycewang-stanford/AER-Skills/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![质量门](https://img.shields.io/badge/quality%20gates-9%20enforced-brightgreen)](docs/quality-scorecard.md)
 [![聚焦](https://img.shields.io/badge/focus-AER%20%2F%20AER%3AInsights%20%2F%20AEJ-1f6feb)](docs/workflow-map.md)
@@ -340,6 +341,7 @@ AER-Skills/
 │   ├── glossary.md
 │   ├── installation-claude.md
 │   ├── installation-codex.md
+│   ├── launch-kit/             (发布宣发材料包)
 │   ├── methods-reference.md
 │   ├── pnas-nexus-publication-plan.md
 │   ├── pnas-nexus-submission-checklist.md
@@ -384,7 +386,7 @@ AER-Skills/
     ├── aer-exemplars.md
     ├── intro-example.md
     ├── rebuttal-example.md
-    ├── dml-plr-demo/           (以及其余 10 个可运行 demo)
+    ├── dml-plr-demo/           (以及其余 15 个可运行 demo)
     └── replication-package-skeleton/
         ├── data/codebook/source-register.md
         ├── docs/exhibit-register.md

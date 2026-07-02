@@ -6,6 +6,7 @@
 <p align="center"><em>An agent skill stack for targeting the <a href="https://www.aeaweb.org/journals/aer">American Economic Review</a>, <em>AER: Insights</em>, and the AEJ family.</em></p>
 
 [![CI](https://github.com/brycewang-stanford/AER-Skills/actions/workflows/ci.yml/badge.svg)](https://github.com/brycewang-stanford/AER-Skills/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/brycewang-stanford/AER-Skills)](https://github.com/brycewang-stanford/AER-Skills/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Quality gates](https://img.shields.io/badge/quality%20gates-9%20enforced-brightgreen)](docs/quality-scorecard.md)
 [![Top-5 focused](https://img.shields.io/badge/focus-AER%20%2F%20AER%3AInsights%20%2F%20AEJ-1f6feb)](docs/workflow-map.md)
@@ -357,6 +358,7 @@ AER-Skills/
 │   ├── glossary.md
 │   ├── installation-claude.md
 │   ├── installation-codex.md
+│   ├── launch-kit/             (announcement drafts and archiving steps)
 │   ├── methods-reference.md
 │   ├── pnas-nexus-publication-plan.md
 │   ├── pnas-nexus-submission-checklist.md
@@ -401,7 +403,7 @@ AER-Skills/
     ├── aer-exemplars.md
     ├── intro-example.md
     ├── rebuttal-example.md
-    ├── dml-plr-demo/           (plus the other 10 runnable demos)
+    ├── dml-plr-demo/           (plus the other 15 runnable demos)
     └── replication-package-skeleton/
         ├── data/codebook/source-register.md
         ├── docs/exhibit-register.md
