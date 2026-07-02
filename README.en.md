@@ -252,6 +252,9 @@ See the full examples index in [examples/README.md](examples/README.md).
 | [`examples/shift-share-demo/`](examples/shift-share-demo/) | Runnable Python simulation showing why shift-share/Bartik inference belongs at the shock (industry) level, not the region level — region-clustered SEs over-reject |
 | [`examples/few-clusters-demo/`](examples/few-clusters-demo/) | Runnable Python simulation showing why a cluster-robust t-test over-rejects with few clusters and the wild cluster bootstrap restores nominal size |
 | [`examples/multiple-testing-demo/`](examples/multiple-testing-demo/) | Runnable Python simulation showing why testing many outcomes inflates the family-wise error rate and how Bonferroni/Holm control it without killing power |
+| [`examples/spec-curve-demo/`](examples/spec-curve-demo/) | Runnable Python simulation showing why a single "preferred" specification can mislead and the specification-curve permutation test is the honest joint inference |
+| [`examples/oster-ovb-demo/`](examples/oster-ovb-demo/) | Runnable Python simulation showing why coefficient stability is not evidence against omitted-variable bias unless scaled by R-squared movement (Oster delta) |
+| [`examples/honest-did-demo/`](examples/honest-did-demo/) | Runnable Python simulation showing why a flat-looking pre-trend can break naive parallel-trends coverage and honest DiD relative-magnitudes bounds restore it |
 
 ---
 

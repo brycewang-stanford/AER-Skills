@@ -21,6 +21,9 @@ Worked examples that show what the skills produce in practice.
 | [`shift-share-demo/`](shift-share-demo/) | Runnable Python simulation showing why shift-share/Bartik inference belongs at the shock (industry) level, not the region level — region-clustered SEs over-reject |
 | [`few-clusters-demo/`](few-clusters-demo/) | Runnable Python simulation showing why a cluster-robust t-test over-rejects with few clusters and the wild cluster bootstrap restores nominal size |
 | [`multiple-testing-demo/`](multiple-testing-demo/) | Runnable Python simulation showing why testing many outcomes inflates the family-wise error rate and how Bonferroni/Holm control it without killing power |
+| [`spec-curve-demo/`](spec-curve-demo/) | Runnable Python simulation showing why a single "preferred" specification can mislead and the specification-curve permutation test is the honest joint inference |
+| [`oster-ovb-demo/`](oster-ovb-demo/) | Runnable Python simulation showing why coefficient stability is not evidence against omitted-variable bias unless scaled by R-squared movement (Oster delta) |
+| [`honest-did-demo/`](honest-did-demo/) | Runnable Python simulation showing why a flat-looking pre-trend can break naive parallel-trends coverage and honest DiD relative-magnitudes bounds restore it |
 
 ## How to Use
 
@@ -55,6 +58,18 @@ The smoke gate executes demo assertions when dependencies are present and skips
 missing optional stacks by default. Use
 `python3 scripts/run_example_smoke.py --strict-deps` before release to fail on
 any missing dependency or failed demo assertion.
+
+**Numeric-check contract.** Each runnable demo is also a regression test: it pins
+every headline estimate to a *known* target — a Monte Carlo truth, a coverage
+rate, or a published number — and fails if the estimate drifts outside a stated
+tolerance. Demos express this through the shared helper
+[`_aer_numeric_check.py`](_aer_numeric_check.py) (Python) or an inline equivalent
+(R), which emits one machine-checkable `NUMERIC-CHECK | name | got | spec | PASS`
+line per assertion. The smoke gate fails a demo that runs but emits no such line
+(so the assertions cannot silently rot into a no-op that still exits 0), and
+`scripts/validate_repo.py` statically requires every demo to use the protocol.
+This is the econometric analogue of an L1-tolerance replication gate: "the demo
+ran" is not enough; the answer must be numerically correct.
 
 Before copying an example's structure into a manuscript, cross-check the design
 against [`../docs/methods-reference.md`](../docs/methods-reference.md) and run
