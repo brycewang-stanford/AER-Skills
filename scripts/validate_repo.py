@@ -62,7 +62,6 @@ REQUIRED_CLI_SCRIPTS = (
 PYTHON_IMPORT_PACKAGE_MAP = {
     "dateutil": "python-dateutil",
     "differences": "differences",
-    "econtools": "econtools",
     "joblib": "joblib",
     "linearmodels": "linearmodels",
     "matplotlib": "matplotlib",
