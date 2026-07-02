@@ -21,6 +21,8 @@
 
 ## 最近升级
 
+v1.3 补齐了路线图列出的方法覆盖缺口：新增 **5 个数值契约 demo**（随机化推断、QTE、LP-DiD、bunching、matrix completion，共 21 条新断言）、7 条经 Crossref 验证的参考文献、StatsPAI 工具注册表扩至 51 个验证绑定，以及 Zenodo 存档元数据与宣发材料包。详见 [CHANGELOG](CHANGELOG.md)。
+
 v1.2 的主题是**可验证性**：仓库对稿件的每一条要求，先在自己身上机器强制执行（完整清单见[质量记分卡](docs/quality-scorecard.md)，计划见[路线图](docs/roadmap.md)，历史见 [CHANGELOG](CHANGELOG.md)）：
 
 - **数值正确性契约**：11 个可运行 demo、47 条 `NUMERIC-CHECK` 断言，每个估计值钉到已知真值 ± 容差，跑通但答错即失败。
@@ -266,6 +268,11 @@ make smoke-examples
 | [`examples/oster-ovb-demo/`](examples/oster-ovb-demo/) | 可运行的 Python 模拟：系数稳定本身并不能排除遗漏变量偏误，必须用 R² 变动来缩放（Oster δ） |
 | [`examples/honest-did-demo/`](examples/honest-did-demo/) | 可运行的 Python 模拟：看似平坦的事前趋势会让朴素平行趋势 CI 欠覆盖，honest DiD 相对幅度边界可恢复覆盖 |
 | [`examples/dml-plr-demo/`](examples/dml-plr-demo/) | 可运行的 Python 模拟：灵活的 ML 预测本身不是因果推断——非正交 plug-in 以可推知的因子持续衰减，DML 正交化 + 交叉拟合恢复真值且覆盖率诚实 |
+| [`examples/randomization-inference-demo/`](examples/randomization-inference-demo/) | 可运行的 Python 模拟：小样本高杠杆实验里稳健标准误 t 检验会过度拒绝，Fisher 随机化检验尺寸精确且保留功效 |
+| [`examples/qte-demo/`](examples/qte-demo/) | 可运行的 Python 模拟：均值效应为零也可能掩盖大幅分布效应——分位数处理效应复原解析 QTE 曲线，OLS 什么都看不见 |
+| [`examples/lp-did-demo/`](examples/lp-did-demo/) | 可运行的 Python 模拟：错时采纳 + 异质动态下合并 TWFE 事件研究被污染，LP-DiD 用干净对照恢复真实动态路径 |
+| [`examples/bunching-demo/`](examples/bunching-demo/) | 可运行的 Python 模拟：税收 kink 处的超额质量如何识别收入弹性（Saez），含 oracle/可行反事实对比与两个证伪世界 |
+| [`examples/matrix-completion-demo/`](examples/matrix-completion-demo/) | 可运行的 Python 模拟：交互固定效应下 DiD 存在结构性偏差，低秩矩阵补全插补恢复真值——并演示秩敏感性这一失效模式 |
 
 ---
 

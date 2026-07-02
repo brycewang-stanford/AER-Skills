@@ -21,6 +21,12 @@ This repository is opinionated. It is **not** a generic economics writing toolbo
 
 ## Recent Upgrades
 
+v1.3 closes the method-coverage gaps listed in the roadmap: **5 new
+numeric-contract demos** (randomization inference, QTE, LP-DiD, bunching,
+matrix completion — 21 new assertions), 7 Crossref-verified references, a
+StatsPAI registry expanded to 51 validated bindings, plus Zenodo archiving
+metadata and a launch kit. See the [CHANGELOG](CHANGELOG.md).
+
 The theme of v1.2 is **verifiability**: every discipline the skills impose on a manuscript is machine-enforced on the repository itself first (full status in the [quality scorecard](docs/quality-scorecard.md), plan in the [roadmap](docs/roadmap.md), history in the [CHANGELOG](CHANGELOG.md)):
 
 - **Numeric-correctness contract**: 11 runnable demos, 47 `NUMERIC-CHECK` assertions — every estimate pinned to a known truth within a stated tolerance; "runs but wrong" fails.
@@ -277,6 +283,11 @@ See the full examples index in [examples/README.md](examples/README.md).
 | [`examples/oster-ovb-demo/`](examples/oster-ovb-demo/) | Runnable Python simulation showing why coefficient stability is not evidence against omitted-variable bias unless scaled by R-squared movement (Oster delta) |
 | [`examples/honest-did-demo/`](examples/honest-did-demo/) | Runnable Python simulation showing why a flat-looking pre-trend can break naive parallel-trends coverage and honest DiD relative-magnitudes bounds restore it |
 | [`examples/dml-plr-demo/`](examples/dml-plr-demo/) | Runnable Python simulation showing why flexible ML prediction alone is not causal inference — a non-orthogonal plug-in stays attenuated at a knowable factor while DML partialling-out with cross-fitting recovers the truth with honest coverage |
+| [`examples/randomization-inference-demo/`](examples/randomization-inference-demo/) | Runnable Python simulation showing why robust-SE t-tests over-reject in small experiments with concentrated leverage and the Fisher randomization test has exact size while retaining power |
+| [`examples/qte-demo/`](examples/qte-demo/) | Runnable Python simulation showing why a null ATE can hide large distributional effects — quantile treatment effects recover the analytic QTE curve while OLS sees nothing |
+| [`examples/lp-did-demo/`](examples/lp-did-demo/) | Runnable Python simulation showing why pooled TWFE event studies are contaminated under staggered adoption with heterogeneous dynamics and LP-DiD with clean controls recovers the true dynamic path |
+| [`examples/bunching-demo/`](examples/bunching-demo/) | Runnable Python simulation showing how excess mass at a tax kink identifies the earnings elasticity (Saez), with oracle-vs-feasible counterfactuals and two falsification worlds |
+| [`examples/matrix-completion-demo/`](examples/matrix-completion-demo/) | Runnable Python simulation showing why DiD is structurally biased under interactive fixed effects and low-rank matrix-completion imputation recovers the truth — including the rank-sensitivity caveat |
 
 ---
 
