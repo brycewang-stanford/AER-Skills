@@ -6,6 +6,7 @@ Worked examples that show what the skills produce in practice.
 
 | File | What it shows |
 |---|---|
+| [`end-to-end-walkthrough.md`](end-to-end-walkthrough.md) | **Start here** — the same fictional paper traced through all 12 workflow steps, naming the skill, the gate, and the artifact at each step, and stitching the other examples into one route |
 | [`aer-exemplars.md`](aer-exemplars.md) | Classic AER and adjacent-top-5 papers mapped to each skill, with openICPSR / Dataverse links |
 | [`modern-aer-exemplars.md`](modern-aer-exemplars.md) | 30+ recent (2018-2025) AER and AEJ papers organized by subfield (Labor, Public, Development, Trade, Macro, IO, Health, Environment, Urban, Education, Finance, Political Economy, Social Networks) plus an Identification-Methods table — all with deposit links |
 | [`intro-example.md`](intro-example.md) | A full Keith Head five-paragraph introduction + 97-word abstract, written to AER house style |
@@ -24,6 +25,7 @@ Worked examples that show what the skills produce in practice.
 | [`spec-curve-demo/`](spec-curve-demo/) | Runnable Python simulation showing why a single "preferred" specification can mislead and the specification-curve permutation test is the honest joint inference |
 | [`oster-ovb-demo/`](oster-ovb-demo/) | Runnable Python simulation showing why coefficient stability is not evidence against omitted-variable bias unless scaled by R-squared movement (Oster delta) |
 | [`honest-did-demo/`](honest-did-demo/) | Runnable Python simulation showing why a flat-looking pre-trend can break naive parallel-trends coverage and honest DiD relative-magnitudes bounds restore it |
+| [`dml-plr-demo/`](dml-plr-demo/) | Runnable Python simulation showing why flexible ML prediction alone is not causal inference — a non-orthogonal plug-in stays attenuated at a knowable factor while DML partialling-out with cross-fitting recovers the truth with honest coverage |
 
 ## How to Use
 
