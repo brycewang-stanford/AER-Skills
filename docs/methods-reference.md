@@ -190,6 +190,34 @@ for a worked battery.
 
 ---
 
+## 7. Machine-learning-based causal inference
+
+For high-dimensional or flexibly nonlinear nuisance functions around a
+low-dimensional causal parameter. The one-line rule here: **a flexible learner
+may estimate the nuisances, never the moment condition** — plug-in predictions
+in a non-orthogonal moment carry first-order regularization bias no sample
+size fixes.
+
+| Estimator | When | R | Python | Cite |
+|---|---|---|---|---|
+| DML partially linear (partialling-out) | many/nonlinear controls, scalar treatment effect | `DoubleML` | `doubleml`; StatsPAI `dml` | `chernozhukov_etal_2018`, `robinson_1988` |
+| DML AIPW / interactive | fully heterogeneous effects, ATE/ATTE | `DoubleML` | `doubleml`; StatsPAI `aipw` | `chernozhukov_etal_2018` |
+
+**Required diagnostics:**
+
+1. **Cross-fitting** — nuisances predicted out-of-fold (K ≥ 5); no in-sample
+   plug-ins.
+2. **Neyman orthogonality** — residualize *both* the outcome and the treatment
+   (Robinson (1988) partialling-out), never regress an outcome residual on the
+   raw treatment.
+3. **Learner sensitivity** — report the estimate across at least two nuisance
+   learners.
+
+The runnable anatomy of the plug-in bias — pinned to its *known* attenuation
+factor — is [`examples/dml-plr-demo/`](../examples/dml-plr-demo/).
+
+---
+
 ## Reporting checklist (paste into the appendix plan)
 
 - [ ] Main estimator is heterogeneity-robust (not TWFE) where the design is staggered
