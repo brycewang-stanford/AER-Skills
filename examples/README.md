@@ -26,6 +26,11 @@ Worked examples that show what the skills produce in practice.
 | [`oster-ovb-demo/`](oster-ovb-demo/) | Runnable Python simulation showing why coefficient stability is not evidence against omitted-variable bias unless scaled by R-squared movement (Oster delta) |
 | [`honest-did-demo/`](honest-did-demo/) | Runnable Python simulation showing why a flat-looking pre-trend can break naive parallel-trends coverage and honest DiD relative-magnitudes bounds restore it |
 | [`dml-plr-demo/`](dml-plr-demo/) | Runnable Python simulation showing why flexible ML prediction alone is not causal inference — a non-orthogonal plug-in stays attenuated at a knowable factor while DML partialling-out with cross-fitting recovers the truth with honest coverage |
+| [`randomization-inference-demo/`](randomization-inference-demo/) | Runnable Python simulation showing why robust-SE t-tests over-reject in small experiments with concentrated leverage and the Fisher randomization test has exact size while retaining power |
+| [`qte-demo/`](qte-demo/) | Runnable Python simulation showing why a null ATE can hide large distributional effects — quantile treatment effects recover the analytic QTE curve while OLS sees nothing |
+| [`lp-did-demo/`](lp-did-demo/) | Runnable Python simulation showing why pooled TWFE event studies are contaminated under staggered adoption with heterogeneous dynamics and LP-DiD with clean controls recovers the true dynamic path |
+| [`bunching-demo/`](bunching-demo/) | Runnable Python simulation showing how excess mass at a tax kink identifies the earnings elasticity (Saez), with oracle-vs-feasible counterfactuals and two falsification worlds |
+| [`matrix-completion-demo/`](matrix-completion-demo/) | Runnable Python simulation showing why DiD is structurally biased under interactive fixed effects and low-rank matrix-completion imputation recovers the truth — including the rank-sensitivity caveat |
 
 ## How to Use
 

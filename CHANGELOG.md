@@ -4,6 +4,40 @@ All notable changes to AER-Skills are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-07-02
+
+### Added
+
+- Five method demos closing the v1.2 roadmap's coverage gaps, each under the
+  numeric-correctness contract (21 new `NUMERIC-CHECK` assertions):
+  - `randomization-inference-demo` — robust-SE t-tests over-reject under
+    concentrated leverage; the Fisher randomization test has exact size
+    (Young 2019).
+  - `qte-demo` — a null ATE hiding large distributional effects; quantile
+    regression recovers the analytic QTE curve (Koenker-Bassett 1978).
+  - `lp-did-demo` — pooled TWFE event studies contaminated under staggered
+    adoption; LP-DiD with clean controls recovers the true dynamic path
+    (Dube-Girardi-Jordà-Taylor).
+  - `bunching-demo` — excess mass at a tax kink identifies the earnings
+    elasticity (Saez 2010), with oracle-vs-feasible counterfactuals and two
+    falsification worlds.
+  - `matrix-completion-demo` — DiD structurally biased under interactive
+    fixed effects; low-rank imputation recovers the truth, with the
+    rank-sensitivity caveat demonstrated rather than hidden
+    (Athey et al. 2021).
+- Seven Crossref-verified bibliography entries (Saez 2010; Kleven 2016;
+  Koenker-Bassett 1978; Young 2019; Jordà 2005; Dube-Girardi-Jordà-Taylor
+  2023; Athey et al. 2021), recorded for the hermetic offline gate.
+- StatsPAI tool registry expanded from 43 to 51 validated bindings
+  (`lp_did`, `ri_test`, `qte`, `bunching`, `notch`, `matrix_completion`,
+  `interactive_fe`, `aipw`), kept in sync with the `aer-statspai` hub.
+- Methods reference: LP-DiD, matrix-completion, randomization-inference, and
+  QTE rows; glossary entries for Bunching, LP-DiD, Matrix completion, and
+  Quantile treatment effect.
+- Launch kit (`docs/launch-kit/`): bilingual announcement drafts,
+  awesome-list submission blurbs, and Zenodo archiving steps; `.zenodo.json`
+  metadata for DOI minting.
+
 ## [1.2.0] - 2026-07-01
 
 ### Added
@@ -86,6 +120,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   desk-rejection audit, citation-integrity protocol, classic and modern AER
   exemplar lists.
 
+[1.3.0]: https://github.com/brycewang-stanford/AER-Skills/releases/tag/v1.3.0
 [1.2.0]: https://github.com/brycewang-stanford/AER-Skills/releases/tag/v1.2.0
 [1.1.1]: https://github.com/brycewang-stanford/AER-Skills/compare/620b14e...cbbbd38
 [1.1.0]: https://github.com/brycewang-stanford/AER-Skills/compare/d0c2054...620b14e

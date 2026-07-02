@@ -28,6 +28,7 @@ callaway_santanna
 sun_abraham
 did_imputation
 did_multiplegt
+lp_did
 bacon_decomposition
 bacon_plot
 event_study
@@ -57,17 +58,30 @@ sdid
 synth_time_placebo
 synth_loo
 
+# --- Factor-model counterfactuals (interactive FE / matrix completion) ---
+interactive_fe
+matrix_completion
+
+# --- Bunching / kink designs ---
+bunching
+notch
+
 # --- DML / causal machine learning ---
 dml
 causal_forest
 metalearner
 tmle
+aipw
+
+# --- Distributional effects ---
+qte
 
 # --- Robustness, sensitivity, multiple testing ---
 spec_curve
 wild_cluster_bootstrap
 twoway_cluster
 conley
+ri_test
 sensitivity_from_result
 oster_delta
 oster_bounds

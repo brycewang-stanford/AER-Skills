@@ -2,7 +2,7 @@
 
 <!-- GENERATED FILE. Edit scripts/quality_scorecard.py, then run: make scorecard -->
 
-Machine-generated for **v1.2.0** by `scripts/quality_scorecard.py`; regenerate with `make scorecard`. Preflight fails if this page drifts from what the tooling measures.
+Machine-generated for **v1.3.0** by `scripts/quality_scorecard.py`; regenerate with `make scorecard`. Preflight fails if this page drifts from what the tooling measures.
 
 ## Headline numbers
 
@@ -12,12 +12,12 @@ Machine-generated for **v1.2.0** by `scripts/quality_scorecard.py`; regenerate w
 | Skills at grade A (score >= 90) | 14 |
 | Lowest skill-audit score (gate: >= 85) | 90.0 |
 | Lowest substance-anchor count (gate: >= 8) | 9 |
-| Runnable demos under the numeric-check contract | 11 |
-| NUMERIC-CHECK assertions across demos | 47 |
-| Verified bibliography entries | 39 |
-| Recorded index responses (hermetic offline verification) | 41 |
+| Runnable demos under the numeric-check contract | 16 |
+| NUMERIC-CHECK assertions across demos | 68 |
+| Verified bibliography entries | 46 |
+| Recorded index responses (hermetic offline verification) | 48 |
 | Citation gold tuples / groundedness cases | 12 / 15 |
-| Validated StatsPAI tool bindings | 43 |
+| Validated StatsPAI tool bindings | 51 |
 | Enforced quality gates | 9 |
 
 ## Gate inventory
@@ -48,21 +48,26 @@ Machine-generated for **v1.2.0** by `scripts/quality_scorecard.py`; regenerate w
 | `aer-consistency` | 96.2 | A | 34 |
 | `aer-referee-sim` | 95.7 | A | 13 |
 | `aer-replication` | 94.9 | A | 15 |
-| `aer-statspai` | 94.7 | A | 14 |
 | `aer-rebuttal` | 94.3 | A | 10 |
 | `aer-identification` | 94.0 | A | 12 |
+| `aer-statspai` | 94.0 | A | 14 |
 | `aer-paper-body` | 90.0 | A | 19 |
 
 ## Demo numeric contracts
 
 | Demo | Script(s) | NUMERIC-CHECK assertions |
 |---|---|---|
+| [`bunching-demo/`](../examples/bunching-demo/) | bunching_demo.py | 4 |
 | [`dml-plr-demo/`](../examples/dml-plr-demo/) | dml_plr_demo.py | 5 |
 | [`few-clusters-demo/`](../examples/few-clusters-demo/) | few_clusters_demo.py | 4 |
 | [`honest-did-demo/`](../examples/honest-did-demo/) | honest_did_demo.py | 4 |
 | [`iv-weak-instrument-demo/`](../examples/iv-weak-instrument-demo/) | iv_weak_instrument_demo.py | 3 |
+| [`lp-did-demo/`](../examples/lp-did-demo/) | lp_did_demo.py | 4 |
+| [`matrix-completion-demo/`](../examples/matrix-completion-demo/) | matrix_completion_demo.py | 4 |
 | [`multiple-testing-demo/`](../examples/multiple-testing-demo/) | multiple_testing_demo.py | 6 |
 | [`oster-ovb-demo/`](../examples/oster-ovb-demo/) | oster_ovb_demo.py | 4 |
+| [`qte-demo/`](../examples/qte-demo/) | qte_demo.py | 5 |
+| [`randomization-inference-demo/`](../examples/randomization-inference-demo/) | randomization_inference_demo.py | 4 |
 | [`rdd-polynomial-demo/`](../examples/rdd-polynomial-demo/) | rdd_polynomial_demo.py | 4 |
 | [`shift-share-demo/`](../examples/shift-share-demo/) | shift_share_demo.py | 4 |
 | [`spec-curve-demo/`](../examples/spec-curve-demo/) | spec_curve_demo.py | 4 |
